@@ -1,0 +1,57 @@
+<% if (page.total > 1) { %>
+	<div class="pagination">
+		<!--
+			<%- paginator({prev_text: "上一頁", next_text: "下一頁"}) %>
+		-->
+		<span class="page-number current" title="目前頁數"><%= page.current %></span>
+		/
+		<% if(page.current < page.total) { %>
+			<a class="page-number total" title="前往最後一頁"
+				href="<%= url_for(page.base + config.pagination_dir + "/" + page.total) %>"
+			><%= page.total %></a>
+		<% } else { %>
+			<span class="page-number total" title="總頁數"><%= page.total %></span>
+		<% } %>
+
+		<% if (page.prev) { %>
+			<ul class="left">
+				<!--li>
+					<a class="icon"
+						href="<%= url_for(page.base + config.pagination_dir) %>"
+					>
+						<i class="fa fa-fast-backward" aria-hidden="true"></i>
+						第一頁
+					</a>
+				</li-->
+				<li>
+					<a rel="prev" class="icon"
+						href="<%- url_for(is_post() ? page.prev.path : page.prev_link) %>"
+					>
+						<i class="fa fa-chevron-left" aria-hidden="true"></i>
+						前頁
+					</a>
+				</li>
+			</ul>
+		<% } %>
+		<% if (page.next) { %>
+			<ul class="right">
+				<li>
+					<a rel="next" class="icon"
+						href="<%- url_for(is_post() ? page.next.path : page.next_link) %>"
+					>
+						次頁
+						<i class="fa fa-chevron-right" aria-hidden="true"></i>
+					</a>
+				</li>
+				<!--li>
+					<a class="icon"
+						href="<%= url_for(page.base + config.pagination_dir + "/" + page.total) %>"
+					>
+						最末頁
+						<i class="fa fa-fast-forward" aria-hidden="true"></i>
+					</a>
+				</li-->
+			</ul>
+		<% } %>
+	</div>
+<% } %>

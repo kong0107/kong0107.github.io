@@ -1,0 +1,25 @@
+<% if(page.comments){ %>
+  <div id="comments">
+	<div class="fb-like"
+		data-href="<%= url %>"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments"
+		data-href="<%= url %>"
+		data-width="100%"
+		data-numposts="5"
+		data-colorscheme="dark"
+	></div>
+
+	<% if(theme.plugins.disqus_shortname){ %>
+		<div class="blog-post-comments">
+			<div id="disqus_thread">
+				<noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+			</div>
+		</div>
+	<% } %>
+  </div>
+<% } %>

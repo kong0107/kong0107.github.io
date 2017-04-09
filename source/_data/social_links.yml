@@ -1,0 +1,67 @@
+facebook:
+  site: Facebook
+  account: kong.sex
+  url: https://facebook.com/kong.sex
+  logo: true
+line:
+  site: LINE@
+  account: "@oak0336q"
+  url: https://line.me/R/ti/p/%40oak0336q
+instagram:
+  site: Instagram
+  account: kong0107
+  url: https://www.instagram.com/kong0107/
+  logo: true
+plurk:
+  site: Plurk
+  account: kong0107
+  url: https://www.plurk.com/kong0107
+  logo: true
+soundcloud:
+  site: SoundCloud
+  account: kong-kao
+  url: https://soundcloud.com/kong-kao
+  logo: true
+blogger:
+  site: Blogger
+  account: kong0107
+  url: http://kong0107.blogspot.com
+disqus:
+  site: Disqus
+  account: kongkao
+  url: https://disqus.com/by/kongkao/
+doodle:
+  site: Doodle MeetMe
+  account: kong0107
+  url: http://doodle.com/kong0107
+github:
+  site: GitHub
+  account: kong0107
+  url: https://github.com/kong0107
+tumblr:
+  site: Tumblr
+  account: kong-sex
+  url: https://kong-sex.tumblr.com/
+  logo: true
+tumblr_restricted:
+  site: Tumblr
+  account: kong-boss
+  restricted: true
+  url: https://kong-boss.tumblr.com/
+flickr:
+  site: Flickr
+  account: kong0107
+  restricted: true
+  url: https://www.flickr.com/photos/kong0107/
+  logo: true
+cam4:
+  site: Cam4
+  account: voieneuf
+  restricted: true
+  url: https://www.cam4.com/voieneuf
+xtube:
+  site: XTube
+  account: voieneuf
+  restricted: true
+  url: http://www.xtube.com/profile/voieneuf-3954424
+  logo: true

@@ -1,0 +1,25 @@
+<%- partial('_partial/list_pages') %>
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
+    <div class="meta">
+		<% if (page.updated) { %>
+			<div class="postdate right">
+				更新：<time datetime="<%= date_xml(page.updated) %>" itemprop="dateModified"><%= date(page.updated, config.date_format) %></time>
+			</div>
+		<% } %>
+	</div>
+  </header>
+  <% if(page.restricted) { %>
+    <%- partial('_partial/restricted') %>
+  <% } %>
+  <div class="content <%= page.restricted ? "restricted" : "" %>" itemprop="articleBody">
+    <%- partial('_partial/post/gallery') %>
+    <%- page.content %>
+  </div>
+
+
+
+
+
+</article>

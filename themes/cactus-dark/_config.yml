@@ -1,0 +1,51 @@
+nav:
+  首頁: /
+  關於: /about.html
+  文集: /archives.html
+  購買翻模陽具: http://www.yiwu.io/products/kong-dildo
+
+customize:
+    gravatar:
+        email: kong0107@gmail.com
+    logo:
+        enabled: true
+        width: 50
+        height: 50
+        url: /images/logo-circle.png
+        gravatar: false
+    favicon:
+      # eg. generate with http://realfavicongenerator.net/
+      desktop:
+        url: /images/favicon.ico
+        gravatar: false
+      android:
+        url: /images/favicon-192x192.png
+        gravator: false
+      apple:
+        url: /images/apple-touch-icon.png
+        gravator: false
+    social_links:
+        facebook: http://facebook.com/kong.sex
+        github: http://github.com/kong0107
+    post_count: 5
+    highlight: rainbow
+
+# RSS
+rss: atom.xml
+
+# Plugins
+plugins:
+    disqus_shortname: kongkao # Disqus Comments Shortname
+    google_analytics: UA-1747270-19 # enter the tracking ID for your Google Analytics
+
+# Miscellaneous
+miscellaneous:
+    open_graph: # see http://ogp.me
+        locale: zh_TW
+        image: /images/og_image.png
+        fb_app_id: 396108664094704
+        fb_admins:
+        twitter_id: kong0107
+        google_plus:
+    source:
+        prefix: https://github.com/kong0107/kong0107.github.io/blob/hexo/source/

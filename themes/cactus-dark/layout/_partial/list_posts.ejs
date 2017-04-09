@@ -1,0 +1,13 @@
+<ul class="post-list">
+  <% posts.each(function(post) { %>
+    <li class="post-item">
+      <%- partial('_partial/post/date', { post: post, class_name: 'meta' }) %>
+      <div>
+        <div class="posttitle"><%- partial('_partial/post/title', { post: post, index: true, class_name: '' }) %></div>
+        <div class="tags"><%- list_tags(post.tags, { class: "fa fa-tag tag", show_count: false, style: 'link' }) %></div>
+      </div>
+    </li>
+  <% }); %>
+</ul>
+
+

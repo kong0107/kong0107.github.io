@@ -1,0 +1,19 @@
+<header id="header" class="clearfix">
+  <h1 id="title">
+    <a href="<%- url_for("/") %>">
+      <img id="logo" src="<%- url_for(theme.customize.logo.url) %>">
+      <%= config.title %>
+    </a>
+  </h1>
+  <nav>
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fa fa-bars fa-2x"></i></a>
+      </li>
+      <% for (var i in theme.nav) { %> 
+        <li><a href="<%- url_for(theme.nav[i]) %>"><%= i %></a></li>
+      <% } %>
+    </ul>
+  </nav>
+</header>
+<!--%- partial('_partial/debug') %-->

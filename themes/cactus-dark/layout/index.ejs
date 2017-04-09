@@ -1,0 +1,53 @@
+<% if (path == "index.html") { %>
+	<% if (config.description) { %>
+	  <section id="about">
+        <header><h1>關於我</h1></header>
+        <div class="clearfix">
+          <%- image_tag(gravatar(theme.customize.gravatar.email, 80), {class: "left m1"}) %>
+		  <%- markdown(config.description) %>
+        </div>
+        <footer><%- partial('_partial/list_pages') %></footer>
+	  </section>
+	<% } %>
+
+	<section id="writing">
+	  <header><h1>最新文章</h1></header>
+      <%- partial('_partial/list_posts', {posts: site.posts.sort('date', 'desc').limit(theme.customize.post_count || 5)}) %>
+      <footer>
+        <a href="<%- url_for(config.archive_dir) %>">
+            ……所有文章
+            <span class="archive-count"><%= site.posts.length %></span>
+        </a>
+    </footer>
+	</section>
+
+    <section>
+      <header><h1>社群網站</h1></header>
+      <ul class="no-marker ta-justify">
+        <%
+          ["facebook", "flickr", "instagram", "plurk", "soundcloud", "tumblr", "twitter", "xtube"].forEach(function(brand) {
+            var sl = site.data.social_links[brand];
+            if(sl) {
+              %>
+                <li class="inline">
+                  <a class="icon" target="_blank" rel="external"
+                    title="<%= sl.site %>: <%= sl.account %>"
+                    href="<%- sl.restricted ? r18(sl.url) : sl.url %>"
+                  ><img style="width: 2rem;" alt="<%= sl.site %> logo" src="<%- url_for("/images/brand_icons/" + brand + ".png") %>"></a>
+                </li>
+              <%
+            }
+          });
+        %>
+      </ul>
+    </section>
+
+    <section>
+        <header><h1>公開行程</h1></header>
+        <iframe width="100%" height="250"
+            src="https://calendar.google.com/calendar/embed?showTitle=0&showPrint=0&showCalendars=0&mode=AGENDA&wkst=1&bgcolor=%23FFFFFF&src=jpur0m1uajoq75jolq28vrfgcg%40group.calendar.google.com&color=%23125A12&ctz=Asia%2FTaipei"
+        ></iframe>
+    </section>
+<% } else  { %>
+	<%- partial('archive') %>
+<% } %>

@@ -1,0 +1,40 @@
+<div style="position: absolute; left: 0; top: 0; width: 20rem; overflow: auto; resize: both;">
+    <table>
+        <thead>
+            <tr>
+                <th>Statement</th>
+                <th>Type</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%
+                [
+                    "is_home()",
+                    "is_post()",
+                    "is_archive()",
+                    "is_year()",
+                    "is_month()",
+                    "is_category()",
+                    "is_tag()",
+                    "url",
+                    "page.permalink",
+                    "page.current_url",
+                    "page.restricted",
+                    "page.photos",
+                    "page.content"
+                ].forEach(function(cmd) {
+                    var result = eval(cmd);
+                    var type = Array.isArray(result) ? ("array(" + result.length + ")") : (typeof result);
+                    %>
+                        <tr>
+                            <td><%= cmd %></td>
+                            <td><%= type %></td>
+                            <td><%= type == "object" ? "object" : result %></td>
+                        </tr>
+                    <%
+                })
+            %>
+        </tbody>
+    </table>
+</div>
