@@ -2,6 +2,7 @@
 <%- js('lib/jquery/jquery.min') %>
 <%- js('lib/justified-gallery/jquery.justifiedGallery.min.js') %>
 <%- js('js/main') %>
+
 <!-- Google Analytics -->
 <% if (theme.plugins.google_analytics){ %>
     <script type="text/javascript">
@@ -13,6 +14,7 @@
         ga('send', 'pageview');
     </script>
 <% } %>
+
 <!-- Disqus Comments -->
 <% if (theme.plugins.disqus_shortname){ %>
     <script type="text/javascript">
@@ -27,6 +29,7 @@
         }());
     </script>
 <% } %>
+
 <!-- Facebook JavaScript SDK  -->
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -35,3 +38,9 @@
   js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.8&appId=1877103482502667";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- JavaScript Interfaces for Twitter for Websites -->
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<!-- Flickr -->
+<script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>

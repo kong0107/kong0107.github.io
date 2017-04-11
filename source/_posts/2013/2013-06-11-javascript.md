@@ -1,6 +1,6 @@
 ---
 title: JavaScript 函式筆記
-tags: 程式, 網站製作
+tags: [程式]
 from: http://kong0107.blogspot.tw/2013/06/javascript.html
 ---
 
