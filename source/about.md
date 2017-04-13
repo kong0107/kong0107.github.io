@@ -53,6 +53,10 @@ og:
 非台灣本地請[參閱說明](http://www.rakuten.com.tw/shop/yiwu-wproject/product/88pizrsj5/)；
 中國地區亦可在[干货DryGoods](https://drygoodstw.world.taobao.com/)購買，或關注[干货DryGoods的博客](http://blog.sina.com.cn/u/5874495831)。
 
+### 相關文章
+* [壹週刊報導](http://www.nextmag.com.tw/realtimenews/news/17357835)
+* {% r18 翻模影像紀錄 http://blog.yiwu.io/post/107696987981/ %}
+
 ## 總統府前任人摸屌
 2015年10月
 {% fbpost https://www.facebook.com/kong.sex/posts/414211985451759 %}{% endfbpost %}
