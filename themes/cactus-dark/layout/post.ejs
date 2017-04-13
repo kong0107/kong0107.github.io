@@ -17,11 +17,24 @@
     <%- partial('_partial/post/gallery') %>
     <%- page.content %>
   </div>
-  <% if(page.from) { %>
     <footer>
-      <p>原始文章：<cite><a target="_blank" rel="external" href="<%= page.from %>"><%= page.from %></a></cite></p>
+        <% if(page.from) { %>
+            <div>
+                本文最初發表於：
+                <cite><a target="_blank" rel="external" href="<%= page.from %>"><%= page.from %></a></cite>
+            </div>
+        <% } %>
+        <% if(page.repost) { %>
+            <div>
+                本文其他張貼處：
+                <ul>
+                    <% page.repost.forEach(function(url) { %>
+                        <li><a target="_blank" rel="external" href="<%= url %>"><%= url %></a></li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } %>
     </footer>
-  <% } %>
 </article>
 <footer>
   <%- partial('_partial/comments') %>
