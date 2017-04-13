@@ -18,6 +18,16 @@
     <%- page.content %>
   </div>
     <footer>
+        <% if(page.related) { %>
+            <div>
+                相關連結：
+                <ul>
+                    <% page.related.forEach(function(target) { %>
+                        <li><a href="<%= url_for(target.url) %>"><%= target.title %></a></li>
+                    <% }); %>
+                </ul>
+            </div>
+        <% } %>
         <% if(page.from) { %>
             <div>
                 本文最初發表於：
