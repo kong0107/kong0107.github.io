@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 關於老大
-order: 3
+order: 2
 og:
   type: profile
 restricted: true
@@ -12,22 +12,26 @@ restricted: true
 
 長度 17.5 公分；寬度 3.9 公分。
 未割包皮，些微下彎。
+陰毛會修短。
 {% flickr 32832056633 %}
 {% flickr 33605136876 %}
 {% img https://68.media.tumblr.com/ef297df8e9f115fbd0cca07306464ccc/tumblr_ono4z11aSh1w9wk6vo1_400.gif "Boss entering an ass" %}
-更多照片請參閱{% r18 "老大的遊玩日記" https://kong-boss.tumblr.com/ %}。
+
+更多照片請參閱[老大的遊玩日記](https://kong-boss.tumblr.com/)；
+影片請參閱[我的 XTube 帳號](www.xtube.com/profile/voieneuf-3954424)。
+尺寸變化請參閱[陰莖鍛鍊法](/posts/2009/12/penis/)。
 
 
-# 約炮喜好與注意事項
-* 年滿18歲，且願意被錄影、拍照，且可授權無償我任意使用（例如公開）者優先。
-* 請不要逼迫或慫恿我射精。我的高潮跟射精是分開的，就算老大射精了，也不代表就很爽。
-* 依法不得為「有對價之性交或猥褻行為」。
-* 我自己不使用非法藥品。
-* 要戴保險套。
-* 地點部分，我住台北市台電大樓一帶，不過只有單人床。也可約其他地方，但如須場地費或入場費，還請協助支付。
-* 目前非上班族，時間大多可安排。可在[日曆][calendar]中確認，並選擇習慣的[聯絡方式](contact.html)聯絡。
-
-[calendar]: https://calendar.google.com/calendar/embed?showTitle=0&showPrint=0&showCalendars=0&wkst=1&bgcolor=%23FFFFFF&src=kong0107%40gmail.com&color=%23182C57&src=3r2hn5ehbnk4edhvi6hf4s1roc%40group.calendar.google.com&color=%23865A5A&src=fu16p7sjkfmrh14tace21cu5mo%40group.calendar.google.com&color=%235F6B02&src=jpur0m1uajoq75jolq28vrfgcg%40group.calendar.google.com&color=%23125A12&ctz=Asia%2FTaipei
+# 性交習慣
+* 不太使用道具，但偶爾使用屌環。
+* 比較喜歡面對面（可以抱著），例如傳教士式，或是觀音座蓮之後 bottom 上身趴到我身上－－這樣雙方都不會太累。
+* 不常把人幹射（漏尿的反而比較多次，但也並不常發生），通常對方是叫到虛脫但是沒射。
+* 抽插30分鐘沒問題，狀況好時可以超過一小時。
+* 前液（尿道球腺液）偏少
+* 射精
+  * 精液量普通
+  * 力道偏弱
+  * 顏色偏混濁但不會太濃
 
 
 # 為什麼叫老大
@@ -41,5 +45,5 @@ restricted: true
 說到底，屌與性慾仍然是我的一部分，所謂的「我」並不會脫離它們存在。
 {% endfbpost %}
 
-
-更多照片請參閱{% r18 "老大的遊玩日記" https://kong-boss.tumblr.com/ %}。
+更多照片請參閱[老大的遊玩日記](https://kong-boss.tumblr.com/)；
+影片請參閱[我的 XTube 帳號](www.xtube.com/profile/voieneuf-3954424)。
