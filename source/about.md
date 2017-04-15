@@ -9,19 +9,24 @@ og:
 
 174.72.31.1
 
-{% flickr 26527929604 m %}
+{% flickr 26529567273 %}
+
+其他相片請參閱 {% showContact flickr %} ，
+自拍影片則放在 {% showContact xtube %} 。
 
 1986 年生，摩羯座， A 型。
 現居台北市大安區。
 
 希望在台灣合法性交易；
 喜歡筋肉熊和可愛弟；
-喜歡幹男人，但並不享受被幹。[真的嗎？](/posts/2016/09/q005/)
+喜歡幹男人，但[並不享受被幹](/posts/2016/09/q005/)。
+
 
 ## 陰莖與性交喜好
 長度 17.5 公分；寬度 3.9 公分；
 未割包皮，些微下彎。
 其他相關訊息及圖片、影片，請參閱[關於老大](boss.html)頁面。
+
 
 ## 其他身體資訊
 |平台|帳號|
@@ -48,7 +53,7 @@ og:
 2014年12月起
 由[異物](http://www.yiwu.io/products)將本人的陰莖與臀型翻模複製、生產製造，分別名為「色即是空」與「空即是色」。
 
-{% img http://i.imgur.com/U9BoCec.jpg %}
+![異物「色即是空」商品照](http://i.imgur.com/U9BoCec.jpg)
 
 於台灣郵購請前往[異物於樂天市場的網路店舖](http://www.rakuten.com.tw/shop/yiwu-wproject/category/ladies/)；
 非台灣本地請[參閱說明](http://www.rakuten.com.tw/shop/yiwu-wproject/product/88pizrsj5/)；
@@ -66,7 +71,7 @@ og:
 
 ## 前往日本出演Ｇ片
 2016年06月
-{% img http://i.imgur.com/qqiVZOSm.jpg %}
+![往外景場地的車裡](http://i.imgur.com/qqiVZOSm.jpg)
 
 ### 演出紀錄
 
