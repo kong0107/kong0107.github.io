@@ -15,18 +15,15 @@ hexo.extend.tag.register('showContact', function(args) {
         var id = args[0];
         return hexoUtil.htmlTag("a",
             Object.assign(makeAttr(sls[id]), {"class": "icon"}),
-            hexoUtil.htmlTag("img", {
-                "alt": sls[id].site,
-                "class": "brand-icon",
-                "src": "/images/brand_icons/" + id + ".png"
-            })
-            + ((args.length > 1) ? args[1] : "")
+            hexoUtil.htmlTag("i",
+                {"class": "brand-icon-" + id},
+                (args.length > 1) ? args[1] : sls[id].account
+            )
         );
     }
 
     var thead = '<tr><th scope="col" class="ta-center">平臺</th><th scope="col">帳號</th></tr>';
     var tbody = "";
-
     for(var id in sls) {
         var attr = makeAttr(sls[id]);
         tbody += "<tr>"
@@ -34,7 +31,6 @@ hexo.extend.tag.register('showContact', function(args) {
             + "<td>" + hexoUtil.htmlTag("a", attr, sls[id].account) + "</td>"
         + "</tr>";
     }
-
     return '<table><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table>';
 });
 

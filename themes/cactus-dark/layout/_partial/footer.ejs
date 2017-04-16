@@ -7,7 +7,8 @@
       <ul>
         <li><a href="<%- url_for() %>">首頁</a></li>
         <% if (page.source) { %><li><a target="_blank" href="<%= theme.miscellaneous.source.prefix%><%= page.source %>">源碼</a><% } %>
-        <li><a href="<%- url_for(theme.rss) %>">RSS</a></li>
+        <li><a href="<%- url_for("contact.html") %>">聯絡</a></li>
+        <li><a href="<%- url_for("theme.rss") %>">RSS</a></li>
       </ul>
     </nav>
   </div>
