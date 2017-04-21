@@ -65,9 +65,8 @@ og:
 
 ## 總統府前任人摸屌
 2015年10月
-{% fbpost https://www.facebook.com/kong.sex/posts/414211985451759 %}{% endfbpost %}
-另參[行動目的](https://www.facebook.com/kong.sex/posts/413924258813865)。
-
+{% flickr 33988251501 m %}
+詳情參閱[行動目的](https://www.facebook.com/kong.sex/posts/413924258813865)與[裝扮理由](https://www.facebook.com/kong.sex/posts/414211985451759)。
 
 ## 前往日本出演Ｇ片
 2016年06月

@@ -4,8 +4,13 @@ title: 徵求性愛自拍夥伴
 order: 6
 ---
 
+關於既有的照片或影片，請參閱：
+* {% r18 "老大的遊玩日記" https://kong-boss.tumblr.com/ %}
+* {% r18 "我的 XTube 影像集" http://www.xtube.com/profile/voieneuf-3954424 %}
+
+
 # 條件
-* [須年滿18歲](#須年滿18歲)。
+* 須年滿18歲。
 * 無酬，無車馬費。
 * 被我幹（被[老大](boss.html)進入）。
 * 拍攝時可能會拍到臉部，但可選擇後製時模糊化。
@@ -33,54 +38,10 @@ order: 6
   * 像素化處理（Pixelization ，俗稱碼賽克、打碼、打格仔）；
   * 以色塊或其他圖像蓋過。
 
-# 參閱
-{% r18 "我的 XTube 影像集" http://www.xtube.com/profile/voieneuf-3954424 %}
+# 預約
 
+1. 在[我的日曆][calendar]確認適合的時間。
+2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
+3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
 
-# 法律議題
-
-## 須年滿18歲
-我也希望未滿18歲的朋友也能來拍，不過畢竟有法律限制。
-{% blockquote "兒童及少年性剝削防制條例 第36條第1項" %}
-拍攝、製造兒童或少年為性交或猥褻行為之圖畫、照片、影片、影帶、光碟、電子訊號或其他物品，處六個月以上五年以下有期徒刑，得併科新臺幣五十萬元以下罰金。
-{% endblockquote %}
-
-## 無酬
-畢竟性專區還沒真正開放。
-為了避免嫌疑，也不能給車馬費。（不過可以參閱[下面的案例](#案例參考)）
-
-## 販售成品不會害入鏡者被入罪
-目前還沒想到要怎麼賣才好，不過就算販賣的方式被認定違法，出事的也只會有我。
-入鏡的人不會因此被認定違法，敬請安心。
-
-另外，礙於[刑法第231條](http://law.moj.gov.tw/LawClass/LawSingleIf.aspx?Pcode=C0000001&FLNO=231)第1項規定，多Ｐ的影像是不會販售的。（另參閱[98台上862判決](http://judicial.ronny.tw/TPS/M/98/%E5%8F%B0%E4%B8%8A/862)）
-
-
-## 公開張貼此文並不違法
-
-本文雖然表示成品可能用於販售，但因性交或猥褻行為未涉及對價，從而不屬於性交易，也就不符合兒少條例第40條：
-{% blockquote "兒童及少年性剝削防制條例 第40條第1項" %}
-以宣傳品、出版品、廣播、電視、電信、網際網路或其他方法，散布、傳送、刊登或張貼足以引誘、媒介、暗示或其他使兒童或少年有遭受第二條第一項第一款至第三款之虞之訊息者，處三年以下有期徒刑，得併科新臺幣一百萬元以下罰金。
-{% endblockquote %}
-
-
-## 案例參考
-曾有在台立案的公司徵求男性與日本AV女優「共演」，雖然名目是「臨演義工」，但當時也有宣稱會給付車馬費，因此同時有前述的兒少條例第40條（當時為舊法第29條）及刑法第231條的問題，不過卻未聽聞檢察機關發動偵查。
-
-![風間萌衣共演男優支援](http://i.imgur.com/fBtC9KD.jpg)
-
-雖然[官方連結](http://www.941hd.com/event/maxa201406/support.html)已經失效了，不過[網路新聞](http://www.ettoday.net/news/20140705/375272.htm)的頁面倒是還在。
-另外，從[PTT](https://www.ptt.cc/bbs/japanavgirls/M.1404464830.A.BA2.html)的討論串看來，應該是由該在台立案的公司聯絡沒錯。
-
-### 本案細節
-* [該公司的官網](https://m.941hd.com/Member/if-data.html)說他們叫「英屬蓋曼群島商九四一互動視頻股份有限公司台灣分公司」，不過我在經濟部那邊只查到了一間叫做「英屬開曼群島商九四一互動視頻股份有限公司」（[統一編號 53662979](http://company.g0v.ronny.tw/id/53662979)），差了一個音譯字，所以我也並不是真的確定是否為同一公司。
-* 如果法律上認為「有車馬費的義工」仍不屬於「有對價」的話，那我也是蠻樂見的啦。例如人工生殖法就說**即使有提供營養費和交通費，也仍然可以算是「無償」**：
-  {% blockquote "人工生殖法 第8條" %}
-    * 捐贈人符合下列各款情形者，人工生殖機構始得接受其捐贈生殖細胞：
-      一、（略）
-      二、（略）
-      三、以無償方式捐贈。
-      四、（略）
-    * 受術夫妻在主管機關所定金額或價額內，得委請人工生殖機構提供營養費或營養品予捐贈人，或負擔其必要之檢查、醫療、工時損失及交通費用。
-    * （略）
-  {% endblockquote %}
+[calendar]: https://calendar.google.com/calendar/embed?showTitle=0&showPrint=0&showCalendars=0&wkst=1&bgcolor=%23FFFFFF&src=kong0107%40gmail.com&color=%23182C57&src=3r2hn5ehbnk4edhvi6hf4s1roc%40group.calendar.google.com&color=%23865A5A&src=fu16p7sjkfmrh14tace21cu5mo%40group.calendar.google.com&color=%235F6B02&src=jpur0m1uajoq75jolq28vrfgcg%40group.calendar.google.com&color=%23125A12&ctz=Asia%2FTaipei
