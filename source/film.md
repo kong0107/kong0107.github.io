@@ -9,6 +9,12 @@ order: 6
 * {% r18 "我的 XTube 影像集" http://www.xtube.com/profile/voieneuf-3954424 %}
 
 
+# 報名
+1. 在[我的日曆][calendar]確認適合的時間。
+2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
+3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
+
+
 # 條件
 * 須年滿18歲。
 * 無酬，無車馬費。
@@ -37,9 +43,10 @@ order: 6
   * 模糊處理 (blur)；
   * 像素化處理（Pixelization ，俗稱碼賽克、打碼、打格仔）；
   * 以色塊或其他圖像蓋過。
+* 計畫宗旨與法律議題請參閱[台灣合法Ｇ片拍攝計畫](/posts/2017/04/tw-porn/)。
 
-# 預約
 
+# 報名
 1. 在[我的日曆][calendar]確認適合的時間。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
