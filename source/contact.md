@@ -9,7 +9,7 @@ og:
 # 主要聯絡方式
 * {% showContact line %}
 * {% showContact facebook %}
-* <a href="https://www.tumblr.com/message/kong-sex" class="icon" target="_blank" rel="external"><i class="brand-icon-tumblr">kong-sex</i></a>
+* <a href="https://www.tumblr.com/message/kong-boss" class="icon" target="_blank" rel="external"><i class="brand-icon-tumblr">kong-boss</i></a>
 * E-mail: <a href="mailto:u921510@alumni.nthu.edu.tw?subject=有人忘記改信件主旨囉&amp;body=從網站看到你的e-mail">u921510@alumni.nthu.edu.tw</a>
 
 
