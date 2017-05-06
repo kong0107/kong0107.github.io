@@ -5,7 +5,7 @@ order: 6
 ---
 
 # 報名
-1. 在[我的日曆][calendar]確認適合的時間。
+1. 在[我的日曆][calendar]確認**七月以後**沒有「忙碌」的日子。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
    （不用打招呼，並請盡量一次就把事情說清楚。）
@@ -53,7 +53,7 @@ order: 6
 
 
 # 報名
-1. 在[我的日曆][calendar]確認適合的時間。
+1. 在[我的日曆][calendar]確認**七月以後**沒有「忙碌」的日子。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
    （不用打招呼，並請盡量一次就把事情說清楚。）
