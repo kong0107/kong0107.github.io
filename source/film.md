@@ -5,7 +5,7 @@ order: 6
 ---
 
 # 報名
-1. 在[我的日曆][calendar]確認**七月以後**沒有「忙碌」的日子。
+1. 在[我的日曆][free-calendar]找「やらないか」的時段（目前僅剩六月底以後的時間）。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
    （不用打招呼，並請盡量一次就把事情說清楚。）
@@ -53,9 +53,9 @@ order: 6
 
 
 # 報名
-1. 在[我的日曆][calendar]確認**七月以後**沒有「忙碌」的日子。
+1. 在[我的日曆][free-calendar]找「やらないか」的時段（目前僅剩六月底以後的時間）。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
    （不用打招呼，並請盡量一次就把事情說清楚。）
 
-[calendar]: https://calendar.google.com/calendar/embed?showTitle=0&showPrint=0&showCalendars=0&wkst=1&bgcolor=%23FFFFFF&src=kong0107%40gmail.com&color=%23182C57&src=3r2hn5ehbnk4edhvi6hf4s1roc%40group.calendar.google.com&color=%23865A5A&src=fu16p7sjkfmrh14tace21cu5mo%40group.calendar.google.com&color=%235F6B02&src=jpur0m1uajoq75jolq28vrfgcg%40group.calendar.google.com&color=%23125A12&ctz=Asia%2FTaipei
+[free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei
