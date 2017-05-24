@@ -5,7 +5,7 @@ order: 6
 ---
 
 # 報名
-1. 在[我的日曆][free-calendar]找「やらないか」的時段（目前僅剩八月以後的時間）。
+1. 在[我的日曆](#有空的時間)找「やらないか」的時段。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
    （不用打招呼，並請盡量一次就把事情說清楚。）
@@ -19,7 +19,7 @@ order: 6
 * 須年滿18歲。
 * 無酬，無車馬費。
 * 一次限一人。
-* 被我幹（被[老大](boss.html)進入）。
+* 被我幹（被[老大](boss.html)進入）；不能幹我。
 * 拍攝時可能會拍到臉部，但可選擇後製時模糊化。
 * 如擔心聲音被認出，亦可選擇靜音。
 * 我對成品有任意使用權。
@@ -30,6 +30,7 @@ order: 6
 
 
 # 細節
+* 我的目的是拍攝，不是讓你爽。不建議新手嘗試。
 * 並非來者不拒，但我說不出「怎樣一定會接受或是拒絕」，所以就是看感覺。聊不來的會優先拒絕。
 * 一場進行約 90 分鐘至兩小時。
 * 保險套與潤滑液我會準備，但其他想使用的物品（如眼罩）請自備。
@@ -57,9 +58,13 @@ order: 6
 
 
 # 報名
-1. 在[我的日曆][free-calendar]找「やらないか」的時段（目前僅剩八月以後的時間）。
+1. 在[我的日曆][free-calendar]找「やらないか」的時段（目前僅剩九月以後的時間）。
 2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡。
    （不用打招呼，並請盡量一次就把事情說清楚。）
+   
+# 有空的時間
+**目前僅剩九月中旬以後**
+{% iframe https://calendar.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&mode=AGENDA&wkst=1&src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia%2FTaipei %}
 
 [free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei
