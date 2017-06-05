@@ -12,7 +12,7 @@ og:
 {% flickr 26529567273 %}
 
 其他相片請參閱 {% showContact flickr %} ，
-自拍影片則放在 {% showContact xtube %} 。
+自拍影片請參閱[影集](porn/)頁面或前往 {% showContact xtube %} 。
 
 1986 年生，摩羯座， A 型。
 現居台北市大安區。
@@ -53,7 +53,7 @@ og:
 # 事蹟
 ## [陰莖翻模量產販售](http://www.yiwu.io/products/kong-dildo)
 2014年12月起
-由[異物](http://www.yiwu.io/products)將本人的陰莖與臀型翻模複製、生產製造，分別名為「色即是空」與「空即是色」。
+由[異物](http://www.yiwu.io/products)將本人的陰莖與臀型翻模複製、生產製造，分別名為「[色即是空](http://yiwu.io/products/kong-dildo)」與「[空即是色](http://yiwu.io/products/kong-anus)」。
 
 ![異物「色即是空」商品照](http://i.imgur.com/U9BoCec.jpg)
 
