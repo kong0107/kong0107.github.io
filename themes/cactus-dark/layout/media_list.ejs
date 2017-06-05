@@ -41,3 +41,7 @@
         </article>
     <% } %>
 </div>
+
+<footer class="<%= page.restricted ? "restricted" : "" %>">
+  <%- partial('_partial/comments') %>
+</footer>
