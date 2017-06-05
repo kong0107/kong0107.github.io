@@ -10,7 +10,7 @@
     if(archive_title) archive_title += "文集";
     else archive_title = "所有文章列表";
   %>
-  <h1><%= archive_title %></h1>
+  <h1 class="posttitle"><%= archive_title %></h1>
 </header>
 
 <%- partial('_partial/list_posts', {posts: page.posts.sort('date', 'desc')}) %>

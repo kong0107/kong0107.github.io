@@ -1,0 +1,43 @@
+<header>
+    <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
+</header>
+
+<%- page.content %>
+
+<% if(page.restricted) { %>
+    <%- partial('_partial/restricted') %>
+<% } %>
+
+<div class="content <%= page.restricted ? "restricted" : "" %>">
+    <% for (var i in site.data[page.dataset].sort(
+        function(a, b) {return (new Date(b.publish_date)) - (new Date(a.publish_date));}
+    )) { %>
+        <% var media = site.data[page.dataset][i]; %>
+        <article class="media clearfix">
+            <header>
+                <h2>
+                    <%= media.id %>
+                    <%= media.title %>
+                </h2>
+                <div class="meta">
+                    <%- partial('_partial/post/date', { post: {date: media.publish_date}, class_name: 'publish_date' }) %>
+                </div>
+            </header>
+            <ul class="link_list">
+                <% if (media.xtube) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= media.xtube %>"><img alt="XTube" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a></li>
+                <% } %>
+                <% if (media.pornhub) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= media.pornhub %>"><img alt="PornHub" src="<%- url_for("/images/brand_icons/pornhub.png") %>"></a></li>
+                <% } %>
+                <% if (media.facebook) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= media.facebook %>"><img alt="Facebook" src="<%- url_for("/images/brand_icons/facebook.png") %>"></a></li>
+                <% } %>
+                <% if (media.mega) { %>
+                    <li><a class="icon" rel="external nofollow" target="_blank" href="<%= media.mega %>"><img alt="MEGA" src="<%- url_for("/images/brand_icons/mega.png") %>">下載</a></li>
+                <% } %>
+            </ul>
+            <%- markdown(media.description) %>
+        </article>
+    <% } %>
+</div>
