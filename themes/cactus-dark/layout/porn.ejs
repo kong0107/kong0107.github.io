@@ -1,0 +1,39 @@
+
+<article class="post media" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name"><% if (page.author) { %><%- page.author %><% } else { %><%- config.title %><% } %></span>
+      </span>
+      <%- partial('_partial/post/date', { post: page, class_name: 'postdate' }) %>
+      <%- partial('_partial/post/tag') %>
+    </div>
+  </header>
+
+    <%- partial('_partial/restricted') %>
+
+  <div class="content restricted" itemprop="articleBody">
+    <%- partial('_partial/post/gallery') %>
+    <%- page.content %>
+    
+    <hr>
+            <ul class="link_list">
+                <% if (page.xtube) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= page.xtube %>"><img alt="XTube" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a></li>
+                <% } %>
+                <% if (page.pornhub) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= page.pornhub %>"><img alt="PornHub" src="<%- url_for("/images/brand_icons/pornhub.png") %>"></a></li>
+                <% } %>
+                <% if (page.facebook) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= page.facebook %>"><img alt="Facebook" src="<%- url_for("/images/brand_icons/facebook.png") %>"></a></li>
+                <% } %>
+                <% if (page.mega) { %>
+                    <li><a class="icon" rel="external nofollow" target="_blank" href="<%= page.mega %>"><img alt="MEGA" src="<%- url_for("/images/brand_icons/mega.png") %>">下載</a></li>
+                <% } %>
+            </ul>
+  </div>
+</article>
+<footer class="restricted">
+  <%- partial('_partial/comments') %>
+</footer>
