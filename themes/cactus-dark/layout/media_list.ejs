@@ -9,37 +9,38 @@
 <% } %>
 
 <div class="content <%= page.restricted ? "restricted" : "" %>">
-    <% for (var i in site.data[page.dataset].sort(
-        function(a, b) {return (new Date(b.publish_date)) - (new Date(a.publish_date));}
-    )) { %>
-        <% var media = site.data[page.dataset][i]; %>
+    <% site.pages.sort('date', 'desc').filter(
+        function(mp){ return mp.layout==page.dataset; }
+    ).each(function(page) { %>
         <article class="media clearfix">
             <header>
                 <h2>
-                    <%= media.id %>
-                    <%= media.title %>
+                    <a href="<%- url_for(page.path) %>">
+                        <%= page.id %>
+                        <%= page.title %>
+                    </a>
                 </h2>
                 <div class="meta">
-                    <%- partial('_partial/post/date', { post: {date: media.publish_date}, class_name: 'publish_date' }) %>
+                    <%- partial('_partial/post/date', { post: page, class_name: 'publish_date' }) %>
                 </div>
             </header>
             <ul class="link_list">
-                <% if (media.xtube) { %>
-                    <li><a class="icon" rel="external" target="_blank" href="<%= media.xtube %>"><img alt="XTube" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a></li>
+                <% if (page.xtube) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= page.xtube %>"><img alt="XTube" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a></li>
                 <% } %>
-                <% if (media.pornhub) { %>
-                    <li><a class="icon" rel="external" target="_blank" href="<%= media.pornhub %>"><img alt="PornHub" src="<%- url_for("/images/brand_icons/pornhub.png") %>"></a></li>
+                <% if (page.pornhub) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= page.pornhub %>"><img alt="PornHub" src="<%- url_for("/images/brand_icons/pornhub.png") %>"></a></li>
                 <% } %>
-                <% if (media.facebook) { %>
-                    <li><a class="icon" rel="external" target="_blank" href="<%= media.facebook %>"><img alt="Facebook" src="<%- url_for("/images/brand_icons/facebook.png") %>"></a></li>
+                <% if (page.facebook) { %>
+                    <li><a class="icon" rel="external" target="_blank" href="<%= page.facebook %>"><img alt="Facebook" src="<%- url_for("/images/brand_icons/facebook.png") %>"></a></li>
                 <% } %>
-                <% if (media.mega) { %>
-                    <li><a class="icon" rel="external nofollow" target="_blank" href="<%= media.mega %>"><img alt="MEGA" src="<%- url_for("/images/brand_icons/mega.png") %>">下載</a></li>
+                <% if (page.mega) { %>
+                    <li><a class="icon" rel="external nofollow" target="_blank" href="<%= page.mega %>"><img alt="MEGA" src="<%- url_for("/images/brand_icons/mega.png") %>">下載</a></li>
                 <% } %>
             </ul>
-            <%- markdown(media.description) %>
+            <!--%- page.content %-->
         </article>
-    <% } %>
+    <% }); %>
 </div>
 
 <footer class="<%= page.restricted ? "restricted" : "" %>">

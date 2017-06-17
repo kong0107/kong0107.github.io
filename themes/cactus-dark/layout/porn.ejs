@@ -1,7 +1,9 @@
 
 <article class="post media" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
-    <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
+    <h1 class="posttitle" itemprop="name headline">
+        <%= page.id %><%= page.title %>
+    </h1>
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
         <span itemprop="name"><% if (page.author) { %><%- page.author %><% } else { %><%- config.title %><% } %></span>

@@ -1,6 +1,6 @@
 ---
 layout: media_list
-dataset: porns
+dataset: porn
 title: 影片集
 restricted: true
 ---
