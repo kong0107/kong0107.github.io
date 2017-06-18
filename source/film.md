@@ -57,7 +57,7 @@ order: 6
    
 # 有空的時間
 請找「やらないか」的時段
-**目前僅剩十月以後**
+**目前僅剩十月下旬以後**
 {% iframe https://calendar.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&mode=AGENDA&wkst=1&src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia%2FTaipei %}
 
 [free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei
