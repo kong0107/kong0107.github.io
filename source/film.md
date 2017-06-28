@@ -17,7 +17,7 @@ order: 6
 
 # 條件
 
-2017-06-01 起，以「能露臉」（不打馬賽克）與「能收錄叫聲」為原則。已敲定時間者不受影響。
+2017-06-01 起，以「能露臉」（不打馬賽克）與「能收錄叫聲」為原則。但已敲定時間者不受影響。
 
 * 須年滿18歲。
 * 我不會支付任何費用。
@@ -57,7 +57,7 @@ order: 6
    
 # 有空的時間
 請找「やらないか」的時段
-**目前僅剩十月下旬以後**
+**目前僅剩十月底以後**
 {% iframe https://calendar.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&mode=AGENDA&wkst=1&src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia%2FTaipei %}
 
 [free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei

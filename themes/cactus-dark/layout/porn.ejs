@@ -25,9 +25,8 @@
             <span style="color: #888;">未開放下載</span>
         <% } %>
     </div>
-    <%- page.content %>
-    
-    <hr>
+    <%- page.excerpt ? page.excerpt : page.content %>
+
     <% if (page.xtube) { %>
         <a class="icon" rel="external" target="_blank" href="<%= page.xtube %>"><img alt="XTube" style="height: 2rem;" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a>
         <br>
@@ -43,6 +42,12 @@
         <br>
         <div class="fb-post" data-href="<%= page.facebook %>" data-width="500" data-show-text="false"><blockquote cite="<%= page.facebook %>" class="fb-xfbml-parse-ignore"><p></p>由<a href="https://www.facebook.com/kong.sex/">阿空</a>貼上了&nbsp;<a href="<%= page.facebook %>"><%= page.date %></a></blockquote></div>
     <% } %>
+
+    <% if (page.excerpt) { %>
+        <hr>
+        <%- page.more %>
+    <% } %>
+
   </div>
 </article>
 <footer class="restricted">
