@@ -23,7 +23,7 @@ order: 6
 * 我不會支付任何費用。
 * 一次限與一人有肢體互動（但可以有其他人在旁邊）。
 * 被我幹（被[老大](boss.html)進入）；不能幹我。
-* **以「能露臉」與「能收錄叫聲」為原則**，或是有其他讓我覺得有價值的條件（例如叫聲很好聽，或是有生理女性願意讓我嘗試）。
+* **以「能露臉」並且「能收錄叫聲」為原則。**如果不想露臉，請提出其他讓我覺得有價值的條件（例如叫聲很好聽，或是有生理女性願意讓我嘗試）。
 * 雙方對毛片均有使用權。
 * 老大插入肛門（或陰道）時需要戴保險套。
 * 我不使用非法藥品
@@ -57,7 +57,7 @@ order: 6
    
 # 有空的時間
 請找「やらないか」的時段
-**目前僅剩十月底以後**
+**目前僅剩十一月以後**
 {% iframe https://calendar.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&mode=AGENDA&wkst=1&src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia%2FTaipei %}
 
 [free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei
