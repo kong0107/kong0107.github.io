@@ -24,6 +24,21 @@
                     <%- partial('_partial/post/date', { post: page, class_name: 'publish_date' }) %>
                 </div>
             </header>
+
+<%
+    var re = /<img[^\>]+src="([^"]+)"/g;
+    var match, photos = [];
+    while(match = re.exec(page.content))
+        photos.push(match[1]);
+    if(photos.length) {
+%>
+<div class="slideshow">
+    <% photos.forEach(function(photo) { %>
+        <a href="<%- url_for(page.path) %>"><img src="<%= photo %>"></a>
+    <% }) %>
+</div>
+<% } %>
+
             <ul class="link_list">
                 <% if (page.xtube) { %>
                     <li><a class="icon" rel="external" target="_blank" href="<%= page.xtube %>"><img alt="XTube" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a></li>
