@@ -11,11 +11,32 @@
             <%- partial('_partial/list_pages') %>
           </div>
         </div>
+        
+        <section>
+          <header><h2>社群網站</h2></header>
+          <ul class="no-marker ta-justify">
+            <%
+              ["facebook", "line", "tumblr_restricted", "xtube", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
+                var sl = site.data.social_links[brand];
+                if(sl) {
+                  %>
+                    <li class="inline">
+                      <a class="icon" target="_blank" rel="external"
+                        title="<%= sl.site %>: <%= sl.account %>"
+                        href="<%- sl.restricted ? r18(sl.url) : sl.url %>"
+                      ><img style="width: 2rem; display: inline;" alt="<%= sl.site %> logo" src="<%- url_for("/images/brand_icons/" + brand + ".png") %>"></a>
+                    </li>
+                  <%
+                }
+              });
+            %>
+          </ul>
+        </section>
 	  </section>
 	<% } %>
 
 	<section id="writing">
-	  <header><h1>最新文章</h1></header>
+	  <header><h1>文章</h1></header>
       <%- partial('_partial/list_posts', {posts: site.posts.sort('date', 'desc').limit(theme.customize.post_count || 5)}) %>
       <footer>
         <a href="<%- url_for(config.archive_dir) %>">
@@ -26,24 +47,31 @@
 	</section>
 
     <section>
-      <header><h1>社群網站</h1></header>
-      <ul class="no-marker ta-justify">
-        <%
-          ["facebook", "line", "tumblr_restricted", "xtube", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
-            var sl = site.data.social_links[brand];
-            if(sl) {
-              %>
-                <li class="inline">
-                  <a class="icon" target="_blank" rel="external"
-                    title="<%= sl.site %>: <%= sl.account %>"
-                    href="<%- sl.restricted ? r18(sl.url) : sl.url %>"
-                  ><img style="width: 2rem; display: inline;" alt="<%= sl.site %> logo" src="<%- url_for("/images/brand_icons/" + brand + ".png") %>"></a>
+        <header><h1>影片</h1></header>
+        <ul class="post-list">
+            <%
+                var porns = site.pages.sort('date', 'desc').filter(
+                    function(mp){ return mp.layout=="porn"; }
+                );
+                porns.limit(theme.customize.post_count || 5).each(function(page) {
+            %>
+                <li class="post-item">
+                    <div class="meta" style="width: 4em"><%= page.id %></div>
+                    <div>
+                    <div class="posttitle"><a href="<%- url_for(page.path) %>"><%= page.title %></a></div>
+                    <div class="meta">
+                        <time datetime="<%= date_xml(page.date) %>" itemprop="datePublished"><%= date(page.date, config.date_format) %></time>
+                    </div>
+                    </div>
                 </li>
-              <%
-            }
-          });
-        %>
-      </ul>
+            <% }) %>
+        </ul>
+        <footer>
+            <a href="<%- url_for("/porn") %>">
+                ……所有影片
+                <span class="archive-count"><%= porns.length %></span>
+            </a>
+        </footer>
     </section>
 
     <section>
