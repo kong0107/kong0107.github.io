@@ -25,6 +25,10 @@
                 </div>
             </header>
 
+            <% if (page.preview) { %>
+                <video autoplay loop src="<%= page.preview %>"></video>
+            <% } %>
+
             <%
                 var re = /<img[^\>]+src="([^"]+)"/g;
                 var match, photos = [];
@@ -32,11 +36,11 @@
                     photos.push(match[1]);
                 if(photos.length) {
             %>
-            <div class="slideshow">
-                <% photos.forEach(function(photo) { %>
-                    <a href="<%- url_for(page.path) %>"><img src="<%= photo %>"></a>
-                <% }) %>
-            </div>
+                <div class="slideshow">
+                    <% photos.forEach(function(photo) { %>
+                        <a href="<%- url_for(page.path) %>"><img src="<%= photo %>"></a>
+                    <% }) %>
+                </div>
             <% } %>
 
             <ul class="link_list">
