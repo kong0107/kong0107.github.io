@@ -39,6 +39,7 @@
          * 先「複製」主題中的設定值，然後再看要不要覆寫之。
          *
          * 有點奇怪。依照 open_graph() 的程式碼，似乎是會自動分析頁面內容並把 <img > 加進 og:image 的啊？但似乎卻沒有？
+         * 另外，看來是不方便支援 og:image:width 這些了
          * @see {@link https://github.com/hexojs/hexo/blob/master/lib/plugins/helper/open_graph.js}
          */
         var ogo = Object.assign({}, theme.miscellaneous.open_graph,  {
