@@ -26,8 +26,15 @@
             </header>
 
             <% if (page.preview) { %>
-                <video autoplay loop src="<%= page.preview %>"></video>
-            <% } %>
+                <a href="<%- url_for(page.path) %>"><video autoplay loop src="<%= page.preview %>"></video></a>
+            <% } else {
+                if (page.gallery) { %>
+                    <div class="slideshow">
+                        <% page.gallery.forEach(function(photo) { %>
+                            <a href="<%- url_for(page.path) %>"><img src="<%=photo.src%>" alt="<%=photo.src%>"></a>
+                        <% }) %>
+                    </div>
+            <% }} %>
 
             <%
                 var re = /<img[^\>]+src="([^"]+)"/g;

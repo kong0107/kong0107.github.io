@@ -44,15 +44,27 @@
 
     <%- page.excerpt ? page.excerpt : page.content %>
     <p style="text-align: right; font-size: larger; font-weight: bold;">也想拍下被我幹的影片？請參閱<a href="/film.html">拍片說明</a>。</p>
-    
-    <% if (page.gallery) { %>
-        <h2>截圖</h2>
-        <%- JSON.stringify(page.gallery, null, 4) %>
-    <% } %>
 
     <% if (page.excerpt) { %>
         <hr>
         <%- page.more %>
+    <% } %>
+
+    <% if (page.gallery) { %>
+        <hr>
+        <h2>截圖</h2>
+        <% page.gallery.forEach(function(photo) { %>
+            <figure>
+                <a href="<%= photo.info.urls.url[0]._content %>"><img src="<%= photo.src %>" alt="<%= photo.alt %>"></a>
+                <figcaption>
+                    <header><%= photo.alt %></header>
+                    <% photo.info.description.parsed.forEach(function(para) { %>
+                        <%- (typeof para == "string") ? markdown(para) : "" %>
+                    <% }) %>
+                </figcaption>
+            </figure>
+        <% }) %>
+        <p style="text-align: right; font-size: larger; font-weight: bold;">也想拍下被我幹的影片？請參閱<a href="/film.html">拍片說明</a>。</p>
     <% } %>
 
   </div>
