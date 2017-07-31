@@ -25,30 +25,28 @@
                 </div>
             </header>
 
-            <% if (page.preview) { %>
-                <a href="<%- url_for(page.path) %>"><video autoplay loop src="<%= page.preview %>"></video></a>
-            <% } else {
-                if (page.gallery) { %>
-                    <div class="slideshow">
+            <div class="thumbnail-container">
+                <%
+                    var posterIndex = isNaN(page.posterIndex) ? 0 : page.posterIndex;
+                    var poster = page.gallery
+                        ? page.gallery[posterIndex].src
+                        : ((page.og && Array.isArray(page.og.image)) ? page.og.image[0] : url_for("/images/og_image.png"))
+                    ;
+                %>
+                <img class="poster" src="<%= poster %>">
+
+                <% if (page.gallery) { %>
+                    <div class="gallery" data-poster-index="<%= posterIndex %>">
                         <% page.gallery.forEach(function(photo) { %>
-                            <a href="<%- url_for(page.path) %>"><img src="<%=photo.src%>" alt="<%=photo.src%>"></a>
+                            <img src="<%= photo.src %>" alt="<%= photo.alt %>" >
                         <% }) %>
                     </div>
-            <% }} %>
+                <% } %>
 
-            <%
-                var re = /<img[^\>]+src="([^"]+)"/g;
-                var match, photos = [];
-                while(match = re.exec(page.content))
-                    photos.push(match[1]);
-                if(photos.length) {
-            %>
-                <div class="slideshow">
-                    <% photos.forEach(function(photo) { %>
-                        <a href="<%- url_for(page.path) %>"><img src="<%= photo %>"></a>
-                    <% }) %>
-                </div>
-            <% } %>
+                <% if (page.preview) { %>
+                    <video autoplay loop src="<%= page.preview %>"></video>
+                <% } %>
+            </div>
 
             <ul class="link_list">
                 <% if (page.xtube) { %>
