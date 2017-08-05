@@ -29,25 +29,26 @@
                 var posterIndex = isNaN(page.posterIndex) ? 0 : page.posterIndex;
                 var poster = page.gallery
                     ? page.gallery[posterIndex].src
-                    : ((page.og && Array.isArray(page.og.image)) ? page.og.image[0] : "")
+                    : ((page.og && page.og.image)
+                        ? page.og.image[0]
+                        : url_for("/images/og_image.png")
+                    )
                 ;
             %>
-            <% if (poster) { %>
-                <a class="thumbnail-container" href="<%- url_for(page.path) %>">
-                    <img class="poster" src="<%= poster %>">
-                    <% if (page.preview) { %>
-                        <video loop src="<%= page.preview %>"></video>
-                    <% } %>
+            <a class="thumbnail-container" href="<%- url_for(page.path) %>">
+                <img class="poster" src="<%= poster %>">
+                <% if (page.preview) { %>
+                    <video loop src="<%= page.preview %>"></video>
+                <% } %>
 
-                    <% if (!page.preview && page.gallery) { %>
-                        <div class="gallery" data-poster-index="<%= posterIndex %>">
-                            <% page.gallery.forEach(function(photo) { %>
-                                <img src="<%= photo.src %>" alt="<%= photo.alt %>" >
-                            <% }) %>
-                        </div>
-                    <% } %>
-                </a>
-            <% } %>
+                <% if (!page.preview && page.gallery) { %>
+                    <div class="gallery" data-poster-index="<%= posterIndex %>">
+                        <% page.gallery.forEach(function(photo) { %>
+                            <img src="<%= photo.src %>" alt="<%= photo.alt %>" >
+                        <% }) %>
+                    </div>
+                <% } %>
+            </a>
 
             <ul class="link_list">
                 <% if (page.xtube) { %>

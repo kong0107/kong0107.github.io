@@ -53,11 +53,12 @@
     <% if (page.gallery) { %>
         <hr>
         <h2>截圖</h2>
-        <% page.gallery.forEach(function(photo) { %>
-            <figure style="border: 1px dashed #444; padding: .5em">
+        <% page.gallery.forEach(function(photo, index) { %>
+            <figure>
                 <a href="<%= photo.info.urls.url[0]._content %>"><img src="<%= photo.src %>" alt="<%= photo.alt %>"></a>
                 <figcaption>
                     <header><%= photo.alt %></header>
+                    <div class="number"><%= index %></div>
                     <% photo.info.description.parsed.forEach(function(para) { %>
                         <%- (typeof para == "string") ? markdown(para) : "" %>
                     <% }) %>
