@@ -61,14 +61,38 @@ var promiseRequest = function (tagArgs) {
  * ```
  */
 hexo.extend.tag.register('flickr', function (args, content) {
-
   return promiseRequest(args).then(function (imgAttr) {
+    var href = imgAttr.info.urls.url[0]._content;
     for(var a in imgAttr) if(typeof imgAttr[a]=="object") delete imgAttr[a];
-    return hexoUtil.htmlTag('img', imgAttr);
+    return hexoUtil.htmlTag(
+        "a",
+        {href: href},
+        hexoUtil.htmlTag('img', imgAttr)
+    );
   }, function (err) {
     hexo.log.error(err);
   });
+}, {async: true});
 
+hexo.extend.tag.register("flickr_ext", function(args) {
+    return promiseRequest(args).then(function(attr) {
+        var html = "";
+        var imgAttr = {};
+        for(var a in attr) if(typeof attr[a] != "object") imgAttr[a] = attr[a];
+
+        attr.info.description.parsed.forEach(function(para) {
+            if(typeof para == "string")
+                html += hexo.render.renderSync({text: para, engine: "markdown"});
+        });
+        html = hexoUtil.htmlTag("header", {}, attr.alt) + html;
+        html = hexoUtil.htmlTag("figcaption", {}, html);
+        html = hexoUtil.htmlTag(
+            "a",
+            { href: attr.info.urls.url[0]._content },
+            hexoUtil.htmlTag("img", imgAttr)
+        ) + html;
+        return hexoUtil.htmlTag("figure", {}, html);
+    }, err => hexo.log.error(err));
 }, {async: true});
 
 
@@ -85,13 +109,13 @@ hexo.extend.tag.register('flickr', function (args, content) {
 
 hexo.extend.filter.register('pre', function(data) {
     var promises = [];
-    
+
     if(data.photos) promises.push(
         Promise.map(data.photos, function(photo) {
             var photoTag = photo.split(' ');
             if (photoTag[0] !== 'flickr') return photo;
             return promiseRequest(photoTag.slice(1)).then(
-                imgAttr => imgAttr.src, 
+                imgAttr => imgAttr.src,
                 err => hexo.log.error(err)
             );
         }).then(results => ({photos: results}))
@@ -102,7 +126,7 @@ hexo.extend.filter.register('pre', function(data) {
             var photoTag = photo.split(' ');
             if (photoTag[0] !== 'flickr') return photo;
             return promiseRequest(photoTag.slice(1)).then(
-                imgAttr => imgAttr, 
+                imgAttr => imgAttr,
                 err => hexo.log.error(err)
             );
         }).then(results => ({gallery: results}))
@@ -112,12 +136,12 @@ hexo.extend.filter.register('pre', function(data) {
             var photoTag = image.split(' ');
             if (photoTag[0] !== 'flickr') return image;
             return promiseRequest(photoTag.slice(1)).then(
-                imgAttr => imgAttr.src, 
+                imgAttr => imgAttr.src,
                 err => hexo.log.error(err)
             );
         }).then(results => Object.assign(data.og, {image: results}))
     );
-    
+
     return Promise.all(promises).then(function(arr) {
         arr.forEach(function(obj) {
             Object.assign(data, obj);
