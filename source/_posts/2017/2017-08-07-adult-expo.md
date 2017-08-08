@@ -103,8 +103,7 @@ related:
 ## 河西亞美的泡泡屋
 {% flickr_ext 35584862604 %}
 
-第一次路過的時候看到的是這一幕真是驚呆了
-{% flickr 35612367433 %}
+{% flickr_ext 35612367433 %}
 
 逛幾圈再回來才覺得比較對勁
 {% flickr 36288931031 n %}
@@ -130,7 +129,7 @@ related:
 
 {% flickr 35584862504 %}
 
-顧著跟小林老師打招呼，就忘了拍縛生攤位的展示品了 QQ
+顧著跟小林老師打招呼，忘了拍[縛.生](https://www.facebook.com/shibaru.life/)攤位的展示品了 QQ
 {% flickr 36420216895 %}
 
 另請參閱[鬼畜少女組](https://www.facebook.com/kichikuno/)。
