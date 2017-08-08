@@ -210,7 +210,7 @@ It is illegal in the Land of Liberty and Enlightenment itself, France (sarcasm)
 
 如果戴屌環可以，那麼在屌上面加上其他裝飾可不可以？以及更極端地：我把屌搓硬，好讓大家更容易看到他，可不可以？
 如果戴屌環不可以，那麼是不是有修剪過陰毛的也不可以？陰莖上有入珠、穿環、刺青的人是不是不能參加？
-（「刺青不能參加」並不是很奇怪的規定，例如[日本約有6成公共浴場或飯店都禁止刺青者](http://news.ltn.com.tw/news/world/breakingnews/1983286)。）
+（「刺青者不能參加」並不是罕見的規定，例如[日本約有6成公共浴場或飯店都禁止刺青者](http://news.ltn.com.tw/news/world/breakingnews/1983286)。）
 
 
 ## 藝術
