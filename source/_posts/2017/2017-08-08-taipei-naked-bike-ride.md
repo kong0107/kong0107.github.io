@@ -187,6 +187,8 @@ It is illegal in the Land of Liberty and Enlightenment itself, France (sarcasm)
 喔對了，聲明一下：北門那位不是我，而且他的屌跟蛋蛋都比[我的](/boss.html)大。
 
 
+{% flickr_ext 36399912336 %}
+
 ### 小結
 
 最影響「群眾觀感」的關鍵恐怕是：是不是「掌有話語權的人們」想看的身體／身材／性別。
@@ -200,9 +202,6 @@ It is illegal in the Land of Liberty and Enlightenment itself, France (sarcasm)
 ## 屌環
 
 我當天戴了屌環，意圖強調屌的存在。
-
-{% flickr_ext 36399912336 %}
-
 我想提出的問題是：公開裸體是不是「強調生殖器的存在」的行動？
 
 大眾不太可能認為不是。
