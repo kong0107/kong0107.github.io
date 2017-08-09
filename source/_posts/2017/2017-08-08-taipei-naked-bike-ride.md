@@ -5,8 +5,8 @@ tags: [性別, 法律]
 related:
   - url: https://www.facebook.com/events/1938290232863080/
     title: 台北裸騎 Facebook 活動頁面
-  - url: https://www.youtube.com/watch?v=dL1csopAcTI
-    title: yllan 的 YouTube 影片
+  - url: http://yllan.org/blog/archives/999
+    title: 主辦人 yllan 的心得
   - url: https://goo.gl/photos/RAeojSiGud8n8Tqq9
     title: Yuwen Yang 的 Google 相簿
   - url: http://tuba.org.tw/taipei-naked-bike-ride
@@ -317,5 +317,6 @@ TNBR 選點也不是亂選的，有一些歷史意義。自由廣場當然就是
 寫這篇時另外查的，就順便蒐集在這。
 * 鐵男根祭（日語：かなまら祭），以及某幾年很出名的[蝙蝠俠](http://www.imagebam.com/gallery/hu17t2s123txz80v8q9be47aztonhsuy/)
 * [裸褌祭](https://www.youtube.com/watch?v=4fDLsd7oxB8)
+* [原民控北截拒載赤腳](http://titv.ipcf.org.tw/news-15093)
 
 {% flickr_ext 36399912366 %}
