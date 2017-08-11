@@ -17,8 +17,8 @@ og:
     - flickr 36358295486
 ---
 
-{% fbphoto https://www.facebook.com/yllan/posts/10154613337261945 %}
-（借主辦人的照片當首圖）
+{% flickr 36358295486 %}
+（借[主辦人的照片](https://www.facebook.com/yllan/posts/10154613337261945)當首圖）
 
 # 前言
 本文不代表任何團體，亦不代表任何其他參與者。
@@ -151,6 +151,7 @@ It is illegal in the Land of Liberty and Enlightenment itself, France (sarcasm)
 男子搶在北門完工前，趁著深夜拿著相機在北門廣場前全裸自拍，
 還將雙手擺在頭上擺出凸顯下體的姿勢，還將自己的得意之作的PO在知名社群網站Tumblr上，可說是非常誇張。
 {% endblockquote %}
+[本案後續](http://www.appledaily.com.tw/realtimenews/article/new/20170808/1177988/)
 
 如果他這樣就活該被罵噁心，那就說明了看待裸騎活動時，大眾（無論是參與者或旁觀者）其實只是把裸體當成訴求工具，而沒有把裸體當成訴求本身。
 

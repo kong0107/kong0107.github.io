@@ -35,7 +35,14 @@
                     )
                 ;
             %>
-            <a class="thumbnail-container" href="<%- url_for(page.path) %>">
+            <a class="thumbnail-container" href="<%- url_for(page.path) %>"
+                <% if (page.preview) { %>
+                    data-preview="<%= page.preview %>"
+                <% } %>
+                <% if (page.gallery) { %>
+                    data-gallery="<%= page.gallery.map(photo => photo.src).join() %>"
+                <% } %>
+            >
                 <img class="poster" src="<%= poster %>">
                 <% if (page.preview) { %>
                     <video loop src="<%= page.preview %>"></video>
