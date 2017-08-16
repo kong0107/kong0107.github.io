@@ -62,7 +62,8 @@ og:
 
 > In the absence of any sexual context and
 > in relation to nudity where the person has no intention to cause alarm or distress
-> it will normally be appropriate to take no action unless members of the public were actually caused harassment, alarm or distress (as opposed to considering the likelihood of this).
+> it will normally be appropriate to take no action
+> unless members of the public were actually caused harassment, alarm or distress (as opposed to considering the likelihood of this).
 
 句子蠻長的，但看來若是「與性有關」或是「實際上有造成公眾困擾」的話，英國的公權力就會採取行動－－也許這就是 2015 在 Canterbury 的那一場時，英國警方所用的標準。
 參考資料：

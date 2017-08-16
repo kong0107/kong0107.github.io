@@ -17,7 +17,7 @@ order: 6
 
 # 條件
 * 須年滿18歲。
-* 須露臉（不打馬賽克），或是提出其他讓我覺得有吸引力的個人特色（例如叫聲很好聽，或是有生理女性願意讓我嘗試）。
+* 須露臉（上網公開時不會打馬賽克），或是提出其他讓我覺得有吸引力的個人特色（例如叫聲很好聽，或是有生理女性願意讓我嘗試）。
 * 我不會支付任何費用。
 * 一次限與一人有肢體互動（但可以有其他人在旁邊）。
 * 被我幹（被[老大](boss.html)進入）；不能幹我。
@@ -53,7 +53,7 @@ order: 6
    
 # 有空的時間
 請找「やらないか」的時段
-**目前僅剩十一月以後**
+**目前僅剩十一月底以後**
 {% iframe https://calendar.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&mode=AGENDA&wkst=1&src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia%2FTaipei %}
 
 [free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei
