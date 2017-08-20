@@ -179,6 +179,11 @@ It is illegal in the Land of Liberty and Enlightenment itself, France (sarcasm)
   * [一開始許自雄至少還是在人少的時候](http://www.nextmag.com.tw/realtimenews/news/321296)
   * 後來[彭啟明直接躺在車廂地板上](https://www.facebook.com/weatherrisk/posts/10156227516681988)
   * [壹電視新聞](https://youtu.be/swNfzDlX5nk)也收錄了一些穿泳裝還有坐、臥在車廂地板的
+  * 也有外媒刊登了這些「違規當宣傳」的照片：
+    * [Taipei transforms subway cars into ultra-realistic swimming pools and sports fields – Live Long LED](http://livelongled.com/taipei-transforms-subway-cars-into-ultra-realistic-swimming-pools-and-sports-fields/)
+    * [Taiwan introduces sports themed train in Taipei ahead of 2017 Summer Universiade, see pics - The Financial Express](http://www.financialexpress.com/photos/business-gallery/790927/taiwan-introduces-sports-themed-train-in-taipei-ahead-of-2017-summer-universiade-see-pics/)
+    * [What’s in a Name? For Taiwan, Preparing for the Spotlight, a Lot - The New York Times](https://www.nytimes.com/2017/08/16/world/asia/taiwan-chinese-taipei-sports-universiade.html)
+      （以及對應中文版：[中華台北還是台灣？世大運上的名稱之爭 - 紐約時報中文網 國際縱覽](https://cn.nytimes.com/china/20170817/taiwan-chinese-taipei-sports-universiade/zh-hant/)）
 
 雖然說[《大眾捷運法》第50條第1項第12款、《臺北捷運系統旅客須知》第8點第6款、《臺北大眾捷運股份有限公司旅客運送章則》第9點第6款](http://www.metro.taipei/ct.asp?xItem=104452153&CtNode=79064&mp=122035)都算是授權公權力和捷運公司隨意認定，
 但姑不論[基本權第三人效力](https://zh.wikipedia.org/wiki/%E5%9F%BA%E6%9C%AC%E6%AC%8A%E7%AC%AC%E4%B8%89%E4%BA%BA%E6%95%88%E5%8A%9B)的問題，民眾對上述事件的評價又憑甚麼不一致呢？
