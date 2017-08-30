@@ -176,7 +176,7 @@ It is illegal in the Land of Liberty and Enlightenment itself, France (sarcasm)
 但如果人很多，或是成為「流行」的話：
 * [蘭嶼小勇士台灣行 穿丁字褲搭捷運](https://www.youtube.com/watch?v=OWq0ucwfzQY)
 * 世大運游泳車箱系列：
-  * [一開始許自雄至少還是在人少的時候](http://www.nextmag.com.tw/realtimenews/news/321296)
+  * [一開始許自雄至少還是在人少的時候](http://www.appledaily.com.tw/realtimenews/article/new/20170712/1159477/)
   * 後來[彭啟明直接躺在車廂地板上](https://www.facebook.com/weatherrisk/posts/10156227516681988)
   * [壹電視新聞](https://youtu.be/swNfzDlX5nk)也收錄了一些穿泳裝還有坐、臥在車廂地板的
   * 也有外媒刊登了這些「違規當宣傳」的照片：

@@ -6,7 +6,7 @@ order: 6
 
 # 報名
 1. 在[我的日曆](#有空的時間)找到我還可以約的日子（此時只需瀏覽，尚未「登記」）。
-2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。若看不到內容，請切換其他瀏覽器／作業系統／裝置嘗試。
+2. [填寫這份表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。若看不到內容，請切換其他瀏覽器／作業系統／裝置嘗試。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡，確認身分與時間地點。
 
 
@@ -46,13 +46,13 @@ order: 6
 
 # 報名
 1. 在[我的日曆][free-calendar]確認哪天還有「やらないか」的時段。
-2. [填寫表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
+2. [填寫這份表單](https://goo.gl/forms/ej99Z5TysXumi7qo2)。
 3. 挑選適合的[聯絡方式](contact.html)與我聯絡，確認身分、時間地點與其他細節。
 
    
 # 有空的時間
 請找「やらないか」的時段
-**目前僅剩十一月底以後**
+**目前僅剩十二月與一月**
 {% iframe https://calendar.google.com/calendar/embed?showTitle=0&showNav=0&showDate=0&showPrint=0&mode=AGENDA&wkst=1&src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia%2FTaipei %}
 
 [free-calendar]: https://calendar.google.com/calendar/embed?src=7pc63a22tak9t8jh7n1cv45ffc%40group.calendar.google.com&ctz=Asia/Taipei
