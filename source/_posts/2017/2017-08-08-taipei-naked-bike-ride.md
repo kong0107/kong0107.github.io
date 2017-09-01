@@ -11,6 +11,8 @@ related:
     title: Yuwen Yang 的 Google 相簿
   - url: http://tuba.org.tw/taipei-naked-bike-ride
     title: 台灣城市單車聯盟 | 台北裸騎
+  - url: https://lianhonghong.com/news/tai-bei-luo-qi-ge-ren-luo-ti-shi-zao-fan-qun-ren-luo-ti-shi-min-yi
+    title: 「臉紅紅」網站轉貼本文
 og:
   description: 本文不代表任何團體，亦不代表任何其他參與者。內文會有我的軟屌照，但我不打算將本頁標為限制級。
   image:
@@ -18,7 +20,7 @@ og:
 ---
 
 {% flickr 36358295486 %}
-（借[主辦人的照片](https://www.facebook.com/yllan/posts/10154613337261945)當首圖）
+（本照片原由[主辦人張貼](https://www.facebook.com/yllan/posts/10154613337261945)，但[已被臉書刪除](https://www.facebook.com/yllan/posts/10154627648071945)。）
 
 # 前言
 本文不代表任何團體，亦不代表任何其他參與者。
