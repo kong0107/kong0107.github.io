@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 聯絡
-order: 4
+order: 3
 og:
   type: profile
 ---

@@ -1,4 +1,6 @@
-<%- partial('_partial/list_pages') %>
+<% if (page.order) { %>
+    <%- partial('_partial/list_pages') %>
+<% } %>
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
