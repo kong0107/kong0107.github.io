@@ -1,6 +1,9 @@
 ---
 layout: page
 title: 捐款給我
+og:
+  image:
+    - images/pages/care.png
 ---
 
 阿空目前並沒有穩定的收入，
