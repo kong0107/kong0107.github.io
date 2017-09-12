@@ -1,14 +1,16 @@
 <footer id="footer">
   <div class="footer-left">
-    Copyright &copy; <%= new Date().getFullYear() %> <%= config.author || config.title %>
+    Copyright &copy; <%= new Date().getFullYear() %> 
+    <%= config.author || config.title %>
   </div>
   <div class="footer-right">
     <nav>
       <ul>
-        <li><a href="<%- url_for() %>">首頁</a></li>
-        <% if (page.source) { %><li><a target="_blank" href="<%= theme.miscellaneous.source.prefix%><%= page.source %>">源碼</a><% } %>
-        <li><a href="<%- url_for("contact.html") %>">聯絡</a></li>
         <li><a href="<%- url_for("theme.rss") %>">RSS</a></li>
+        <li><a href="<%- url_for() %>">首頁</a></li>
+        <!--li><a target="_blank" href="<%= theme.miscellaneous.source.prefix%><%= page.source || "" %>">源碼</a-->
+        <li><a href="<%- url_for("contact.html") %>">聯絡</a></li>
+        <li><a href="<%- url_for("donate.html") %>">贊助</a></li>
       </ul>
     </nav>
   </div>
