@@ -62,9 +62,9 @@ og:
 
 
 # 事蹟
-## [陰莖翻模量產販售](http://www.yiwu.io/products/kong-dildo)
+## [陰莖翻模量產販售](http://yiwu.io/products/kong-dildo)
 2014年12月起
-由[異物](http://www.yiwu.io/products)將本人的陰莖與臀型翻模複製、生產製造，分別名為「[色即是空](http://yiwu.io/products/kong-dildo)」與「[空即是色](http://yiwu.io/products/kong-anus)」。
+由[異物](https://www.facebook.com/yiwu.taiwan/)將本人的陰莖與臀型翻模複製、生產製造，分別名為「[色即是空](http://yiwu.io/products/kong-dildo)」與「[空即是色](http://yiwu.io/products/kong-anus)」。
 
 ![異物「色即是空」商品照](http://i.imgur.com/U9BoCec.jpg)
 
