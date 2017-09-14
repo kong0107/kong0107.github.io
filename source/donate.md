@@ -5,6 +5,9 @@ og:
   image:
     - images/og_image.png
     - images/pages/care.png
+i18n:
+  en:
+    title: Donate
 ---
 
 阿空目前並沒有穩定的收入，
@@ -19,14 +22,6 @@ og:
 * 其他細節可參考[綠界ECPay 客服中心](https://www.ecpay.com.tw/Service/pay_qa_cvs)
 
 
-# [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
-[![歐付寶](images/brand_icons/allpay.svg)](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
-
-* 需帳號，較適合台灣的朋友。
-  新帳號不須先儲值，也能直接用信用卡贊助我。
-* 其他細節可參考[歐付寶客服中心](https://www.opay.tw/service/pay_way_allpay)
-
-
 # [PayPal](https://www.paypal.me/kong0107)
 [![PayPal](https://www.paypalobjects.com/webstatic/i/logo/rebrand/ppcom.svg)](https://www.paypal.me/kong0107)
 
@@ -34,6 +29,15 @@ og:
 * 需有 PayPal 帳戶，且[不能是台灣帳戶](https://www.paypal.com/tw/webapps/mpp/system-enhancement-faq?locale.x=zh_TW)。
   新帳號不須先儲值，也能直接用信用卡贊助我。
 * 其他細節可參考 [PayPal.Me 常見問題](https://www.paypal.com/paypalme/pages/faqs)
+
+
+# [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
+[![歐付寶](images/brand_icons/allpay.svg)](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
+
+* 不是支付寶。
+* 需帳號，較適合台灣的朋友。
+  新帳號不須先儲值，也能直接用信用卡贊助我。
+* 其他細節可參考[歐付寶客服中心](https://www.opay.tw/service/pay_way_allpay)
 
 
 # 法律問題解析

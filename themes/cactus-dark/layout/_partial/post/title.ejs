@@ -9,6 +9,9 @@
 <% } else { %>
     <h1 class="<%= class_name %>" itemprop="name headline">
         <%= post.title %>
+        <% if (post.i18n && post.i18n.en) { %>
+            <p style="font-size: smaller; margin: 0;"><%= post.i18n.en.title || "" %></p>
+        <% } %>
     </h1>
 <% } %>
 
