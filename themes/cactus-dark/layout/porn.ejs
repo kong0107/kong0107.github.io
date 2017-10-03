@@ -54,23 +54,25 @@
         <hr>
         <h2>截圖</h2>
         <% page.gallery.forEach(function(photo, index) { %>
-            <figure>
-                <% if (photo.info) { %>
-                    <a href="<%= photo.info.urls.url[0]._content %>"><img src="<%= photo.src %>" alt="<%= photo.alt %>"></a>
-                    <figcaption>
-                        <header><%= photo.alt %></header>
-                        <div class="number"><%= index %></div>
-                        <% photo.info.description.parsed.forEach(function(para) { %>
-                            <%- (typeof para == "string") ? markdown(para) : "" %>
-                        <% }) %>
-                    </figcaption>
-                <% } else { %>
-                    <img src="<%= photo %>" alt="">
-                    <figcaption>
-                        <div class="number"><%= index %></div>
-                    </figcaption>
-                <% } %>
-            </figure>
+            <% if (photo) { %>
+                <figure>
+                    <% if (photo.info) { %>
+                        <a href="<%= photo.info.urls.url[0]._content %>"><img src="<%= photo.src %>" alt="<%= photo.alt %>"></a>
+                        <figcaption>
+                            <header><%= photo.alt %></header>
+                            <div class="number"><%= index %></div>
+                            <% photo.info.description.parsed.forEach(function(para) { %>
+                                <%- (typeof para == "string") ? markdown(para) : "" %>
+                            <% }) %>
+                        </figcaption>
+                    <% } else { %>
+                        <img src="<%= photo %>" alt="">
+                        <figcaption>
+                            <div class="number"><%= index %></div>
+                        </figcaption>
+                    <% } %>
+                </figure>
+            <% } %>
         <% }) %>
         <p style="text-align: right; font-size: larger; font-weight: bold;">也想拍下被我幹的影片？請參閱<a href="/film.html">拍片說明</a>。</p>
     <% } %>
