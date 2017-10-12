@@ -28,7 +28,7 @@
             <%
                 var posterIndex = isNaN(page.posterIndex) ? 0 : page.posterIndex;
                 var poster = page.gallery
-                    ? page.gallery[posterIndex].src
+                    ? (page.gallery[posterIndex].src || page.gallery[posterIndex])
                     : ((page.og && page.og.image)
                         ? page.og.image[0]
                         : url_for("/images/og_image.png")
@@ -51,7 +51,7 @@
                 <% if (!page.preview && page.gallery) { %>
                     <div class="gallery" data-poster-index="<%= posterIndex %>">
                         <% page.gallery.forEach(function(photo) { %>
-                            <img src="<%= photo.src %>" alt="<%= photo.alt %>" >
+                            <img src="<%= photo.src || photo %>" alt="<%= photo.alt || "" %>" >
                         <% }) %>
                     </div>
                 <% } %>

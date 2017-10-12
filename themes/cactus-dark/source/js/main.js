@@ -81,9 +81,36 @@ $(document).ready(function(){
     });
   }
 
-  $(".restricted-agree-button").click(function() {
+/// 猥褻警告
+  const hideWarningBlock = function() {
     $(".restricted").addClass("restricted-agreed");
     $(".restricted").removeClass("restricted");
 	$(".restricted-warning-block").hide();
+  };
+
+  if(docCookies.getItem("restricted-auto-show")) {
+    hideWarningBlock();
+    $(".restricted-auto-show-setting").show();
+  }
+
+  $(".restricted-agree-button").click(function() {
+    hideWarningBlock();
+    if($(".restricted-remember")[0].checked) {
+      docCookies.setItem("restricted-auto-show", true, Infinity);
+      $(".restricted-auto-show-setting").show();
+    }
+  });
+
+  $(".restricted-auto-hide-button").click(function() {
+    docCookies.removeItem("restricted-auto-show");
+    location.reload();
+  });
+
+  /// 同步各個「不要再問」的核取方塊（雖然通常只有一個）
+  $(".restricted-remember").click(function() {
+    var value = this.checked;
+    $(".restricted-remember").each(function() {
+      this.checked = value;
+    });
   });
 });
