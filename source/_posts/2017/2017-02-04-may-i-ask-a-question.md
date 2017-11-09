@@ -1,7 +1,15 @@
 ---
 title: 在嗎？可以問個問題嗎？
 tags: [問與答, 地雷]
+related:
+  - url: https://www.plurk.com/p/mhy9dg
+    title: 朝倉璃。TW for HK 分享 〈如何正確、有效地聯繫別人〉 - Plurk
+  - url: https://www.facebook.com/YJ.VoiceOver/posts/1605826276105126
+    title: 一介 配音見習生 〈如何正確、有效的聯繫別人〉 - Facebook
 ---
+
+![請不要傳文字訊息問「在嗎？」](https://i.imgur.com/d68hcus.jpg)
+（圖片轉自 [arukkura](https://www.plurk.com/p/mhy9dg) ）
 
 請在一次訊息中就直接完整說明你要傳達或是詢問的事情。
 
