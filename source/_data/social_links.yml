@@ -22,18 +22,6 @@ soundcloud:
   account: kong-kao
   url: https://soundcloud.com/kong-kao
   logo: true
-blogger:
-  site: Blogger
-  account: kong0107
-  url: http://kong0107.blogspot.com
-disqus:
-  site: Disqus
-  account: kongkao
-  url: https://disqus.com/by/kongkao/
-doodle:
-  site: Doodle MeetMe
-  account: kong0107
-  url: http://doodle.com/kong0107
 github:
   site: GitHub
   account: kong0107
@@ -43,12 +31,16 @@ twitter:
   account: kong0107
   url: https://twitter.com/kong0107
 tumblr:
-  site: Tumblr
+  site: Tumblr 主要部落格
   account: kong-sex
   url: https://kong-sex.tumblr.com/
   logo: true
+tumblr_ask:
+  site: Tumblr 問與答專用
+  account: kong-ask
+  url: https://kong-ask.tumblr.com/
 tumblr_restricted:
-  site: Tumblr
+  site: Tumblr 露屌部落格
   account: kong-boss
   restricted: true
   url: https://kong-boss.tumblr.com/
