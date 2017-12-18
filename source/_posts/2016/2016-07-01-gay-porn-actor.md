@@ -54,4 +54,5 @@ from: https://www.facebook.com/kong.sex/posts/485156115024012
 * [異物專訪](http://blog.yiwu.io/post/146739580736/)
 * [壹週刊報導](http://www.nextmag.com.tw/realtimenews/news/44059167)（紙本第801期第42-45頁）
 * [Open Room 報導](http://www.openroom.com.hk/%E8%89%B2%E5%8D%B3%E6%98%AF%E3%80%8C%E7%A9%BA%E3%80%8D-gv-%E7%94%B7%E5%84%AA%E7%9A%84%E6%97%A5%E5%B8%B8-openroom%E6%96%B0%E8%81%9E%E7%B5%84/)
+* [立場新聞](https://thestandnews.com/erotica/%E5%B0%88%E8%A8%AA-%E6%88%91%E6%9C%89%E5%8B%83%E8%B5%B7%E9%9A%9C%E7%A4%99-%E5%8F%B0%E7%81%A3%E5%90%8C%E5%BF%97%E8%89%B2%E6%83%85%E7%89%87%E6%BC%94%E5%93%A1%E9%98%BF%E7%A9%BA/)
 
