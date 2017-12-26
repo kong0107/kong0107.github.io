@@ -21,6 +21,15 @@ restricted: true
 影片請參閱[影集](porn/)頁面或[我的 XTube 帳號](http://www.xtube.com/profile/voieneuf-3954424)。
 尺寸變化請參閱[陰莖鍛鍊法](/posts/2009/12/penis/)。
 
+# 翻模商品
+
+![dildo thumb](images/dildo/thumb.png)
+
+更多商品資訊請洽[**異物**官方網站](http://yiwu.io/products)，
+也可直接[前往購買頁面](http://www.rakuten.com.tw/shop/yiwu-wproject/product/B001/)。（非台灣本地請另參閱[此說明](http://www.rakuten.com.tw/shop/yiwu-wproject/product/88pizrsj5/)）
+
+![dildo photo](images/dildo/gallery_1.jpg)
+
 
 # 性交習慣
 * 不太使用道具，但偶爾使用屌環。
