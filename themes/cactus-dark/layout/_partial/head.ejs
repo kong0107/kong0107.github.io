@@ -81,7 +81,7 @@
         <% } %>
     <% } %>
     <!-- title -->
-    <title><%= page.title ? (page.title + " - " + config.title) : (config.title + "：" + config.subtitle) %></title>
+    <title><%= page.title ? ((page.id ? (page.id + " ") : "") + page.title + " - " + config.title) : (config.title + "：" + config.subtitle) %></title>
     <!-- styles -->
     <%- css('css/style') %>
     <!-- rss -->
