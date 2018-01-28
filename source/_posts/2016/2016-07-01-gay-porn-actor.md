@@ -44,7 +44,7 @@ from: https://www.facebook.com/kong.sex/posts/485156115024012
 
 |片商|編號|片名|段落|角色|
 |----|----|----|----|----|
-|BRAVO!|BR-173|{% r18 "筋肉BANANA" http://www.bravo-oooops.com/br173.html %}|全片共四段|零號|
+|BRAVO!|BR-173|{% r18 "筋肉BANANA" https://www.bravo-japan.com/br-173 %}|全片共四段|零號|
 |AJITO|BR-175|{% r18 "ヤガイガタイ -ガタイ狂襲3-" http://www.bravo-oooops.com/br175.html %}|第三段|自慰|
 |OUTLAW||{% r18 "筋縛-kinbaku-" http://www.out-law.jp/outlaw/51_kinbaku/51_kinbaku.html %}|第二段|壹號|
 
