@@ -1,5 +1,5 @@
 ---
-title: 性交易合法化無法解決障礙者的情慾需求
+title: 障礙者「娼嫖不罰」，不是特權嗎？
 tags: [性別, 性交易]
 from: https://tw.news.appledaily.com/forum/realtime/20180421/1338708/
 ---
