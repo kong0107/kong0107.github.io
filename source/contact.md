@@ -13,9 +13,10 @@ og:
 * E-mail: <a href="mailto:u921510@alumni.nthu.edu.tw?subject=有人忘記改信件主旨囉&amp;body=從網站看到你的e-mail">u921510@alumni.nthu.edu.tw</a>
 
 # [贊助](donate.html)
-* [ECPay](https://payment.ecpay.com.tw/Broadcaster/Donate/3E5DA992590487D44FDB75F5976F365D) （無須帳號，可匿名贊助）
-* [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B) （需帳號，可由信用卡直接扣款）
+* [LINE Pay](https://line.me/R/ch/1586237320/?forwardPath=/c2c/transfer&no=25380526043)（需台灣帳號、需以手機操作）
 * [PayPal](https://www.paypal.me/kong0107) （需非台灣帳號，可由信用卡直接扣款）
+* [ECPay](https://payment.ecpay.com.tw/Broadcaster/Donate/3E5DA992590487D44FDB75F5976F365D) （無需帳號，可匿名贊助）
+* [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B) （需帳號，可由信用卡直接扣款）
 
 
 # 聯絡原則
