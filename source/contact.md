@@ -9,8 +9,7 @@ og:
 # 主要聯絡方式
 * {% showContact line %}
 * {% showContact facebook %}
-* <a href="https://www.tumblr.com/message/kong-boss" class="icon" target="_blank" rel="external"><i class="brand-icon-tumblr">kong-boss</i></a>
-* E-mail: <a href="mailto:u921510@alumni.nthu.edu.tw?subject=有人忘記改信件主旨囉&amp;body=從網站看到你的e-mail">u921510@alumni.nthu.edu.tw</a>
+* {% showContact twitter %}
 
 # [贊助](donate.html)
 * [LINE Pay](https://line.me/R/ch/1586237320/?forwardPath=/c2c/transfer&no=25380526043)（需台灣帳號、需以手機操作）
@@ -22,7 +21,7 @@ og:
 # 聯絡原則
 * 不聊天。
 * 請把事情在一次訊息中講完，並預設我一天只會回覆一次。
-* 可以公開回應的問題，請在 [Tumblr](https://kong-ask.tumblr.com/ask) 提出。
+* 可以公開回應的問題，請在 [Peing](https://peing.net/kong0107) 提出。
 * 不回應下列訊息：
   1. 單純打招呼，如「Hi」、「安安」、「你好」。
   1. 「在嗎？」
@@ -37,7 +36,7 @@ og:
 
 # 發問
 常見問題已盡量列於[問與答](/tags/%E5%95%8F%E8%88%87%E7%AD%94/)中。
-若有未提及而可以公開回答的問題，請[到 Tumblr 發問](https://kong-ask.tumblr.com/ask)」（無須帳號）。
+若有未提及而可以公開回答的問題，請在 [Peing](https://peing.net/kong0107) 提出。
 
 
 # 邀約

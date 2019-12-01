@@ -30,20 +30,7 @@ twitter:
   site: Twitter
   account: kong0107
   url: https://twitter.com/kong0107
-tumblr:
-  site: Tumblr 主要部落格
-  account: kong-sex
-  url: https://kong-sex.tumblr.com/
   logo: true
-tumblr_ask:
-  site: Tumblr 問與答專用
-  account: kong-ask
-  url: https://kong-ask.tumblr.com/
-tumblr_restricted:
-  site: Tumblr 露屌部落格
-  account: kong-boss
-  restricted: true
-  url: https://kong-boss.tumblr.com/
 flickr:
   site: Flickr
   account: kong0107

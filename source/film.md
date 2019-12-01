@@ -9,14 +9,12 @@ order: 4
 **已額滿停招。**
 
 關於既有的照片或影片，請參閱：
-* {% r18 "老大的遊玩日記" https://kong-boss.tumblr.com/ %}
-* 本站[影集](/porn/)頁面或 {% r18 "我的 XTube 影像集" http://www.xtube.com/profile/voieneuf-3954424 %}
+* 本站[影集](/porn/)頁面
+* {% r18 "XTube" http://www.xtube.com/profile/voieneuf-3954424 %}
+* [Twitter](https://twitter.com/kong0107/media)
 
-感謝所有報名的朋友，也請記得準時赴約。
-影片我也會陸續釋出。
-
-之後的計劃還沒有想好，
-規劃好之後會再公告。
+感謝所有報名的朋友，影片我也會陸續釋出。
+之後的計劃還沒有想好，規劃好之後會再公告。
 
 還想跟我做愛的朋友仍然可以[聯絡我](contact.html)，
 不過可能需要提供足夠的誘因，例如：

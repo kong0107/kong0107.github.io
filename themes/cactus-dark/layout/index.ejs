@@ -11,12 +11,12 @@
             <%- partial('_partial/list_pages') %>
           </div>
         </div>
-        
+
         <section>
           <header><h2>社群網站</h2></header>
           <ul class="no-marker ta-justify">
             <%
-              ["facebook", "line", "tumblr_restricted", "xtube", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
+              ["twitter", "facebook", "line", "xtube", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
                 var sl = site.data.social_links[brand];
                 if(sl) {
                   %>
