@@ -16,7 +16,7 @@
           <header><h2>社群網站</h2></header>
           <ul class="no-marker ta-justify">
             <%
-              ["twitter", "facebook", "line", "xtube", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
+              ["twitter", "facebook", "line", "onlyfans", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
                 var sl = site.data.social_links[brand];
                 if(sl) {
                   %>
@@ -48,7 +48,8 @@
 
     <section>
         <header><h1>影片</h1></header>
-        <ul class="post-list">
+        <a href="<%= site.data.social_links.onlyfans.url %>">請付費訂閱 OnlyFans</a>。
+        <!--ul class="post-list">
             <%
                 var porns = site.pages.sort('date', 'desc').filter(
                     function(mp){ return mp.layout=="porn"; }
@@ -71,15 +72,15 @@
                 ……所有影片
                 <span class="archive-count"><%= porns.length %></span>
             </a>
-        </footer>
+        </footer-->
     </section>
 
-    <section>
+    <!--section>
         <header><h1>公開行程</h1></header>
         <iframe width="100%" height="250"
             src="https://calendar.google.com/calendar/embed?showTitle=0&showPrint=0&showCalendars=0&mode=AGENDA&wkst=1&bgcolor=%23FFFFFF&src=jpur0m1uajoq75jolq28vrfgcg%40group.calendar.google.com&color=%23125A12&ctz=Asia%2FTaipei"
         ></iframe>
-    </section>
+    </section-->
 <% } else  { %>
 	<%- partial('archive') %>
 <% } %>

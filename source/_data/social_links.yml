@@ -54,3 +54,9 @@ pornhub:
   restricted: true
   url: https://www.pornhub.com/users/voieneuf/videos/public
   logo: true
+onlyfans:
+  site: OnlyFans
+  account: kong0107
+  restricted: true
+  url: https://onlyfans.com/kong0107
+  logo: true

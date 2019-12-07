@@ -18,13 +18,15 @@
 
   <div class="content restricted" itemprop="articleBody">
 
-    <div class="right">
+    <!--div class="right">
         <% if (page.mega) { %>
             <a class="icon" rel="external nofollow" target="_blank" href="<%= page.mega %>"><img alt="MEGA" style="width: 1.5rem;" src="<%- url_for("/images/brand_icons/mega.png") %>">下載</a>
         <% } else { %>
             <span style="color: #888;">未開放下載</span>
         <% } %>
-    </div>
+    </div-->
+
+    <script>location.assign("<%= page.onlyfans || 'https://onlyfans.com/kong0107' %>");</script>
 
     <% if (page.xtube) { %>
         <a class="icon" rel="external" target="_blank" href="<%= page.xtube %>"><img alt="XTube" style="height: 2rem;" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a>
