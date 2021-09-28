@@ -7,12 +7,12 @@ og:
 ---
 # 身體
 
-174.74.34.1
+174.74.36.1
 
 {% flickr 26529567273 %}
 
 其他相片請參閱 {% showContact flickr %} ，
-自拍影片請參閱[影集](porn/)頁面或前往 {% showContact xtube %} 。
+自拍影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 OnlyFans](https://OnlyFans.com/kong0107) 。
 
 1986 年生，摩羯座， A 型。
 現居新北市，平日下午在台北市上班。

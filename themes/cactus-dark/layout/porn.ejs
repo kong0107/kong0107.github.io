@@ -18,21 +18,8 @@
 
   <div class="content restricted" itemprop="articleBody">
 
-    <!--div class="right">
-        <% if (page.mega) { %>
-            <a class="icon" rel="external nofollow" target="_blank" href="<%= page.mega %>"><img alt="MEGA" style="width: 1.5rem;" src="<%- url_for("/images/brand_icons/mega.png") %>">下載</a>
-        <% } else { %>
-            <span style="color: #888;">未開放下載</span>
-        <% } %>
-    </div-->
-
     <script>location.assign("<%= page.onlyfans || 'https://onlyfans.com/kong0107' %>");</script>
 
-    <% if (page.xtube) { %>
-        <a class="icon" rel="external" target="_blank" href="<%= page.xtube %>"><img alt="XTube" style="height: 2rem;" src="<%- url_for("/images/brand_icons/xtube.png") %>"></a>
-        <br>
-        <iframe src="<%= page.xtube.replace("/video-watch/", "/video-watch/embedded/") %>?embedSize=small" frameborder=0 width="480" height="360" scrolling=no name="xt_embed_video"></iframe>
-    <% } %>
     <% if (page.pornhub) { %>
         <a class="icon" rel="external" target="_blank" href="<%= page.pornhub %>"><img alt="PornHub" style="height: 2rem;" src="<%- url_for("/images/brand_icons/pornhub.png") %>"></a>
         <br>

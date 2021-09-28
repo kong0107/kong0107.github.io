@@ -9,7 +9,6 @@ restricted: true
 
 {% flickr 35298924295 n %}
 {% flickr 35298924575 n %}
-如果懷疑是後製圖片，也可以參閱[影片](https://www.xtube.com/video-watch/S-018-31116181)。
 
 本文分兩部分，先講翻模，再提尺寸。
 

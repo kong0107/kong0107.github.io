@@ -9,9 +9,8 @@ order: 4
 **已額滿停招。**
 
 關於既有的照片或影片，請參閱：
-* 本站[影集](/porn/)頁面
-* {% r18 "XTube" http://www.xtube.com/profile/voieneuf-3954424 %}
-* [Twitter](https://twitter.com/kong0107/media)
+* [Twitter](https://twitter.com/kong0107) （免費）
+* [OnlyFans](https://OnlyFans.com/kong0107) （付費訂閱）
 
 感謝所有報名的朋友，影片我也會陸續釋出。
 之後的計劃還沒有想好，規劃好之後會再公告。

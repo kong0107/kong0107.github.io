@@ -30,14 +30,6 @@ i18n:
 * 其他細節可參考 [PayPal.Me 常見問題](https://www.paypal.com/paypalme/pages/faqs)
 
 
-# [ECPay](https://payment.ecpay.com.tw/Broadcaster/Donate/3E5DA992590487D44FDB75F5976F365D)
-[![ECPay](/images/brand_icons/ecpay.png)](https://payment.ecpay.com.tw/Broadcaster/Donate/3E5DA992590487D44FDB75F5976F365D)
-
-* 無須帳號即可使用。
-* 使用台灣超商即可完全匿名（付款方式選擇「超商代碼」），雖然手續費也較多（30元）
-* 其他細節可參考[綠界ECPay 客服中心](https://www.ecpay.com.tw/Service/pay_qa_cvs)
-
-
 # [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
 [![歐付寶](/images/brand_icons/allpay.svg)](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
 
