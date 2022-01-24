@@ -10,6 +10,7 @@ order: 4
 
 關於既有的照片或影片，請參閱：
 * [Twitter](https://twitter.com/kong0107) （免費）
+* [Fansly](https://fans.ly/kong0107) （付費訂閱）
 * [OnlyFans](https://OnlyFans.com/kong0107) （付費訂閱）
 
 感謝所有報名的朋友，影片我也會陸續釋出。

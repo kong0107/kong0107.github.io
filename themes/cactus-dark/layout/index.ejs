@@ -16,7 +16,7 @@
           <header><h2>社群網站</h2></header>
           <ul class="no-marker ta-justify">
             <%
-              ["twitter", "facebook", "line", "onlyfans", "instagram", "plurk", "soundcloud"].forEach(function(brand) {
+              ["twitter", "facebook", "line", "onlyfans", "fansly", "instagram", "plurk"].forEach(function(brand) {
                 var sl = site.data.social_links[brand];
                 if(sl) {
                   %>
@@ -48,7 +48,7 @@
 
     <section>
         <header><h1>影片</h1></header>
-        <a href="<%= site.data.social_links.onlyfans.url %>">請付費訂閱 OnlyFans</a>。
+        <a href="<%= site.data.social_links.fansly.url %>">請付費訂閱 Fansly</a>。
         <!--ul class="post-list">
             <%
                 var porns = site.pages.sort('date', 'desc').filter(

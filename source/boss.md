@@ -17,7 +17,7 @@ restricted: true
 {% flickr 33605136876 %}
 {% img https://68.media.tumblr.com/ef297df8e9f115fbd0cca07306464ccc/tumblr_ono4z11aSh1w9wk6vo1_400.gif "Boss entering an ass" %}
 
-更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 OnlyFans](https://OnlyFans.com/kong0107) 。
+更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 Fansly](https://fans.ly/kong0107) 。
 尺寸變化請參閱[陰莖鍛鍊法](/posts/2009/12/penis/)。
 
 # 翻模商品
@@ -59,4 +59,4 @@ restricted: true
 說到底，屌與性慾仍然是我的一部分，所謂的「我」並不會脫離它們存在。
 {% endfbpost %}
 
-更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 OnlyFans](https://OnlyFans.com/kong0107) 。
+更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 Fansly](https://fans.ly/kong0107) 。

@@ -40,11 +40,11 @@ og:
 
 
 # 邀約
-約炮請參閱[關於老大](boss.html)和[徵求性愛自拍夥伴](film.html)。
+約炮請先參閱[關於老大](boss.html)；
 其他邀約（包含演講、採訪、展演、家教）亦請把握前述「聯絡原則」，直接說明意欲邀約的人、事、時、地，以及交通費和酬勞額度（無酬活動請直接明言）。
-我平常在台北，住台電大樓附近，時間則可在[我的 Google 日曆][calendar]確認。
+平常在台北和新店活動，時間則可在[我的 Google 日曆][calendar]確認（顯示「可安排」表示還可以安排，沒有資料的地方則表示還不想安排）。
 
-[calendar]: https://calendar.google.com/calendar/embed?showTitle=0&showPrint=0&showCalendars=0&wkst=1&bgcolor=%23FFFFFF&src=kong0107%40gmail.com&color=%23182C57&src=3r2hn5ehbnk4edhvi6hf4s1roc%40group.calendar.google.com&color=%23865A5A&src=fu16p7sjkfmrh14tace21cu5mo%40group.calendar.google.com&color=%235F6B02&src=jpur0m1uajoq75jolq28vrfgcg%40group.calendar.google.com&color=%23125A12&ctz=Asia%2FTaipei
+[calendar]: https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FTaipei&mode=WEEK&showTz=0&showCalendars=0&showTabs=1&showPrint=0&showDate=1&showNav=1&showTitle=1&src=N3BjNjNhMjJ0YWs5dDhqaDduMWN2NDVmZmNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ
 
 
 # 其他社群平臺與帳號
