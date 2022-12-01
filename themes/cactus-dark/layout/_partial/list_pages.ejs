@@ -1,9 +1,0 @@
-<ul>
-    <% site.pages.each(function(page) { %>
-        <% if (page.order) { %>
-            <li class="inline-block">
-                <a data-page-order="<%= page.order %>" href="<%= url_for(page.path) %>"><%= page.title %></a>
-            </li>
-        <% } %>
-    <% }); %>
-</ul>

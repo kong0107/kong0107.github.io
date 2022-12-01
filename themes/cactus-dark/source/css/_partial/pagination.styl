@@ -1,19 +1,23 @@
-.page-number
-	margin: auto .25em
-
 .pagination
-	text-align: center
-	ul
-		margin: 0
-		padding: 0
-	li
-		list-style-type: none
-	.left
-		text-align: left
-	.right
-		text-align: right
-	i.fa
-		width: 1em
+  display: inline-block
+  margin-top: 2rem
+  width: 100%
+  text-align: center
 
-.pagination:after
-	@extend .clearfix:after
+  .page-number
+    color: $color-text
+    font-size: .8rem
+
+  a
+    padding: 4px 6px
+    border-radius: 5px
+    // background-color: $color-accent-1
+    background-image: none
+    color: $color-text
+    text-decoration: none
+
+  a:hover
+    background-image: none
+
+  a:hover:not(.active)
+    color: $color-accent-2

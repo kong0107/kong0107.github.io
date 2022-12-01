@@ -51,9 +51,13 @@ hexo.extend.tag.register('latex', function(args, content) {
             {target: "_blank", rel: "external", href: href},
             hexoUtil.htmlTag(
                 "img",
-                {src: src, alt: alt}
-            )
-        )
+                {src: src, alt: alt},
+                null,
+                false
+            ),
+            false
+        ),
+        false
     );
 }, {ends: true});
 

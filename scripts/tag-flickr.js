@@ -67,7 +67,8 @@ hexo.extend.tag.register('flickr', function (args, content) {
     return hexoUtil.htmlTag(
         "a",
         {href: href},
-        hexoUtil.htmlTag('img', imgAttr)
+        hexoUtil.htmlTag('img', imgAttr, null, false),
+        false
     );
   }, function (err) {
     hexo.log.error(err);
@@ -84,14 +85,15 @@ hexo.extend.tag.register("flickr_ext", function(args) {
             if(typeof para == "string")
                 html += hexo.render.renderSync({text: para, engine: "markdown"});
         });
-        html = hexoUtil.htmlTag("header", {}, attr.alt) + html;
-        html = hexoUtil.htmlTag("figcaption", {}, html);
+        html = hexoUtil.htmlTag("header", {}, attr.alt, false) + html;
+        html = hexoUtil.htmlTag("figcaption", {}, html, false);
         html = hexoUtil.htmlTag(
             "a",
             { href: attr.info.urls.url[0]._content },
-            hexoUtil.htmlTag("img", imgAttr)
+            hexoUtil.htmlTag("img", imgAttr),
+            false
         ) + html;
-        return hexoUtil.htmlTag("figure", {}, html);
+        return hexoUtil.htmlTag("figure", {}, html, false);
     }, err => hexo.log.error(err));
 }, {async: true});
 

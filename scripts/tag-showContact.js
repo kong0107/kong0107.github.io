@@ -11,14 +11,16 @@ var r18 = require('./r18');
 hexo.extend.tag.register('showContact', function(args) {
     var sls = hexo.locals.get("data").social_links;
 
-    if(args.length && sls.hasOwnProperty(args[0])) {
+    if(args.length && sls?.hasOwnProperty(args[0])) {
         var id = args[0];
         return hexoUtil.htmlTag("a",
             Object.assign(makeAttr(sls[id]), {"class": "icon"}),
             hexoUtil.htmlTag("i",
                 {"class": "brand-icon-" + id},
-                (args.length > 1) ? args[1] : sls[id].account
-            )
+                (args.length > 1) ? args[1] : sls[id].account,
+                false
+            ),
+            false
         );
     }
 
@@ -27,12 +29,12 @@ hexo.extend.tag.register('showContact', function(args) {
     for(var id in sls) {
         var attr = makeAttr(sls[id]);
         tbody += "<tr>"
-            + "<td class=\"ta-right\">" + hexoUtil.htmlTag("a", {name: id}, sls[id].site) + "</td>"
-            + "<td>" + hexoUtil.htmlTag("a", attr, sls[id].account) + "</td>"
+            + "<td class=\"ta-right\">" + hexoUtil.htmlTag("a", {name: id}, sls[id].site, false) + "</td>"
+            + "<td>" + hexoUtil.htmlTag("a", attr, sls[id].account, false) + "</td>"
         + "</tr>";
     }
     return '<table><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table>';
-});
+}, {async: true});
 
 function makeAttr(sl) {
     return sl.restricted

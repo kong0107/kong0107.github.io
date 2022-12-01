@@ -18,14 +18,14 @@ hexo.extend.tag.register('tweet', function(args, content) {
   content = hexoUtil.htmlTag(
     "blockquote",
     {"class": "twitter-tweet"},
-    hexoUtil.htmlTag("p", content) + hexoUtil.htmlTag("a", {href: url}, '&mdash; ' + author)
+    hexoUtil.htmlTag("p", {}, content, false) + hexoUtil.htmlTag("a", {href: url}, '&mdash; ' + author, false)
   );
   const script = hexoUtil.htmlTag(
     "script", {
       "async": true,
       "src": "https://platform.twitter.com/widgets.js",
       "charset": "utf-8"
-    }
+    }, null, false
   );
 
   return hexoUtil.htmlTag("div", {}, content + script);

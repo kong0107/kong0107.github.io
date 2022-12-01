@@ -1,7 +1,3 @@
-header
-  .posttitle
-    color: #e07b42
-
 article
   header
     .posttitle
@@ -10,121 +6,129 @@ article
       text-transform: none
       font-size: 1.5em
       line-height: 1.25
-      font-weight: 700
+
     .meta
       margin-top: 0
       margin-bottom: 1rem
+
     .meta *
-      color: $color-light
-      font-size: 0.85rem
+      color: $color-accent-3
+      font-size: .85rem
+
     .author
       text-transform: uppercase
-      letter-spacing: 0.01em
+      letter-spacing: .01em
       font-weight: 700
-      display: none
+
     .postdate
       display: inline
+
   .content
-    h1,
-    .h1
-      border-top: 1px solid #444
     h2:before
-      content: "#"
-      color: #666
       position: absolute
-      left: -1rem
       top: -4px
+      left: -1rem
+      color: $color-accent-1
+      content: "#"
+      font-weight: bold
       font-size: 1.2rem
-      font-weight: normal
-    img, video
-        max-width: 100%
-        height: auto
-        display: block
-        margin: auto
+
+    img
+    video
+      display: block
+      margin: auto
+      max-width: 100%
+      height: auto
+
     /* http://webdesignerwall.com/tutorials/css-elastic-videos */
     .video-container
-        position: relative
-        padding-top: (9 / 16 * 100)% // 16:9 ratio
-        height: 0
-        overflow: hidden
-        iframe, object, embed
-            position: absolute
-            top: 0
-            left: 0
-            width: 100%
-            height: 100%
-            margin-top: 0
-    blockquote
-        background: inherit;
-        color: #ccffb6dd
-        border-left: 0px solid #ccc;
-        margin: 0.5rem
-        padding: 0.5em 10px
-        quotes: "\201C""\201D""\2018""\2019"
-        p
-          margin: 0 0 0.5rem 0
-        &:before
-            color: #ccffb6;
-            content: "\201C";
-            font-size: 2em;
-            line-height: 0.1em;
-            margin-right: 0.25em;
-            vertical-align: -0.4em
-        footer
-            color: #666
-            font-size: 11px
-            margin-top: 0.5rem
-            text-align: right
-            a
-              color: #666
-              background-image: linear-gradient(transparent, transparent 5px, #666 5px, #666)
-            a:hover
-              color: #999
-              background-image: linear-gradient(transparent, transparent 4px, #999 4px, #999)
-            cite
-                &:before
-                    content: "—"
-                    padding: 0 0.5em
-    .pullquote
-        text-align: left
-        width: 45%
-        margin: 0
-        &.left
-            margin-left: 0.5em
-            margin-right: 1em
-        &.right
-            margin-right: 0.5em
-            margin-left: 1em
-    .caption
-        color: color-grey
-        display: block
-        font-size: 0.9em
-        margin-top: 0.5em
-        position: relative
-        text-align: center
-    .formula img
-      background-color: #fff
-      padding: .25rem .75rem
-  > footer
-    margin: 2rem 0
-    border-top: 1px dashed #888
+      position: relative
+      overflow: hidden
+      padding-top: (9 / 16 * 100)% // 16:9 ratio
+      height: 0
 
-#content > footer
-  margin-top: 2rem
+      iframe, object, embed
+        position: absolute
+        top: 0
+        left: 0
+        margin-top: 0
+        width: 100%
+        height: 100%
+
+    blockquote
+      margin: 1rem 10px
+      padding: .5em 10px
+      background: inherit
+      color: $color-quote
+      quotes: "\201C" "\201D" "\2018" "\2019"
+      font-weight: bold
+
+      p
+        margin: 0
+
+      &:before
+        margin-right: .25em
+        color: $color-quote
+        content: "\201C"
+        vertical-align: -.4em
+        font-size: 2em
+        line-height: .1em
+
+      footer
+        margin: line-height 0
+        color: $color-meta
+        font-size: 12px
+
+        a
+          background-image: linear-gradient(transparent, transparent 5px, $color-meta 5px, $color-meta)
+          color: $color-meta
+
+        a:hover
+          background-image: linear-gradient(transparent, transparent 4px, lighten($color-meta, 20%) 4px, lighten($color-meta, 20%))
+          color: lighten($color-meta, 20%)
+
+        cite
+          &:before
+            padding: 0 .5em
+            content: "—"
+
+    .pullquote
+      margin: 0
+      width: 45%
+      text-align: left
+
+      &.left
+        margin-right: 1em
+        margin-left: .5em
+
+      &.right
+        margin-right: .5em
+        margin-left: 1em
+
+    .caption
+      position: relative
+      display: block
+      margin-top: .5em
+      color: $color-meta
+      text-align: center
+      font-size: .9em
 
 .posttitle
-    text-transform: none
-    font-size: 125%
-    line-height: 1.25
+  text-transform: none
+  font-size: 1.5em
+  line-height: 1.25
 
 .article-tag
   .tag-link
     &:before
       content: "#"
+    underline(10px, $color-link)
+
+.article-category
+  .category-link
+    underline(10px, $color-link)
 
 @media (min-width: 480px)
-  .article-tag
-      display: inline
-      &:before
-        content: "|"
-
+  .article-tag,
+  .article-category
+    display: inline

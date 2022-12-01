@@ -1,20 +1,23 @@
-<header>
-  <div class="right"><a href="<%- url_for("archives.html") %>">依標籤或時間瀏覽</a></div>
-  <%
-    var archive_title = "";
-    if(is_tag()) archive_title += "標籤為「" + page.tag + "」的";
-    if(is_category()) archive_title += "分類為「" + page.category + "」的";
-    if(is_year()) archive_title += page.year + "年";
-    if(is_month()) archive_title += page.month + "月";
-
-    if(archive_title) archive_title += "文集";
-    else archive_title = "所有文章列表";
-  %>
-  <h1 class="posttitle"><%= archive_title %></h1>
-</header>
-
-<%- partial('_partial/list_posts', {posts: page.posts.sort('date', 'desc')}) %>
-<%- partial('_partial/pagination') %>
-
-<hr>
-<%- partial('_partial/search') %>
+<div id="archive">
+  <ul class="post-list">
+    <% var year = 0 %>
+    <% var change = false %>
+    <% var field_sort = theme.archive.sort_updated ? 'updated' : 'date' %>
+    <% page.posts.sort(field_sort, 'desc').each(function(post) { %>
+      <% var itemYear = date(post[field_sort], 'YYYY') - 0 %>
+      <% change = year !== itemYear %>
+      <% year = change ? itemYear : year %>
+      <% if (change) { %>
+        <li class="post-year"><h2><%= year %></h2></li>
+      <% } %>
+      <li class="post-item">
+        <%- partial('_partial/post/date', { post: post, class_name: 'meta' }) %>
+        <div>
+          <div><%- partial('_partial/post/title', { post: post, index: true, class_name: '' }) %></div>
+          <div><%- partial('_partial/post/tag', { page: post, index: true, class_name: '' }) %></div>
+        </div>
+      </li>
+    <% }); %>
+  </ul>
+  <%- partial('_partial/pagination') %>
+</div>

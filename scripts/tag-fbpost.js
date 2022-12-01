@@ -16,25 +16,25 @@ hexo.extend.tag.register('fbpost', function(args, content) {
   var date = args.length > 2 ? args[2] : null;
 
   var footer = author
-    ? hexoUtil.htmlTag("a", {href: link, rel: "author"}, author)
-    : hexoUtil.htmlTag("a", {href: link}, link)
+    ? hexoUtil.htmlTag("a", {href: link, rel: "author"}, author, false)
+    : hexoUtil.htmlTag("a", {href: link}, link, false)
   ;
 
   if(date) footer += hexoUtil.htmlTag("time", {datetime: date}, date);
 
-  footer = hexoUtil.htmlTag("address", {}, footer);
-  footer = hexoUtil.htmlTag("footer", {}, footer);
+  footer = hexoUtil.htmlTag("address", {}, footer, false);
+  footer = hexoUtil.htmlTag("footer", {}, footer, false);
 
   var result = hexo.render.renderSync({text: content, engine: 'markdown'});
   result = hexoUtil.htmlTag("blockquote", {
     "class": "fb-xfbml-parse-ignore",
     "cite": link
-  }, result + footer);
+  }, result + footer, false);
   result = hexoUtil.htmlTag("div", {
     "class": "fb-post",
     "data-href": link,
     "data-show-text": true
-  }, result);
+  }, result, false);
 
   return result;
 

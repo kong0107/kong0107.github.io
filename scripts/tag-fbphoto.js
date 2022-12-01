@@ -10,15 +10,24 @@ var hexoUtil = require('hexo-util');
 */
 hexo.extend.tag.register('fbphoto', function(args) {
     var link = args[0];
-    return hexoUtil.htmlTag("div", {
-        "class": "fb-post",
-        "data-href": link,
-        "data-show-text": "false"
-    }, hexoUtil.htmlTag("blockquote", {
-        "cite": link,
-        "class": "fb-xfbml-parse-ignore"
-    }, hexoUtil.htmlTag("a", {
-        "rel": "external",
-        "href": link
-    }, link)));
+    // return hexoUtil.htmlTag('a', {href: link}, link);
+    return hexoUtil.htmlTag(
+        "div", {
+            "class": "fb-post",
+            "data-href": link,
+            "data-show-text": "false"
+        },
+        hexoUtil.htmlTag(
+            "blockquote", {
+                "cite": link,
+                "class": "fb-xfbml-parse-ignore"
+            },
+            hexoUtil.htmlTag(
+                "a", {
+                    "rel": "external",
+                    "href": link
+                }, link, false
+            ), false
+        ), false
+    );
 });

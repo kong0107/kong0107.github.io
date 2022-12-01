@@ -1,9 +1,9 @@
 <% if (page.photos && page.photos.length) { %>
 <div class="article-gallery">
     <% page.photos.forEach(function(photo) { %>
-        <% if(photo.indexOf("/") != -1) photo = url_for(photo); %>
-        <a class="gallery-item" href="<%- photo %>" rel="gallery_<%= page._id %>">
-            <img src="<%- photo %>" itemprop="image" />
+        <% if(photo.startsWith('/')) photo = url_for(photo); %>
+        <a class="gallery-item" href="<%- photo %>">
+            <img alt="gallery_<%= page._id %>" src="<%- photo %>" itemprop="image">
         </a>
     <% }) %>
 </div>

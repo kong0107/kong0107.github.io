@@ -1,89 +1,60 @@
 <head>
+    <!-- so meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <%
-        /**
-         * 確認頁面標題。
-         */
-        var archive_title = "";
-        if(is_tag()) archive_title += "標籤為「" + page.tag + "」的";
-        if(is_category()) archive_title += "分類為「" + page.category + "」的";
-        if(is_year()) archive_title += page.year + "年";
-        if(is_month()) archive_title += page.month + "月";
-
-        if(archive_title || is_archive())
-            page.title = archive_title + "文集";
-
-        /**
-         * 準備 og:image
-         *
-         * @see {@link https://developers.facebook.com/docs/sharing/best-practices#images}
-         */
-        var images = [];
-        if(page.content && !page.restricted && page.layout != "porn") {
-            if(page.photos && Array.isArray(page.photos))
-                images = images.concat(page.photos);
-
-            var re = /<img[^\>]+src="([^"]+)"/g;
-            var match;
-            while(match = re.exec(page.content))
-                images.push(match[1]);
-        }
-        if(theme.miscellaneous.open_graph.image) images.push(theme.miscellaneous.open_graph.image);
-        if(theme.customize.gravatar.email) images.push(gravatar(theme.customize.gravatar.email, 200));
-
-        /**
-         * 設定 ogp
-         * 先「複製」主題中的設定值，然後再看要不要覆寫之。
-         *
-         * 有點奇怪。依照 open_graph() 的程式碼，似乎是會自動分析頁面內容並把 <img > 加進 og:image 的啊？但似乎卻沒有？
-         * 另外，看來是不方便支援 og:image:width 這些了
-         * @see {@link https://github.com/hexojs/hexo/blob/master/lib/plugins/helper/open_graph.js}
-         */
-        var ogo = Object.assign({}, theme.miscellaneous.open_graph,  {
-            title: page.title || config.title,
-            type: is_home() ? "website" : "article",
-            url: url,
-            image: images
-        });
-
-        /// 允許在各檔案的 front-matter 設定 ogp 。
-        if(page.og) for(var p in page.og) ogo[p] = page.og[p];
-
-        /// 如果是限制級的，就覆寫 og:description 。
-        if(page.restricted || page.layout == "porn") ogo.description = "本頁面包含客觀上足以刺激或滿足性慾，而令一般人感覺不堪呈現於眾或不能忍受而排拒之猥褻資訊，有害兒童及少年身心發展。";
-    %>
-    <%- open_graph(ogo) %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <%- open_graph({
+        image:          thumbnail(page),
+        fb_app_id:      theme.open_graph.fb_app_id,
+        fb_admins:      theme.open_graph.fb_admins,
+        twitter_id:     theme.open_graph.twitter_id,
+        google_plus:    theme.open_graph.google_plus,
+    }) %>
     <%- meta(page) %>
-    <% if (theme.customize.favicon) { %>
-        <% if (theme.customize.favicon.desktop) { %>
-          <% if (theme.customize.gravatar.email && theme.customize.favicon.desktop.gravatar) { %>
-              <link rel="shortcut icon" href="<%= gravatar(theme.customize.gravatar.email, 16) %>">
+    <% if (theme.favicon) { %>
+      <% if (theme.favicon.desktop) { %>
+        <% if (theme.gravatar && (theme.gravatar.email || theme.gravatar.hash) && theme.favicon.desktop.gravatar) { %>
+          <% if (theme.gravatar.email) { %>
+            <link rel="shortcut icon" href="<%= gravatar(theme.gravatar.email, 48) %>">
           <% } else { %>
-              <link rel="shortcut icon" href="<%= url_for(theme.customize.favicon.desktop.url) %>">
+            <link rel="shortcut icon" href="https://www.gravatar.com/avatar/<%= theme.gravatar.hash %>?s=48">
           <% } %>
+        <% } else { %>
+          <link rel="shortcut icon" href="<%= url_for(theme.favicon.desktop.url) %>">
         <% } %>
-        <% if (theme.customize.favicon.android) { %>
-          <% if (theme.customize.gravatar.email && theme.customize.favicon.android.gravatar) { %>
-            <link rel="icon" type="image/png" href="<%= gravatar(theme.customize.gravatar.email, 192) %>" sizes="192x192">
+      <% } %>
+      <% if (theme.favicon.android) { %>
+        <% if (theme.gravatar && (theme.gravatar.email || theme.gravatar.hash) && theme.favicon.android.gravatar) { %>
+          <% if (theme.gravatar.email) { %>
+            <link rel="icon" type="image/png" href="<%= gravatar(theme.gravatar.email, 192) %>" sizes="192x192">
           <% } else { %>
-            <link rel="icon" type="image/png" href="<%= url_for(theme.customize.favicon.android.url) %>" sizes="192x192">
+            <link rel="icon" type="image/png" href="https://www.gravatar.com/avatar/<%= theme.gravatar.hash %>?s=192">
           <% } %>
+        <% } else { %>
+          <link rel="icon" type="image/png" href="<%= url_for(theme.favicon.android.url) %>" sizes="192x192">
         <% } %>
-        <% if (theme.customize.favicon.apple) { %>
-          <% if (theme.customize.gravatar.email && theme.customize.favicon.apple.gravatar) { %>
-            <link rel="apple-touch-icon" sizes="180x180" href="<%= gravatar(theme.customize.gravatar.email, 180) %>">
+      <% } %>
+      <% if (theme.favicon.apple) { %>
+        <% if (theme.gravatar && (theme.gravatar.email || theme.gravatar.hash) && theme.favicon.apple.gravatar) { %>
+          <% if (theme.gravatar.email) { %>
+            <link rel="apple-touch-icon" sizes="180x180" href="<%= gravatar(theme.gravatar.email, 180) %>">
           <% } else { %>
-            <link rel="apple-touch-icon" sizes="180x180" href="<%= url_for(theme.customize.favicon.apple.url) %>">
+            <link rel="apple-touch-icon" size="180x180" href="https://www.gravatar.com/avatar/<%= theme.gravatar.hash %>?s=180">
           <% } %>
+        <% } else { %>
+          <link rel="apple-touch-icon" sizes="180x180" href="<%= url_for(theme.favicon.apple.url) %>">
         <% } %>
+      <% } %>
     <% } %>
     <!-- title -->
-    <title><%= page.title ? ((page.id ? (page.id + " ") : "") + page.title + " - " + config.title) : (config.title + "：" + config.subtitle) %></title>
+    <title><%= page_title() %></title>
     <!-- styles -->
     <%- css('css/style') %>
+    <!-- persian styles -->
+    <% if (theme.direction && theme.direction === 'rtl') { %>
+      <%- css('css/rtl') %>
+    <% } %>
     <!-- rss -->
     <% if (theme.rss === '' && config.feed && config.feed.path) { %>
       <% theme.rss = config.feed.path %>
@@ -91,16 +62,16 @@
     <% if (theme.rss) { %>
       <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml" />
     <% } %>
-
-    <!-- Google Analytics -->
-    <% if (theme.plugins.google_analytics){ %>
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-        ga('create', '<%= theme.plugins.google_analytics %>', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <% } %>
+	<!-- mathjax -->
+	<% if (theme.mathjax.enabled) {%>
+		<script type="text/x-mathjax-config">
+		  MathJax.Hub.Config({
+			tex2jax: {
+			  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			  inlineMath: [['$','$']]
+			}
+		  });
+		</script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	<% } %>
 </head>

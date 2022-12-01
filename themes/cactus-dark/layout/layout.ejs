@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html lang="<%=page.lang%>">
+<html<%= config.language ? " lang=" + config.language.substring(0, 2) : ""%>>
 <%- partial('_partial/head') %>
-<body>
-    <div id="fb-root"></div>
-    <%- partial('_partial/post/actions_desktop') %>
-    <div id="content" class="content index width mx-auto px2 my3">
+<body class="max-width mx-auto px3 <%- theme.direction -%>">
+    <% if (is_post()) { %>
+      <%- partial('_partial/post/actions_desktop') %>
+    <% } %>
+    <div class="content index py4">
         <%- partial('_partial/header') %>
-        <!--%- partial('_partial/debug') %-->
         <%- body %>
+        <% if (is_post()) { %>
+          <%- partial('_partial/post/actions_mobile') %>
+        <% } %>
+        <%- partial('_partial/footer') %>
     </div>
-    <%- partial('_partial/post/actions_mobile') %>
-    <%- partial('_partial/footer') %>
+    <%- partial('_partial/styles') %>
+    <%- partial('_partial/scripts') %>
 </body>
 </html>
-<%- partial('_partial/styles') %>
-<%- partial('_partial/scripts') %>

@@ -1,13 +1,9 @@
-
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
-  </header>
-  <div class="content" itemprop="articleBody">
-    <h1>找不到網頁</h1>
-    <%- page.content %>
-  </div>
-  <footer>
-    <%- partial('_partial/search') %>
-  </footer>
+    <%- partial('_partial/post/gallery') %>
+    <div class="content" itemprop="articleBody">
+        <% if (theme.error_404.enabled && theme.error_404.title && theme.error_404.description ) { %>
+            <h1><%= theme.error_404.title %></h1>
+            <p><%= theme.error_404.description %></p>
+        <% } %>
+    </div>
 </article>

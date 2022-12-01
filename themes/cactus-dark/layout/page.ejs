@@ -1,43 +1,46 @@
-<% if (page.order) { %>
-    <%- partial('_partial/list_pages') %>
+<% if(page.restricted) { %>
+  <%- partial('_partial/restricted') %>
 <% } %>
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
-    <div class="meta">
-		<% if (page.updated) { %>
-			<div class="postdate right">
-				更新：<time datetime="<%= date_xml(page.updated) %>" itemprop="dateModified"><%= date(page.updated, config.date_format) %></time>
-			</div>
-		<% } %>
-	</div>
-  </header>
-  <% if(page.restricted) { %>
-    <%- partial('_partial/restricted') %>
-  <% } %>
-  <div class="content <%= page.restricted ? "restricted" : "" %>" itemprop="articleBody">
-    <%- partial('_partial/post/gallery') %>
-    <%- page.content %>
+  <%- partial('_partial/post/gallery') %>
+  <div class="content <%= page.restricted ? 'restricted' : '' %>" itemprop="articleBody">
+      <% if (page.search || page.type === "search") { %>
+        <%- partial('_partial/search') %>
+      <% } else if (page.type === "tags") { %>
+          <div id="tag-cloud">
+            <div class="tag-cloud-title">
+                <% var visibleTags = 0 %>
+                <% site.tags.each(function(tag){ %>
+                  <% if (tag.length) { %>
+                    <% visibleTags += 1 %>
+                  <% } %>
+                <% }) %>
+                <%- _p('counter.tag_cloud', visibleTags) %>
+            </div>
+            <div class="tag-cloud-tags">
+              <%- tagcloud({min_font: 12, max_font: 30, amount: 300}) %>
+            </div>
+          </div>
+        <% } else if (page.type === 'categories') { %>
+          <div id="categories">
+            <div class="category-list-title">
+                <% var visibleCategories = 0 %>
+                <% site.categories.each(function(cat){ %>
+                  <% if (cat.length) { %>
+                    <% visibleCategories += 1 %>
+                  <% } %>
+                <% }) %>
+                <%- _p('counter.categories', visibleCategories) %>
+            </div>
+            <div class="category-list">
+              <%- list_categories() %>
+            </div>
+          </div>
+        <% } else { %>
+          <%- page.content %>
+        <% } %>
   </div>
-    <footer>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </footer>
 </article>
-<footer class="<%= page.restricted ? "restricted" : "" %>">
+<footer class="<%= page.restricted ? 'restricted' : '' %>">
   <%- partial('_partial/comments') %>
 </footer>

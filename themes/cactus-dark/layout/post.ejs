@@ -1,51 +1,49 @@
-
 <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
   <header>
     <%- partial('_partial/post/title', { post: page, index: false, class_name: 'posttitle' }) %>
     <div class="meta">
       <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name"><% if (page.author) { %><%- page.author %><% } else { %><%- config.title %><% } %></span>
+        <span itemprop="name"><% if (page.author) { %><%- page.author %><% } else { %><%- config.author %><% } %></span>
       </span>
       <%- partial('_partial/post/date', { post: page, class_name: 'postdate' }) %>
+      <%- partial('_partial/post/category') %>
       <%- partial('_partial/post/tag') %>
     </div>
   </header>
   <% if(page.restricted) { %>
     <%- partial('_partial/restricted') %>
   <% } %>
-  <div class="content <%= page.restricted ? "restricted" : "" %>" itemprop="articleBody">
-    <%- partial('_partial/post/gallery') %>
+  <%- partial('_partial/post/gallery') %>
+  <div class="content <%= page.restricted ? 'restricted' : '' %>" itemprop="articleBody">
     <%- page.content %>
   </div>
-    <footer>
-        <% if(page.related) { %>
-            <div>
-                相關連結：
-                <ul>
-                    <% page.related.forEach(function(target) { %>
-                        <li><a href="<%= url_for(target.url) %>"><%= target.title %></a></li>
-                    <% }); %>
-                </ul>
-            </div>
-        <% } %>
-        <% if(page.from) { %>
-            <div>
-                本文最初發表於：
-                <cite><a target="_blank" rel="external" href="<%= page.from %>"><%= page.from %></a></cite>
-            </div>
-        <% } %>
-        <% if(page.repost) { %>
-            <div>
-                本文其他張貼處：
-                <ul>
-                    <% page.repost.forEach(function(url) { %>
-                        <li><a target="_blank" rel="external" href="<%= url %>"><%= url %></a></li>
-                    <% }); %>
-                </ul>
-            </div>
-        <% } %>
-    </footer>
+  <footer>
+    <% if(page.related) { %>
+      <div>
+          相關連結：
+          <ul>
+              <% page.related.forEach(function(target) { %>
+                  <li><a href="<%= url_for(target.url) %>"><%= target.title %></a></li>
+              <% }); %>
+          </ul>
+      </div>
+    <% } %>
+    <% if(page.from) { %>
+      <div>
+        本文最初發表於：
+        <cite><a target="_blank" rel="external" href="<%= page.from %>"><%= page.from %></a></cite>
+      </div>
+    <% } %>
+    <% if(page.repost) { %>
+      <div>
+        本文其他張貼處：
+        <ul>
+          <% page.repost.forEach(function(url) { %>
+            <li><a target="_blank" rel="external" href="<%= url %>"><%= url %></a></li>
+          <% }); %>
+        </ul>
+      </div>
+    <% } %>
+  </footer>
 </article>
-<footer class="<%= page.restricted ? "restricted" : "" %>">
-  <%- partial('_partial/comments') %>
-</footer>
+<%- partial('_partial/comments') %>

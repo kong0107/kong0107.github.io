@@ -1,27 +1,28 @@
-.tag-count,
-.tag-list-count,
-.archive-count,
-.archive-list-count,
-.category-count,
-.category-list-count
-    font-size: smaller
-    margin-left: .2em
+#archive
+  .post-year
+    list-style-type: none
 
-.tag-count:before,
-.tag-list-count:before,
-.archive-count:before,
-.archive-list-count:before,
-.category-count:before,
-.category-list-count:before
-    content: "("
+  .post-list
+    padding: 0
 
-.tag-count:after,
-.tag-list-count:after,
-.archive-count:after,
-.archive-list-count:after,
-.category-count:after,
-.category-list-count:after
-    content: ")"
+    .post-item
+      margin-bottom: 1rem
+      margin-left: 0
+      list-style-type: none
 
-.tag-link
-    display: inline-block
+      .meta
+        display: block
+        margin-right: 16px
+        min-width: 100px
+        color: $color-meta
+        font-size: 14px
+
+  @media (min-width: 480px)
+    .post-list
+      .post-item
+        display: flex
+        margin-bottom: 5px
+        margin-left: 1rem
+
+        .meta
+          text-align: left
