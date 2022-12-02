@@ -10,7 +10,6 @@ var hexoUtil = require('hexo-util');
 */
 hexo.extend.tag.register('fbphoto', function(args) {
     var link = args[0];
-    // return hexoUtil.htmlTag('a', {href: link}, link);
     return hexoUtil.htmlTag(
         "div", {
             "class": "fb-post",

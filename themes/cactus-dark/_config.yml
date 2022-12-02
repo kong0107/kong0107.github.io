@@ -14,10 +14,10 @@ direction: ltr
 # navigation menu. Optionally, you can add translations for the 'Key' in
 # languages/*.yml
 nav:
-  about: /about/
+  about: /about.html
   articles: /archives/
   projects: https://fans.ly/kong0107
-  donate: /donate/
+  donate: /donate.html
 
 
 # Links to your social media accounts.
@@ -155,7 +155,7 @@ mathjax:
 
 # Fill in your Disqus Comments Shortname to enable Disqus comments.
 disqus:
-  enabled: true
+  enabled: false
   shortname: kong0107
 
 # Fill in your Utterances data to enable Utterances comments

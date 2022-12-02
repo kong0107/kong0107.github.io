@@ -147,6 +147,21 @@
   </script>
 <% } %>
 
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
 <!-- restricted -->
 <script>
   $(document).ready(function(){
