@@ -1,0 +1,9 @@
+Sitemap: https://kong0107.github.io/sitemap.xml
+
+User-agent: *
+Disallow: /css/
+Disallow: /js/
+Disallow: /lib/
+Disallow: /css/
+Disallow: /css/
+Disallow: /css/
