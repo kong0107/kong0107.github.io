@@ -97,7 +97,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: cactus-dark
+theme: cactus
 
 # Misc
 flickr_api_key: 277d0f86dde5045a6ac439a2e3686089
