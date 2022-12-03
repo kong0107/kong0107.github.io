@@ -190,8 +190,8 @@
     });
 
     $(".restricted-auto-hide-button").click(function() {
-      document.cookie = 'restricted-auto-show=1; max-age=1';
-      setTimeout(() => location.reload(), 1250);
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
     });
 
     $(".restricted-remember").click(function() {
