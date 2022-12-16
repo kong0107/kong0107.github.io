@@ -155,8 +155,8 @@ mathjax:
 
 # Fill in your Disqus Comments Shortname to enable Disqus comments.
 disqus:
-  enabled: false
-  shortname: kong0107
+  enabled: true
+  shortname: kong-github
 
 # Fill in your Utterances data to enable Utterances comments
 utterances:
