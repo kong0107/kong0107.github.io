@@ -14,7 +14,7 @@
 <meta property="og:description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題maria_communitygithub。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10.6.9,">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-11-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-03T14:27:27.666Z">
+<meta property="article:modified_time" content="2022-12-16T16:39:08.509Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="程式">
 <meta property="article:tag" content="PHP">
@@ -250,7 +250,8 @@
 
 
 <h4 id="附論：-SNI"><a href="#附論：-SNI" class="headerlink" title="附論： SNI"></a>附論： SNI</h4><p>以前 https 是沒法支援多張憑證的，這是因為「驗證證書」是在「確認域名」之前。（依照協定，必須先建立 TCP 連線，然後 TLS 握手，接著才是 HTTP 協定）<br>在此技術之前，應對的做法是在一份證書裡面塞好幾個域名（最多20個<sup id="fnref:gca"><a href="#fn:gca" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[政府機關網站導入HTTPS安全連線暨多網域憑證說明會 - 國家發展委員會 107年3月](https://gca.nat.gov.tw/download/training_201803.pdf)">gca</span></a></sup>）。</p>
-<p>但後來發展出 Server Name Indication 技術，瀏覽器可以在驗證證書的階段就講清楚自己是要連哪個域名，這樣伺服器就也知道要回覆哪一張證書。<br>不過，此技術也有缺點<sup id="fnref:lichi_chen"><a href="#fn:lichi_chen" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Server Name Indication (SNI) 原理簡介](https://lichi-chen.medium.com/f85e075e1d75)">lichi_chen</span></a></sup>：</p>
+<p>但後來發展出 Server Name Indication 技術，瀏覽器可以在驗證證書的階段就講清楚自己是要連哪個域名，這樣伺服器就也知道要回覆哪一張證書。<br>不過，此技術也有缺點<sup id="fnref:lichi_chen"><a href="#fn:lichi_chen" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Server Name Indication (SNI) 原理簡介](https://lichi-chen.medium.com/f85e075e1d75)
+">lichi_chen</span></a></sup>：</p>
 <blockquote>
 <p>TLS handshake 做完之後才會加密，這等於說你要訪問哪個站其實是可以被中間的網路節點看到的。<br>因為 SNI 露在外面，有些國家網路政策可以利用這個資訊，在網路中間網路節點作怪，故意不給你訪問某些網站。</p>
 </blockquote>
@@ -282,11 +283,11 @@
 </ul>
 <p>詳參官網 <a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/programs/httpd.html">httpd - Apache Hypertext Transfer Protocol Server - Apache HTTP Server Version 2.4</a>  。</p>
 <p>如果有什麼不對勁的，請開啟 <code>&lt;apache_dir&gt;/logs/error.log</code> 查看。</p>
-<h2 id="OpenSSL-版本問題"><a href="#OpenSSL-版本問題" class="headerlink" title="OpenSSL 版本問題"></a>OpenSSL 版本問題</h2><p>最前面提到 PHP 8.1 請搭配用 VS16 編譯的 Apache ； PHP 8.2 的話才可能可已用 VS17 編譯的版本。<br>其實關鍵似乎不是 VS 的版本，而其實是 OpenSSL 的版本。</p>
+<h2 id="OpenSSL-版本問題"><a href="#OpenSSL-版本問題" class="headerlink" title="OpenSSL 版本問題"></a>OpenSSL 版本問題</h2><p>最前面提到 PHP 8.1 請搭配用 VS16 編譯的 Apache ； PHP 8.2 的話才可能可已用 VS17 編譯的版本。<br>其實關鍵似乎不是 VS 的版本，而是 OpenSSL 的版本。</p>
 <p>總之，如果版本不對的話， Apache 是可以啟動，但並不會成功載入 OpenSSL 及 cURL 。在 <code>&lt;apache_dir&gt;/logs/error.log</code> 會出現：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHP Warning:  PHP Startup: Unable to load dynamic library &#x27;curl&#x27; in Unknown on line 0</span><br><span class="line">PHP Warning:  PHP Startup: Unable to load dynamic library &#x27;openssl&#x27; in Unknown on line 0</span><br></pre></td></tr></table></figure>
 
-<p>經折騰兩天後似乎是找到原因了。<a target="_blank" rel="noopener" href="https://www.php.net/manual/en/openssl.installation.php#86578">mtudor 於2008年時寫道</a>：</p>
+<p>折騰兩天後似乎是找到原因了。<a target="_blank" rel="noopener" href="https://www.php.net/manual/en/openssl.installation.php#86578">mtudor 於2008年時寫道</a>：</p>
 <blockquote>
 <p>When any application attempts to use a dll file in windows, the system searches for this file using the following order:<br>    1. The directory from which the application loaded.<br>    2. The <code>windows\system32</code> directory.<br>    3. The <code>windows\system</code> directory.<br>    4. The <code>windows</code> directory.<br>    5. The current directory.<br>    6. The directories that are listed in the <code>PATH</code> environment variable.</p>
 </blockquote>
@@ -335,6 +336,12 @@
     
   </footer>
 </article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
 
 
 
@@ -490,6 +497,15 @@
 
 <!-- Disqus Comments -->
 
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
 <!-- utterances Comments -->
 
 
@@ -536,8 +552,8 @@
     });
 
     $(".restricted-auto-hide-button").click(function() {
-      document.cookie = 'restricted-auto-show=1; max-age=1';
-      setTimeout(() => location.reload(), 1250);
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
     });
 
     $(".restricted-remember").click(function() {

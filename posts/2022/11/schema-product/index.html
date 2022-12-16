@@ -14,7 +14,7 @@
 <meta property="og:description" content="Product 的子類中，有幾個容易相混淆的：  IndividualProduct ProductCollection ProductGroup ProductModel SomeProducts  後面會追加一起談 category 和 keywords 。 在說明他們有甚麼不同之前，要先釐清一個觀念：上面說的 Product 和其「子類別」，是從物件導向的類別繼承角度來看，而不是產品分類的角">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-11-17T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-02T09:27:40.065Z">
+<meta property="article:modified_time" content="2022-12-16T16:38:58.240Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="程式">
 <meta property="article:tag" content="Microdata">
@@ -274,6 +274,12 @@
   </footer>
 </article>
 
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
 
 
 	<div class="fb-like"
@@ -428,6 +434,15 @@
 
 <!-- Disqus Comments -->
 
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
 <!-- utterances Comments -->
 
 
@@ -474,8 +489,8 @@
     });
 
     $(".restricted-auto-hide-button").click(function() {
-      document.cookie = 'restricted-auto-show=1; max-age=1';
-      setTimeout(() => location.reload(), 1250);
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
     });
 
     $(".restricted-remember").click(function() {

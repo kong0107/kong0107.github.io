@@ -183,7 +183,7 @@
     
         
         <a class="gallery-item" target="_blank" rel="noopener" href="http://i.imgur.com/DT4hjBT.png">
-            <img alt="gallery_clb8149fk002wu0pw29m7bdzr" src="http://i.imgur.com/DT4hjBT.png" itemprop="image">
+            <img alt="gallery_clbqqkhwb002wkopwcayw3fmr" src="http://i.imgur.com/DT4hjBT.png" itemprop="image">
         </a>
     
 </div>
@@ -211,6 +211,12 @@
     
   </footer>
 </article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
 
 
 
@@ -374,6 +380,15 @@
 
 <!-- Disqus Comments -->
 
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
 <!-- utterances Comments -->
 
 
@@ -420,8 +435,8 @@
     });
 
     $(".restricted-auto-hide-button").click(function() {
-      document.cookie = 'restricted-auto-show=1; max-age=1';
-      setTimeout(() => location.reload(), 1250);
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
     });
 
     $(".restricted-remember").click(function() {
