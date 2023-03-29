@@ -14,7 +14,7 @@
 <meta property="og:description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題maria_communitygithub。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10.6.9,">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-11-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2022-12-16T16:39:08.509Z">
+<meta property="article:modified_time" content="2023-03-22T14:50:22.863Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="程式">
 <meta property="article:tag" content="PHP">
@@ -77,6 +77,8 @@
     <br/>
     <span id="actions">
       <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2023/03/ai-anxiety/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" aria-label="下一篇" href="/posts/2022/11/oauth-php-google/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -221,9 +223,10 @@
 
 
 <h3 id="幾個小設定"><a href="#幾個小設定" class="headerlink" title="幾個小設定"></a>幾個小設定</h3><ul>
-<li><code>DocumentRoot</code> 和其後的第一個 <code>&lt;Directory /&gt;</code> 改成自己文件放置的位置。</li>
+<li><code>DocumentRoot</code> 和其後的第一個 <code>&lt;Directory&gt;</code> 改成自己文件放置的位置。</li>
 <li><code>&lt;IfModule dir_module&gt;</code> 裡面的 <code>DirectoryIndex</code> 加上 <code>index.php</code> 。（空格分隔，順序有差）</li>
 <li>如果需要虛擬主機，記得啟用 <code>Include conf/extra/httpd-vhosts.conf</code> ，當然也要自己再去編輯該檔案。</li>
+<li>如果會有 <code>.htaccess</code> 檔案的配置，記得要在需要的 <code>&lt;Directory&gt;</code> 區塊裡編輯 <code>AllowOverride</code> 。</li>
 </ul>
 <h3 id="httpS"><a href="#httpS" class="headerlink" title="httpS"></a>httpS</h3><p>這裡說的是允許瀏覽器對你的伺服器進行 https 連線。<br>若是要讓伺服器對其他電腦進行 https 連線，則是 PHP 那邊的設定。</p>
 <p>要支援 https 的知識門檻比較高，沒有接觸過的話會很花時間，趕時間的話建議先跳過。<br>要讓 Apache 支援 https ，有四個部分要弄：</p>
@@ -414,7 +417,7 @@
     Copyright &copy;
     
     
-    2008-2022
+    2008-2023
     阿空
   </div>
   <div class="footer-right">
