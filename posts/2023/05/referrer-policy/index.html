@@ -14,11 +14,12 @@
 <meta property="og:description" content="請求檔頭的 Referer意義：傳送請求時，請求方同時告知伺服器，此連線是從哪一個頁面過來的。值：網址。  屬於 request header ，例如瀏覽器對伺服器發送的請求。 當年編寫協定時就拼錯了，但後來將錯就錯。因此在協定中， referrer 反而會是錯誤的。 內容是網址字串，但不會包含 #fragment 和帳密（username:password） 因為是由請求端發送的，因此不可信任。">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2023-05-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-02T14:58:35.089Z">
+<meta property="article:modified_time" content="2023-05-03T06:10:48.264Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="程式">
 <meta property="article:tag" content="HTTP">
 <meta property="article:tag" content="HTML">
+<meta property="article:tag" content="ReferrerPolicy">
 <meta name="twitter:card" content="summary">
     
     
@@ -171,7 +172,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/HTML/" rel="tag">HTML</a>, <a class="tag-link-link" href="/tags/HTTP/" rel="tag">HTTP</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+        <a class="tag-link-link" href="/tags/HTML/" rel="tag">HTML</a>, <a class="tag-link-link" href="/tags/HTTP/" rel="tag">HTTP</a>, <a class="tag-link-link" href="/tags/ReferrerPolicy/" rel="tag">ReferrerPolicy</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
     </div>
 
 
@@ -188,20 +189,109 @@
 <li>內容是網址字串，但不會包含 <code>#fragment</code> 和帳密（<code>username:password</code>）</li>
 <li>因為是由請求端發送的，因此不可信任。</li>
 </ul>
-<h1 id="回應檔頭的-Referrer-Policy"><a href="#回應檔頭的-Referrer-Policy" class="headerlink" title="回應檔頭的 Referrer-Policy"></a>回應檔頭的 Referrer-Policy</h1><p>意義：指示瀏覽器端在「下一次」的請求應如何處理 <code>Referer</code> 。當然瀏覽器不一定會照做。<br>值：關鍵字之一：<br>    - no-referrer<br>    - no-referrer-when-downgrade （2020前，瀏覽器預設當作有此值）<br>    - origin<br>    - origin-when-cross-origin<br>    - same-origin<br>    - strict-origin<br>    - strict-origin-when-cross-origin （2020後，瀏覽器預設當作有此值）<br>    - unsafe-url</p>
+<h1 id="回應檔頭的-Referrer-Policy"><a href="#回應檔頭的-Referrer-Policy" class="headerlink" title="回應檔頭的 Referrer-Policy"></a>回應檔頭的 Referrer-Policy</h1><p>意義：指示瀏覽器，存取資源時，是否要附上怎樣的 <code>Referer</code> 檔頭。  </p>
 <ul>
 <li>屬於 response header ，例如網頁伺服器傳送給瀏覽器的回應。</li>
 <li>當中的 “referrer” 是正確的英文拼寫。</li>
 <li>有時也用於請求端的程式功能，適用於伺服器回應轉址之類的情形運作。例如 Fetch API 的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#referrerpolicy">Request 建構子選項中即有 <code>referrerPolicy</code></a>。</li>
 <li>可以用逗號分隔多個值，瀏覽器會取用「最後一個」其支援的指示。</li>
-<li>關鍵字中有 <code>origin</code> 的，會回傳根目錄網址（包含域名後的斜線），而與 HTTP 請求檔頭的 <code>Origin</code> 格式略異。</li>
+</ul>
+<p>依「同源時如何處理」、「跨源但協定相同時如何處理」及「跨源且協定降級時如何處理」區分，均有「不給資料」、「只給協定、域名、埠號」、「給完整網址」的可能。</p>
+<p>實際在協定內有命名的組合有（我把它們分為三組）：</p>
+<table>
+<thead>
+<tr>
+<th>Referrer-Policy</th>
+<th>同源時</th>
+<th>跨源但未降級</th>
+<th>跨源且降級</th>
+<th>備註</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>no-referrer</td>
+<td>absent</td>
+<td>absent</td>
+<td>absent</td>
+<td></td>
+</tr>
+<tr>
+<td>no-referrer-when-downgrade</td>
+<td>full</td>
+<td>full</td>
+<td>absent</td>
+<td>2020年前的預設值</td>
+</tr>
+<tr>
+<td>unsafe-url</td>
+<td>full</td>
+<td>full</td>
+<td>full</td>
+<td>不安全，勿用</td>
+</tr>
+<tr>
+<td>–</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>origin</td>
+<td>origin</td>
+<td>origin</td>
+<td>origin</td>
+<td></td>
+</tr>
+<tr>
+<td>strict-origin</td>
+<td>origin</td>
+<td>origin</td>
+<td>absent</td>
+<td></td>
+</tr>
+<tr>
+<td>–</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>origin-when-cross-origin</td>
+<td>full</td>
+<td>origin</td>
+<td>origin</td>
+<td></td>
+</tr>
+<tr>
+<td>strict-origin-when-cross-origin</td>
+<td>full</td>
+<td>origin</td>
+<td>absent</td>
+<td>2020年後的預設值</td>
+</tr>
+<tr>
+<td>same-origin</td>
+<td>full</td>
+<td>absent</td>
+<td>absent</td>
+<td>適合域名獨立的非公開網站或後台</td>
+</tr>
+</tbody></table>
+<p>上表中：</p>
+<ul>
+<li>降級：表示從 HTTPS 的網站連向 HTTP 的網站，或是前者頁面中請求了後者的資源。  </li>
+<li>absent: 請求檔頭中根本不會有 <code>Referer</code> 。  </li>
+<li>origin: 請求檔頭中會有 <code>Referer</code> ，其值為網站根目錄（包含最後的斜線。這點與其他使用 <code>origin</code>  的情形略異）。</li>
+<li>full: 請求檔中會有 <code>Referer</code> ，包含路徑及 query string （問號開頭），但不包含 fragement （井號開始的那段）。</li>
 </ul>
 <h1 id="HTML-的-referrerpolicy-屬性"><a href="#HTML-的-referrerpolicy-屬性" class="headerlink" title="HTML 的 referrerpolicy 屬性"></a>HTML 的 referrerpolicy 屬性</h1><p>意義：指示瀏覽器端在「下一次」的請求應如何處理 <code>Referer</code> 。（同樣地，瀏覽器不一定會照做）<br>值：與前同。</p>
 <p>有三種設定方式：</p>
 <ol>
 <li>全頁設定：<code>&lt;meta name=&quot;referrer&quot; content=&quot;&#123;directive&#125;&quot; /&gt;</code> 。相當於在 HTTP 回應檔頭中設定 <code>Referrer-Policy</code> 。</li>
-<li>標籤屬性：<code>referrerpolicy=&quot;&#123;directive&#125;&quot;</code> ，亦可用於 <code>&lt;a&gt;</code>, <code>&lt;area&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;link&gt;</code> ，但不可用於 <code>&lt;form&gt;</code> 。</li>
-<li>標籤屬性：<code>rel=&quot;noreferrer&quot;</code> ，可用於 <code>&lt;a&gt;</code>, <code>&lt;area&gt;</code>, <code>&lt;form&gt;</code>，但不能用於 <code>&lt;link&gt;</code> 和 <code>&lt;script&gt;</code> 。</li>
+<li>標籤屬性：<code>referrerpolicy=&quot;&#123;directive&#125;&quot;</code> ，可用於 <code>&lt;a&gt;</code>, <code>&lt;area&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;link&gt;</code> ，但不可用於 <code>&lt;form&gt;</code> 。</li>
+<li>標籤屬性：<code>rel=&quot;noreferrer&quot;</code> ，僅可用於 <code>&lt;a&gt;</code>, <code>&lt;area&gt;</code>, <code>&lt;form&gt;</code>。</li>
 </ol>
 <p>前二方法的可選值與 <code>Referrer-Policy</code> 相同，但僅能有一值（不支援多值）；</p>
 <blockquote>
@@ -218,6 +308,11 @@
 <hr>
 <h1 id="個人意見"><a href="#個人意見" class="headerlink" title="個人意見"></a>個人意見</h1><ul>
 <li>網站後台以及「網址本身即有敏感資料」的頁面，若與訪客可見的頁面不同源，則設定 <code>Referrer-Policy: same-origin</code> 。</li>
+<li>很可能會為了 SEO 而想要設定 <code>Referrer-Policy: unsafe-url</code> ，但這樣的缺點是：<ol>
+<li>若來源網站有設計「知道網址的人即可瀏覽」，那麼目標網站就也會知道該來源網址。（此風險於 <code>no-referrer-when-downgrade</code> 亦同）</li>
+<li>HTTP 協定是不加密的，網路的中間節點（例如很容易有資安問題的免費 WIFI 站）都會知道使用者的前一頁瀏覽了啥。</li>
+</ol>
+</li>
 <li>前端部分，因為 <code>&lt;link&gt;</code> 的 <code>rel</code> 屬性不能設為 <code>noreferrer</code> ，<code>&lt;img&gt;</code> 和 <code>&lt;script&gt;</code> 也根本不能用 <code>rel</code> 屬性，因此 HTML 中統一使用相對通用的 <code>referrerpolicy</code> 屬性較不會混亂。（除非要用於 <code>&lt;form&gt;</code> ）</li>
 </ul>
 <h1 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h1><ul>

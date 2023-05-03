@@ -14,7 +14,7 @@
 <meta property="og:description" content="要引入其他網站的資料時，有時會遇到同源政策 (same-origin policy) 的限制。最常見的就是在設計 A 網站時，想要使用者在瀏覽時引用 B 網站的資料，但是前端卻出現這樣的錯誤：  Access to script at ‘https:&#x2F;&#x2F;bbb.com&#39; from origin ‘https:&#x2F;&#x2F;aaa.com&#39; has been blocked by CORS p">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2023-05-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-02T14:58:04.530Z">
+<meta property="article:modified_time" content="2023-05-03T06:10:02.955Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="程式">
 <meta property="article:tag" content="HTTP">
@@ -107,7 +107,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-%E5%9B%9E%E6%87%89%E6%AA%94%E9%A0%AD%E7%9A%84-Access-Control-Allow"><span class="toc-number">1.</span> <span class="toc-text">HTTP 回應檔頭的 Access-Control-Allow-*</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-%E7%9A%84-crossorigin-%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 的 crossorigin 屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%88%87-referer-%E6%B2%92%E6%9C%89%E9%97%9C%E4%BF%82"><span class="toc-number">2.1.</span> <span class="toc-text">與 referer 沒有關係</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E6%84%8F%E8%A6%8B"><span class="toc-number">3.</span> <span class="toc-text">個人意見</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-%E5%9B%9E%E6%87%89%E6%AA%94%E9%A0%AD%E7%9A%84-Access-Control-Allow"><span class="toc-number">1.</span> <span class="toc-text">HTTP 回應檔頭的 Access-Control-Allow-*</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-%E7%9A%84-crossorigin-%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 的 crossorigin 屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%88%87-referrerpolicy-%E4%B8%8D%E5%A4%AA%E6%9C%89%E9%97%9C%E4%BF%82"><span class="toc-number">2.1.</span> <span class="toc-text">與 referrerpolicy 不太有關係</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E6%84%8F%E8%A6%8B"><span class="toc-number">3.</span> <span class="toc-text">個人意見</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -196,16 +196,63 @@
 
 
 <h1 id="HTML-的-crossorigin-屬性"><a href="#HTML-的-crossorigin-屬性" class="headerlink" title="HTML 的 crossorigin 屬性"></a>HTML 的 crossorigin 屬性</h1><p>意義：<br>在 A 網站的頁面中要引入 B 網站的資源時，瀏覽器會依 A 網站中的此屬性而對 B 網站的請求與回應有不同的措施。<br>此設計同於 <code>fetch()</code> 或 <code>XMLHttpRequest</code> 請求跨源資源時的限制。</p>
+<p>適用標籤：<code>&lt;audio&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;video&gt;</code></p>
 <p>不同的設置情形：</p>
-<ul>
-<li>不設定此屬性：不使用 CORS 請求（請求檔頭沒有 <code>Origin</code> 鍵），回應會被瀏覽器視為不可信任。</li>
-<li>有設定但不給值（只有屬性名存在）：視為設成 <code>anonymous</code></li>
-<li>有設定但沒有給合法的值：視為設成 <code>anonymous</code></li>
-<li>設置為 <code>anonymous</code> ：使用 CORS 請求（請求檔頭會有 <code>Origin</code> 鍵），但不使用驗證資訊。需要伺服器回應的檔頭包含 <code>Access-Control-Allow-Origin</code> 。</li>
-<li>設置為 <code>use-credentials</code> ：使用 CORS 請求，且使用驗證資訊（我還不曉得純 HTML 要怎麼用）。需要伺服器回應的檔頭包和  <code>Access-Control-Allow-Origin</code> 及 <code>Access-Control-Allow-Credentials</code> 。</li>
-</ul>
-<p>總地來說，僅有「不設定」、「設為 <code>use-credentials</code> 」、「其他均視為 <code>anonymous</code>」 三種情形。</p>
-<h2 id="與-referer-沒有關係"><a href="#與-referer-沒有關係" class="headerlink" title="與 referer 沒有關係"></a>與 referer 沒有關係</h2><p>試想在 <code>https://aaa.com/foo.html</code> 的網頁有這樣的 HTML ：</p>
+<table>
+<thead>
+<tr>
+<th>設定值</th>
+<th>請求檔頭的 <code>Origin</code></th>
+<th>回應檔頭的 <code>Access-Control-Allow-Origin</code></th>
+<th>回應檔頭的 <code>Access-Control-Allow-Credentials</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不設定</td>
+<td>不存在</td>
+<td>隨便</td>
+<td>可不存在</td>
+</tr>
+<tr>
+<td><code>anonymous</code> 、留白或其他</td>
+<td>存在</td>
+<td>須為 <code>*</code> 或 <strong>源名</strong></td>
+<td>可不存在</td>
+</tr>
+<tr>
+<td><code>use-credentials</code></td>
+<td>存在</td>
+<td>須為源名</td>
+<td><code>true</code></td>
+</tr>
+</tbody></table>
+<p>總地來說，僅有「不設定」、「設為 <code>use-credentials</code> 」、「其他均視為 <code>anonymous</code>」 三種情形。<br>其中「源名」指前述A網站的網址中，從同訊協定（https）到網域名稱結尾，但不包含路徑開頭的斜線的部分。</p>
+<h2 id="與-referrerpolicy-不太有關係"><a href="#與-referrerpolicy-不太有關係" class="headerlink" title="與 referrerpolicy 不太有關係"></a>與 referrerpolicy 不太有關係</h2><p>這二者均是在指示瀏覽器，在存取後續（或當前網頁的內嵌）資源時，是否要調整 HTTP 檔頭。<br><code>crossorigin</code> 並會指示瀏覽器，對伺服器的回應進行檢查。  </p>
+<table>
+<thead>
+<tr>
+<th>差別</th>
+<th>referrerpolicy</th>
+<th>crossorigin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>適用的存取對象</td>
+<td>所有資源</td>
+<td>跨源資源</td>
+</tr>
+<tr>
+<td>影響的請求檔頭</td>
+<td><code>Referer</code></td>
+<td><code>Origin</code></td>
+</tr>
+<tr>
+<td>檢查回應檔頭</td>
+<td>不檢查</td>
+<td>可能檢查 <code>Access-Control-Allow-Origin</code> 和 <code>Access-Control-Allow-Credentials</code></td>
+</tr>
+</tbody></table>
+<p>試想在 <code>https://aaa.com/foo.html</code> 的網頁有這樣的 HTML ：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://bbb.com/x.js&quot;</span> <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>由於有設定 <code>crossorigin</code> 屬性，瀏覽器會使用 CORS 連線。<br>這個意思是，請求檔頭會有一個 <code>Origin: https://aaa.com</code>  。</p>
@@ -274,7 +321,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-%E5%9B%9E%E6%87%89%E6%AA%94%E9%A0%AD%E7%9A%84-Access-Control-Allow"><span class="toc-number">1.</span> <span class="toc-text">HTTP 回應檔頭的 Access-Control-Allow-*</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-%E7%9A%84-crossorigin-%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 的 crossorigin 屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%88%87-referer-%E6%B2%92%E6%9C%89%E9%97%9C%E4%BF%82"><span class="toc-number">2.1.</span> <span class="toc-text">與 referer 沒有關係</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E6%84%8F%E8%A6%8B"><span class="toc-number">3.</span> <span class="toc-text">個人意見</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-%E5%9B%9E%E6%87%89%E6%AA%94%E9%A0%AD%E7%9A%84-Access-Control-Allow"><span class="toc-number">1.</span> <span class="toc-text">HTTP 回應檔頭的 Access-Control-Allow-*</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-%E7%9A%84-crossorigin-%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 的 crossorigin 屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%88%87-referrerpolicy-%E4%B8%8D%E5%A4%AA%E6%9C%89%E9%97%9C%E4%BF%82"><span class="toc-number">2.1.</span> <span class="toc-text">與 referrerpolicy 不太有關係</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E6%84%8F%E8%A6%8B"><span class="toc-number">3.</span> <span class="toc-text">個人意見</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
