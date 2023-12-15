@@ -1,6 +1,6 @@
 ---
 title: 將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell
-tags: [筆記, Windows, OpenSSH, PowerShell]
+tags: [Windows, OpenSSH, PowerShell]
 ---
 
 本篇為筆記，較無目標性。
