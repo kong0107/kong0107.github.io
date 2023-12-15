@@ -19,7 +19,7 @@ tags: [程式, HTML, 無障礙]
 這些發展都有其歷史因素，涉及 HTTP 協定原理、開發週期等，不過本篇想要討論的是：
 
 
-# 哪個比較適合實作成無障礙網頁。
+# 哪個比較適合實作成無障礙網頁
 
 我在意的有下列情形：
 1. 當外部資源（無論是圖片或字型，甚至可能是 CSS）失效或被禁用時，網頁上的資料是否仍好理解。
@@ -36,9 +36,7 @@ tags: [程式, HTML, 無障礙]
 * 不使用 `<img>` ，也不在 HTML 中直接設定顯示的文字，即前述方法 3, 4, 8 。以下用 FontAwesome 以方法 8 實作。
 
 
-# 試作
-
-## 基礎
+# 簡單的開始
 
 以最簡單的，一個圖示按鈕為例。
 
@@ -71,7 +69,7 @@ Font Class 模式（以 FontAwesome 為例）
 </button>
 ```
 
-## 視障友善
+# 視障友善
 
 若是不「看見」圖片（可能是使用者看不到，也可能是圖片或字型連結失效），則無從得知這個連結是要做啥。
 因此 WCAG 要求 `<img>` 原則上必須有 `alt` 屬性；其他元件的情形，則可以用 `aria-label` 屬性。MDN 說：
@@ -83,7 +81,7 @@ Font Class 模式（以 FontAwesome 為例）
 -- [aria-label - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
 
 
-### 使用 `<img>` 的情形
+使用 `<img>` 的情形：
 
 ```html
 <button type="button">
@@ -103,7 +101,7 @@ Font Class 模式（以 FontAwesome 為例）
 對於螢幕閱讀軟體，可辨識出那是一個按鈕，裡面的元件說明是「加入購物車」（源自 `<img>` 的 `alt` 屬性）， `<span>` 則會被略過不讀。
 
 
-### 使用 font class 模式的情形
+使用 font class 模式的情形：
 
 如果只是要「滑鼠移過去有字」和「螢幕閱讀軟體看得到字，且不會重複讀出」，可以這樣：
 
@@ -115,7 +113,7 @@ Font Class 模式（以 FontAwesome 為例）
 ```
 
 
-## 複製友善
+# 複製友善
 
 前述的程式碼應該已能符合一些無障礙規範和需求，不過我自己還蠻希望網頁的內容被複製後，再被貼到其他軟體—例如純文字的對話框—時，也可以直接有不錯的內容。
 
@@ -125,15 +123,18 @@ Font Class 模式（以 FontAwesome 為例）
 
 ```html
 <button type="button">
-    <img title="加入購物車" src="cart-add.svg" aria-hidden="true">
+    <img alt="" title="加入購物車" src="cart-add.svg">
     <span class="hidden-md">加入購物車</span>
 </button>
 <style>
     @media (max-width: 767.98px) {
         .hidden-md {
-            position: fixed;
-            left: -100vw;
-            transform: translateX(-100%);
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
         }
     }
 </style>
@@ -141,11 +142,14 @@ Font Class 模式（以 FontAwesome 為例）
 
 其中 `.hidden-md` 的樣式也有不同的寫法，可參考 Bootstrap 5 的 `.visually-hidden` ，或是 Font Awesome 的 `.sr-only` 。須注意： `display: none` 和 `visibility: hidden` 均會使螢幕閱讀軟體也忽視該元件；而元件若是無須顯示（例如寬度或高度為0），則複製時也會被忽略。
 
-前面以 Font Class 模式使用 iconfont 的程式碼，在螢幕較窄而文字被隱藏時，複製起來也不會有文字。故宜用 CSS 來達成「看不到但複製得到」的效果：
+依照 [W3C 的指引](https://www.w3.org/WAI/tutorials/images/decorative/)，`alt` 屬性仍然必須指定，只是可以為空字串。
+
+而以 Font Class 模式使用 iconfont 的情形，在前面的程式碼中，在螢幕較窄而文字被隱藏時，複製起來也不會有文字。
+故宜用 CSS 來達成「看不到但複製得到」的效果：
 
 ```html
 <button type="button">
-    <i title="加入購物車" class="fa-solid fa-cart-plus" aria-hidden="true"></i>
+    <i aria-hidden="true" title="加入購物車" class="fa-solid fa-cart-plus"></i>
     <span class="hidden-md">加入購物車</span>
 </button>
 ```
