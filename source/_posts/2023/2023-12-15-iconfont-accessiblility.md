@@ -19,7 +19,7 @@ tags: [程式, HTML, 無障礙]
 這些發展都有其歷史因素，涉及 HTTP 協定原理、開發週期等，不過本篇想要討論的是：
 
 
-# 哪個比較適合實作成無障礙網頁
+# 無障礙網頁
 
 我在意的有下列情形：
 1. 當外部資源（無論是圖片或字型，甚至可能是 CSS）失效或被禁用時，網頁上的資料是否仍好理解。
@@ -48,7 +48,7 @@ tags: [程式, HTML, 無障礙]
 </a>
 ```
 
-Font Class 模式（以 FontAwesome 為例）
+iconfont 的 Font Class 模式（以 FontAwesome 為例）
 ```html
 <a href="#">
     <i class="fa-solid fa-cart-plus"></i>
@@ -69,19 +69,35 @@ Font Class 模式（以 FontAwesome 為例）
 </button>
 ```
 
+# 對不熟圖示的人友善
+
+有時為了版面需求，只想留下圖示，或是「螢幕不夠寬時，只顯示圖示」，但這樣看不懂圖示的人就會不知道怎麼操作。
+這時我們可以善用 `title` 屬性的「滑鼠移上時會顯示小提示框給健全者看」的表現：
+
+
+```html
+<button type="button">
+    <img title="加入購物車" src="cart-add.svg">
+    <span class="d-none d-md-inline">加入購物車</span>
+</button>
+```
+
+```html
+<button type="button">
+    <i title="加入購物車" class="fa-solid fa-cart-plus"></i>
+    <span class="d-none d-md-inline">加入購物車</span>
+</button>
+```
+
+這邊使用了 Bootstrap 的 `d-none` 和 `d-md-inline` 實作「螢幕夠寬時才會顯示」的效果。
+
+
 # 視障友善
 
 若是不「看見」圖片（可能是使用者看不到，也可能是圖片或字型連結失效），則無從得知這個連結是要做啥。
-因此 WCAG 要求 `<img>` 原則上必須有 `alt` 屬性；其他元件的情形，則可以用 `aria-label` 屬性。MDN 說：
+因此 WCAG 要求 `<img>` 原則上必須有 `alt` 屬性；其他元件的情形，則可以用 `aria-label` 屬性。
 
-> By default, a button's accessible name is the content between the opening and closing `<button>` tags, an image's accessible name is the content of its `alt` attribute, and a form input's accessible name is the content of the associated `<label>` element.
->
-> If none of these options are available, or if the default accessible name is not appropriate, use the aria-label attribute to define the accessible name of an element.
-
--- [aria-label - Accessibility | MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label)
-
-
-使用 `<img>` 的情形：
+遺憾的是，螢幕閱讀軟體不會讀出 `title` ，因此同樣的東西我們要設置多次。（也可以設定為不同的值，但除非狀況複雜不然一般不建議那樣。）
 
 ```html
 <button type="button">
@@ -90,11 +106,8 @@ Font Class 模式（以 FontAwesome 為例）
 </button>
 ```
 
-各屬性說明如下：
-* `alt`: 圖片無法顯示時，會改為顯示此處的純文字給健全者看；螢幕閱讀軟體也會念出這個。
-* `title`: 滑鼠移到元件上方時，會出現小小的提示框，顯示此處設定的文字給健全者看。但螢幕閱讀軟體不會念出這個。
-* `class="d-none d-md-inline"`: Bootstrap 的響應式設定，元件僅會在螢幕寬度達到 `md` (768px) 以上時顯示。
-* `aria-hidden`: 指示螢幕閱讀軟體忽視此元件。
+其中 `alt` 除了會被螢幕閱讀軟體念出；當圖片顯示錯誤時，瀏覽器也會改顯示此處設定的文字給健全者看。
+而 `aria-hidden` 則會指示螢幕閱讀軟體忽視此元件，這樣就不會重複念出「加入購物車」了。
 
 如此：
 對於健全者的視覺，看到的是按鈕中有一張圖片，滑鼠移上後可以看到文字說明；
@@ -103,8 +116,6 @@ Font Class 模式（以 FontAwesome 為例）
 
 使用 font class 模式的情形：
 
-如果只是要「滑鼠移過去有字」和「螢幕閱讀軟體看得到字，且不會重複讀出」，可以這樣：
-
 ```html
 <button type="button" aria-label="加入購物車">
     <i title="加入購物車" class="fa-solid fa-cart-plus" aria-hidden="true"></i>
@@ -112,12 +123,14 @@ Font Class 模式（以 FontAwesome 為例）
 </button>
 ```
 
+這裡在 iconfont 那邊也使用了 `aria-hidden` ，這是因為偽元素（此處是 `i::before` ）的內容在複製貼上時雖然不會被選擇到，但螢幕閱讀軟體卻仍會試著唸出該內容。若不設定 `aria-hidden="true"` 則 Accessibility Tree 在那邊還是有一個亂碼字元（歸屬於 Unicode 的 Private Use Area ）。
+
 
 # 複製友善
 
 前述的程式碼應該已能符合一些無障礙規範和需求，不過我自己還蠻希望網頁的內容被複製後，再被貼到其他軟體—例如純文字的對話框—時，也可以直接有不錯的內容。
 
-但是，前述的 `<img>` 寫法，在貼上為純文字時，會因為 `<img>` 被替換為其 `alt` 屬性內文， `<span>` 的內文也被貼上，而變成「加入購物車加入購物車」這樣重複的文字。
+但是，前述的 `<img>` 寫法，在貼上為純文字時，會因為 `<img>` 被替換為其 `alt` 屬性內文， `<span>` 的內文在螢幕夠寬時也會被貼上，而變成「加入購物車加入購物車」這樣重複的文字。
 
 想了許久，最後覺得棄用 `alt` ，並且把 `<span>` 改成「看不到時仍複製得到」較好：
 
@@ -140,7 +153,8 @@ Font Class 模式（以 FontAwesome 為例）
 </style>
 ```
 
-其中 `.hidden-md` 的樣式也有不同的寫法，可參考 Bootstrap 5 的 `.visually-hidden` ，或是 Font Awesome 的 `.sr-only` 。須注意： `display: none` 和 `visibility: hidden` 均會使螢幕閱讀軟體也忽視該元件；而元件若是無須顯示（例如寬度或高度為0），則複製時也會被忽略。
+其中 `.hidden-md` 早期的寫法是 `left: -9999px` ，不過晚近是上面的寫法，或另參考 Bootstrap 5 的 `.visually-hidden` ，還有 Font Awesome 的 `.sr-only` 。
+（注意： `display: none` 和 `visibility: hidden` 均會使螢幕閱讀軟體也忽視該元件；而元件若是無須顯示（例如寬度或高度為0），則複製時也會被忽略。）
 
 依照 [W3C 的指引](https://www.w3.org/WAI/tutorials/images/decorative/)，`alt` 屬性仍然必須指定，只是可以為空字串。
 
@@ -156,6 +170,19 @@ Font Class 模式（以 FontAwesome 為例）
 
 如此，便能同時符合「視覺上OK」、「螢幕閱讀軟體也OK」、「複製後貼到別的地方也OK」三種需求。且兩種寫法也相似，在 iconfont 和 `<img>` 混用的情形也較好維護。
 
+
+# 結語
+
+其實我個人很不喜歡用 `visually-hidden` 和 `sr-only` 那類方式來「在視覺上隱藏該元件，但螢幕閱讀軟體可支援」的作法，我認為根本就應該有一個 CSS 屬性要可以做到這件事。
+不過在目前的技術和瀏覽器支援下，前述的似乎是主流做法了。
+
+至於各家 iconfont 的發展多元，我總覺得這應該是 Unicode 制定要解決的問題—就像 emoji 一樣。
+以齒輪為例， Unicode 的 `U+2699` 即是齒輪 `⚙` 。那麼各 iconfont 的齒輪圖示就應該要在實作時套用此 unicode 編碼，而不是在 private use area 自訂，造成使用者變更字型時的顯示問題。
+現在這種「各家 iconfont 自己訂出字元編碼和圖示的對應」的情形，讓我想到大五碼時代我國的不同政府機關也是對許多字做了不同編碼，造成後來整頓的許多困難。（unicode 都不 uni 了啊）
+但 Unicode 的符號選擇一直都不夠齊全。例如，直到現在裡面甚至沒有交通錐的符號，但是卻有獨角獸的符號 (🦄，U+1F984)。
+
+附帶提一下，除了「複製友善」之外，其實也有「列印友善」的設計需求，早期是設計另外的頁面，後來則通常是在 CSS 用 `@media print {}` 實作。
+（但說到底…我目前從來沒看過複製友善的討論文章…該不會只有我在意吧 QQ ）
 
 # 參考
 
