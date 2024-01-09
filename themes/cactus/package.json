@@ -39,9 +39,9 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "*",
-    "clipboard": "^2.0.4",
-    "jquery": "^3.3.1",
-    "justifiedGallery": "^3.6.5",
+    "clipboard": "^2.0.7",
+    "jquery": "^3.6.0",
+    "justifiedGallery": "^3.8.1",
     "vazir-font": "*"
   }
 }
