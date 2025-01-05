@@ -5,7 +5,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <%- open_graph({
-        image:          thumbnail(page),
+        image:          page.restricted ? '/images/og_image.png' : thumbnail(page),
         fb_app_id:      theme.open_graph.fb_app_id,
         fb_admins:      theme.open_graph.fb_admins,
         twitter_id:     theme.open_graph.twitter_id,
