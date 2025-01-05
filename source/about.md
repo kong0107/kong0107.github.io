@@ -7,12 +7,12 @@ og:
 ---
 # 身體
 
-174.79.38.1
+174.79.39.1
 
-{% flickr 26529567273 %}
+![](https://farm8.staticflickr.com/7432/26529567273_09436b999f.jpg)
 
 其他相片請參閱 {% showContact flickr %} ，
-自拍影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 Fansly](https://fans.ly/kong0107) 。
+自拍影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 FansOne](https://fansone.co/kong0107) 。
 
 1986 年生，摩羯座， A 型。
 

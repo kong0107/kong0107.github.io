@@ -16,7 +16,7 @@ direction: ltr
 nav:
   about: /about.html
   articles: /archives/
-  projects: https://fans.ly/kong0107
+  projects: https://fansone.co/kong0107
   donate: /donate.html
 
 
@@ -25,13 +25,10 @@ nav:
 # (see https://fontawesome.com/icons?d=gallery&s=brands);
 # only 'mail' is an exception.
 social_links:
-  fansly: https://fans.ly/kong0107
   onlyfans: https://onlyfans.com/kong0107
   twitter: https://twitter.com/kong0107
-  instagram: https://instagram.com/kong0107
-  facebook: https://facebook.com/kong.sex2/
+  instagram: https://instagram.com/kong.sex2
   plurk: https://plurk.com/kong0107
-  line: https://line.me/R/ti/p/%40oak0336q
   github: https://github.com/kong0107
 
 # Customize the overview with displaying a tagcloud on the index page.

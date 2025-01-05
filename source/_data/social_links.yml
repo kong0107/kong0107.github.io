@@ -1,26 +1,12 @@
-facebook:
-  site: Facebook
-  account: kong.sex
-  url: https://facebook.com/kong.sex
-  logo: true
-line:
-  site: LINE@
-  account: "@oak0336q"
-  url: https://line.me/R/ti/p/%40oak0336q
 instagram:
   site: Instagram
   account: kong0107
-  url: https://www.instagram.com/kong0107/
+  url: https://www.instagram.com/kong.sex2/
   logo: true
 plurk:
   site: Plurk
   account: kong0107
   url: https://www.plurk.com/kong0107
-  logo: true
-soundcloud:
-  site: SoundCloud
-  account: kong-kao
-  url: https://soundcloud.com/kong-kao
   logo: true
 github:
   site: GitHub
@@ -31,26 +17,9 @@ twitter:
   account: kong0107
   url: https://twitter.com/kong0107
   logo: true
-flickr:
-  site: Flickr
-  account: kong0107
-  restricted: true
-  url: https://www.flickr.com/photos/kong0107/
-  logo: true
-cam4:
-  site: Cam4
-  account: voieneuf
-  restricted: true
-  url: https://www.cam4.com/voieneuf
 onlyfans:
   site: OnlyFans
   account: kong0107
   restricted: true
   url: https://onlyfans.com/kong0107
-  logo: true
-fansly:
-  site: Fansly
-  account: kong0107
-  restricted: true
-  url: https://fans.ly/kong0107
   logo: true

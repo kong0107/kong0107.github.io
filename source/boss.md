@@ -13,19 +13,18 @@ restricted: true
 長度 17.5 公分；寬度 3.9 公分。
 未割包皮，些微下彎。
 陰毛會修短。
-{% flickr 32832056633 %}
-{% flickr 33605136876 %}
+{% img https://farm3.staticflickr.com/2884/32832056633_85c94eed4b.jpg %}
+{% img https://farm3.staticflickr.com/2894/33605136876_7cbb79132f.jpg %}
 {% img https://68.media.tumblr.com/ef297df8e9f115fbd0cca07306464ccc/tumblr_ono4z11aSh1w9wk6vo1_400.gif "Boss entering an ass" %}
 
-更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 Fansly](https://fans.ly/kong0107) 。
+更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 FansOne](https://fansone.co/kong0107) 。
 尺寸變化請參閱[陰莖鍛鍊法](/posts/2009/12/penis/)。
 
 # 翻模商品
 
 ![dildo thumb](images/dildo/thumb.png)
 
-更多商品資訊請洽[**異物**官方網站](http://yiwu.io/products)，
-也可直接[前往購買頁面](http://www.rakuten.com.tw/shop/yiwu-wproject/product/B001/)。（非台灣本地請另參閱[此說明](http://www.rakuten.com.tw/shop/yiwu-wproject/product/88pizrsj5/)）
+更多商品資訊請洽[**異物**官方網站](https://shop.yiwu.io/collections/dildo)。
 
 ![dildo photo](images/dildo/gallery_1.jpg)
 
@@ -43,8 +42,8 @@ restricted: true
 
 # 跟翻模相比
 
-{% flickr 35298924295 n %}
-{% flickr 35298924575 n %}
+{% img https://farm5.staticflickr.com/4246/35298924295_6055755c02_n.jpg %}
+{% img https://farm5.staticflickr.com/4258/35298924575_875029e510_n.jpg %}
 
 另外參閱[你真的有十七公分嗎？](/posts/2017/06/dildo-size/)
 
@@ -59,4 +58,4 @@ restricted: true
 說到底，屌與性慾仍然是我的一部分，所謂的「我」並不會脫離它們存在。
 {% endfbpost %}
 
-更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 Fansly](https://fans.ly/kong0107) 。
+更多影片請參考 [Twitter](https://twitter.com/kong0107) 或[訂閱 FansOne](https://fansone.co/kong0107) 。
