@@ -12,10 +12,8 @@ og:
 * {% showContact twitter %}
 
 # [贊助](donate.html)
-* [LINE Pay](https://line.me/R/ch/1586237320/?forwardPath=/c2c/transfer&no=25380526043)（需台灣帳號、需以手機操作）
-* [PayPal](https://www.paypal.me/kong0107) （需非台灣帳號，可由信用卡直接扣款）
-* [ECPay](https://payment.ecpay.com.tw/Broadcaster/Donate/3E5DA992590487D44FDB75F5976F365D) （無需帳號，可匿名贊助）
-* [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B) （需帳號，可由信用卡直接扣款）
+* [Ko-fi](https://ko-fi.com/kong0107) （無須任何帳號，可由信用卡扣款；貨幣為美金）
+* [PayPal](https://www.paypal.me/kong0107) （需非台灣帳號，可由信用卡扣款）
 
 
 # 聯絡原則

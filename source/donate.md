@@ -13,13 +13,12 @@ i18n:
 
 如果您喜歡阿空的影片、行動或文章，請點選下方適合的管道贊助我。
 
-# [LINE Pay](https://line.me/R/ch/1586237320/?forwardPath=/c2c/transfer&no=25380526043)
-[![LINE Pay 轉帳代碼](/images/pages/line_pay.jpg)](https://line.me/R/ch/1586237320/?forwardPath=/c2c/transfer&no=25380526043)
-轉帳代碼：[25380526043](https://line.me/R/ch/1586237320/?forwardPath=/c2c/transfer&no=25380526043) ；一卡通帳戶號碼：1504464341
+# [Ko-fi](https://ko-fi.com/kong0107)
+<iframe id='kofiframe' src='https://ko-fi.com/kong0107/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;padding:4px;background:#f9f9f9;' height='712' title='kong0107'></iframe>
 
-* 限台灣 LINE 帳號使用。
-* 無手續費。
-* 其他細節可參考[LINE Pay 一卡通-常見問題](https://www.i-pass.com.tw/IPS/Event/LINEPay-iPASS/faq001.html)
+* 可直接使用信用卡
+* 可每月扣款
+* **金額是美元！**
 
 
 # [PayPal](https://www.paypal.me/kong0107)
@@ -29,15 +28,6 @@ i18n:
 * 需有 PayPal 帳戶，且[不能是台灣帳戶](https://www.paypal.com/tw/webapps/mpp/system-enhancement-faq?locale.x=zh_TW)。
   新帳號不須先儲值，也能直接用信用卡贊助我。
 * 其他細節可參考 [PayPal.Me 常見問題](https://www.paypal.com/paypalme/pages/faqs)
-
-
-# [歐付寶](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
-[![歐付寶](/images/brand_icons/allpay.svg)](https://payment.allpay.com.tw/Broadcaster/Donate/DA990DE1AAFF12B22168A59BCD8F3F2B)
-
-* 不是支付寶。
-* 需帳號，較適合台灣的朋友。
-  新帳號不須先儲值，也能直接用信用卡贊助我。
-* 其他細節可參考[歐付寶客服中心](https://www.opay.tw/service/pay_way_allpay)
 
 
 # Note / 提醒
