@@ -14,7 +14,7 @@
 <meta property="og:description" content="Apache 中可設定紀錄檔的指令 (directive)   名稱 條件篩選 自訂格式    ErrorLog 視 ErrorLogFormat 設定，預設不篩選 用 ErrorLogFormat，若無則為預設格式   TransferLog 無 最後一個未取別名的 LogFormat ，若無則為預設格式   CustomLog env&#x3D;, expr&#x3D; 直接寫，或用 LogFormat 設定的別">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2025-04-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-01T16:14:53.508Z">
+<meta property="article:modified_time" content="2025-05-01T18:46:46.077Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="Apache">
 <meta name="twitter:card" content="summary">
@@ -104,7 +104,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-%E4%B8%AD%E5%8F%AF%E8%A8%AD%E5%AE%9A%E7%B4%80%E9%8C%84%E6%AA%94%E7%9A%84%E6%8C%87%E4%BB%A4-directive"><span class="toc-number">1.</span> <span class="toc-text">Apache 中可設定紀錄檔的指令 (directive)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%8A%E6%95%B8%E5%B0%8D%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">可用的變數對照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8C%E8%AE%8A%E6%95%B8%E7%84%A1%E5%80%BC%E3%80%8D%E6%99%82%E7%9A%84%E6%95%88%E6%9E%9C%E8%88%87%E4%BF%AE%E9%A3%BE%E5%AD%90-modifier"><span class="toc-number">3.</span> <span class="toc-text">「變數無值」時的效果與修飾子 (modifier)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-%E4%B8%AD%E5%8F%AF%E8%A8%AD%E5%AE%9A%E7%B4%80%E9%8C%84%E6%AA%94%E7%9A%84%E6%8C%87%E4%BB%A4-directive"><span class="toc-number">1.</span> <span class="toc-text">Apache 中可設定紀錄檔的指令 (directive)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%8A%E6%95%B8%E5%B0%8D%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">可用的變數對照</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">2.1.</span> <span class="toc-text">注意事項</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8C%E8%AE%8A%E6%95%B8%E7%84%A1%E5%80%BC%E3%80%8D%E6%99%82%E7%9A%84%E6%95%88%E6%9E%9C%E8%88%87%E4%BF%AE%E9%A3%BE%E5%AD%90-modifier"><span class="toc-number">3.</span> <span class="toc-text">「變數無值」時的效果與修飾子 (modifier)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LogFormat-%E7%94%A8%E7%9A%84%E4%BF%AE%E9%A3%BE%E5%AD%90"><span class="toc-number">3.1.</span> <span class="toc-text">LogFormat 用的修飾子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">4.</span> <span class="toc-text">心得</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">4.1.</span> <span class="toc-text">小結</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6%E7%92%B0%E5%A2%83"><span class="toc-number">5.</span> <span class="toc-text">測試環境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -274,7 +274,7 @@
 <td>%F</td>
 <td align="center">v</td>
 <td align="center"></td>
-<td>Source file name and line number of the log call</td>
+<td>呼叫紀錄功能的原始碼檔名和行號</td>
 </tr>
 <tr>
 <td>%h, %{c}h</td>
@@ -286,7 +286,7 @@
 <td>%H</td>
 <td align="center"></td>
 <td align="center">v</td>
-<td>請求的協定</td>
+<td>請求的協定（如 <code>HTTP/2.0</code>）</td>
 </tr>
 <tr>
 <td>%{<em>name</em>}i</td>
@@ -321,7 +321,7 @@
 <tr>
 <td>%m</td>
 <td align="center">觸發此訊息的模組名</td>
-<td align="center">請求方法(GET, POST, …)</td>
+<td align="center">請求方法(如 <code>GET</code>)</td>
 <td>兩邊意義不同</td>
 </tr>
 <tr>
@@ -370,7 +370,7 @@
 <td>%r</td>
 <td align="center"></td>
 <td align="center">v</td>
-<td>請求標頭的第一行（如 <code>POST /path HTTP/1.1</code>）</td>
+<td>請求標頭的第一行（如 <code>POST /path?foo HTTP/1.1</code>），相當於 <code>%m %U%q %H</code></td>
 </tr>
 <tr>
 <td>%R</td>
@@ -421,7 +421,7 @@
 <td>此請求的處理總時，單位預設為秒</td>
 </tr>
 <tr>
-<td>%u</td>
+<td>%u, %&lt;u</td>
 <td align="center"></td>
 <td align="center">v</td>
 <td>認證的使用者名稱</td>
@@ -436,7 +436,7 @@
 <td>%v, %V</td>
 <td align="center">v</td>
 <td align="center">v</td>
-<td>伺服器名稱</td>
+<td>伺服器網域名稱</td>
 </tr>
 <tr>
 <td>%X</td>
@@ -445,22 +445,10 @@
 <td>連線是否被完成或中斷</td>
 </tr>
 <tr>
-<td>%I</td>
+<td>%I, %O, %S</td>
 <td align="center"></td>
 <td align="center">v</td>
-<td>包含標頭的請求位元數。若未啟用 <code>mod_logio</code> 會報錯</td>
-</tr>
-<tr>
-<td>%O</td>
-<td align="center"></td>
-<td align="center">v</td>
-<td>包含標頭的回應位元數。若未啟用 <code>mod_logio</code> 會報錯</td>
-</tr>
-<tr>
-<td>%S</td>
-<td align="center"></td>
-<td align="center">v</td>
-<td>前兩者的加總。若未啟用 <code>mod_logio</code> 會報錯</td>
+<td>包含標頭的請求／回應／加總位元數。若未啟用 <code>mod_logio</code> 會報錯</td>
 </tr>
 <tr>
 <td>%{<em>name</em>}^ti</td>
@@ -493,10 +481,9 @@
 <td>無空格的分隔符</td>
 </tr>
 </tbody></table>
-<p>注意事項：</p>
-<ul>
+<h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><ul>
 <li><code>%I</code>, <code>%O</code>, <code>%S</code> 需要啟用 <code>mod_logio</code> 才能用，否則伺服器會根本不能啟動；<br>相對地，<code>LogFormat</code> 中 <code>%l</code> 雖然依賴 <code>mod_ident</code> ，但就算未啟用後者，也只是造成前者必定轉換為 <code>-</code> 而已。</li>
-<li><code>ErrorLogFormat</code> 要取得比秒更高的精度就只能用 <code>%&#123;u&#125;t</code> 系列；<br><code>%&#123;sec&#125;t</code> 系列只有 <code>LogFormat</code> 支援。</li>
+<li>要取得比秒更高的精度，在 <code>ErrorLogFormat</code> 只能用 <code>%&#123;u&#125;t</code> 系列；在 <code>LogFormat</code> 只能用 <code>%&#123;sec&#125;t</code> 系列。</li>
 </ul>
 <h2 id="「變數無值」時的效果與修飾子-modifier"><a href="#「變數無值」時的效果與修飾子-modifier" class="headerlink" title="「變數無值」時的效果與修飾子 (modifier)"></a>「變數無值」時的效果與修飾子 (modifier)</h2><p>在 <code>LogFormat</code> ，若引用的變數沒有值，則預設會顯示 <code>-</code> ；<br>但在 <code>ErrorLogFormat</code> ，則是會將「往前找到的空格」和「往後找到的空格」之間的東西都拿掉。</p>
 <p>例如：</p>
@@ -553,6 +540,43 @@
 </tr>
 </tbody></table>
 <p>可留意的是 <code>+</code> ，應能做為篩選的依據。<br>（畢竟 <code>ErrorLog</code> 不支援 <code>env=</code> 和 <code>expr=</code> 的篩選方式）</p>
+<h3 id="LogFormat-用的修飾子"><a href="#LogFormat-用的修飾子" class="headerlink" title="LogFormat 用的修飾子"></a><code>LogFormat</code> 用的修飾子</h3><p>主要分兩種：指定回應狀態碼，或是指定是修改前或修改後。</p>
+<table>
+<thead>
+<tr>
+<th>Format String</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%400,501&#123;User-agent&#125;i</code></td>
+<td>僅在 400 和 501 的時候紀錄瀏覽器資訊，其他情形紀錄 <code>-</code></td>
+</tr>
+<tr>
+<td><code>%!200,304,302&#123;Referer&#125;i</code></td>
+<td>在不是那三個狀態碼的情形，紀錄 <code>Referer</code> 標頭</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>The modifiers “&lt;” and “&gt;” can be used for requests that have been internally redirected to choose whether the original or final (respectively) request should be consulted.<br>By default, the <code>%</code> directives <code>%s</code>, <code>%U</code>, <code>%T</code>, <code>%D</code>, and <code>%r</code> look at the <strong>original</strong> request while all others look at the <strong>final</strong> request.<br>So for example,<br><code>%&gt;s</code> can be used to record the final status of the request and<br><code>%&lt;u</code> can be used to record the original authenticated user<br>  on a request that is internally redirected to an unauthenticated resource.</p>
+</blockquote>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p><code>ErrorLogFormat</code> 的「連同前後的非空格字串都一起刪掉」的特性，很適合把紀錄弄成類 JSON 的格式，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ErrorLogFormat &#x27;&#123;time:&quot;%&#123;uc&#125;t&quot;, client:&quot;%a&quot;, message:&quot;%M&quot;&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>這個字串格式在 <code>%a</code> 不存在時，就根本不會輸出 <code>client</code> 屬性。<br>（注意冒號前後均無空格；逗號前無空格、後有空格）</p>
+<p>相對地， <code>LogFormat</code> 則適合 CSV 格式。如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LogFormat &#x27;%&#123;uc&#125;t, %a, %r&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>這在 <code>%a</code> 不存在時，仍能順利將紀錄檔轉換為表格呈現。</p>
+<p>這個設計差別應該是基於 <code>LogFormat</code> 適用的是基於每一個 HTTP 請求－回應機制，所以要記錄的欄位較為一致；<br>相對地， <code>ErrorLogFormat</code> 需要連伺服器啟動、關閉，以及 TCP 連線（而尚未處理 HTTP 請求）期間的問題也能記錄，因此某些欄位在某些時候就是不會存在。</p>
+<h3 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h3><p>我目前的設定是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ErrorLogFormat &#x27;&#123;time:&quot;%&#123;uc&#125;t&quot;, level:&quot;%l&quot;, module:&quot;%m&quot;, error:&quot;%E&quot;, file:&quot;%F&quot;, server:&quot;%V&quot;, client:&quot;%&#123;c&#125;a&quot;, xForwardedFor:&quot;%&#123;X-Forwarded-For&#125;i&quot;, forwarded:&quot;%&#123;Forwarded&#125;i&quot;, request:&quot;%L&quot;, message:&quot;%M&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">CustomLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/access-%y%m%d.log 86400&quot; \</span><br><span class="line">  &quot;%&#123;%y%m%d(%w)%H%M%S&#125;t.%&#123;usec_frac&#125;t+%&gt;D %L %X %&gt;s %b/%O %&#123;Forwarded&#125;i[%&#123;X-Forwarded-For&#125;i,%a] %I %&#123;SSL_PROTOCOL&#125;x %H %m %V%U%q&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="測試環境"><a href="#測試環境" class="headerlink" title="測試環境"></a>測試環境</h2><ul>
+<li>Windows 11 Education 24H2</li>
+<li>Apache 2.4.63 (from Apache Lounge)</li>
+</ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/core.html#errorlogformat">https://httpd.apache.org/docs/current/mod/core.html#errorlogformat</a></li>
 <li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header">https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header</a></li>
@@ -608,7 +632,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-%E4%B8%AD%E5%8F%AF%E8%A8%AD%E5%AE%9A%E7%B4%80%E9%8C%84%E6%AA%94%E7%9A%84%E6%8C%87%E4%BB%A4-directive"><span class="toc-number">1.</span> <span class="toc-text">Apache 中可設定紀錄檔的指令 (directive)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%8A%E6%95%B8%E5%B0%8D%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">可用的變數對照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8C%E8%AE%8A%E6%95%B8%E7%84%A1%E5%80%BC%E3%80%8D%E6%99%82%E7%9A%84%E6%95%88%E6%9E%9C%E8%88%87%E4%BF%AE%E9%A3%BE%E5%AD%90-modifier"><span class="toc-number">3.</span> <span class="toc-text">「變數無值」時的效果與修飾子 (modifier)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-%E4%B8%AD%E5%8F%AF%E8%A8%AD%E5%AE%9A%E7%B4%80%E9%8C%84%E6%AA%94%E7%9A%84%E6%8C%87%E4%BB%A4-directive"><span class="toc-number">1.</span> <span class="toc-text">Apache 中可設定紀錄檔的指令 (directive)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%8A%E6%95%B8%E5%B0%8D%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">可用的變數對照</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">2.1.</span> <span class="toc-text">注意事項</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8C%E8%AE%8A%E6%95%B8%E7%84%A1%E5%80%BC%E3%80%8D%E6%99%82%E7%9A%84%E6%95%88%E6%9E%9C%E8%88%87%E4%BF%AE%E9%A3%BE%E5%AD%90-modifier"><span class="toc-number">3.</span> <span class="toc-text">「變數無值」時的效果與修飾子 (modifier)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LogFormat-%E7%94%A8%E7%9A%84%E4%BF%AE%E9%A3%BE%E5%AD%90"><span class="toc-number">3.1.</span> <span class="toc-text">LogFormat 用的修飾子</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%83%E5%BE%97"><span class="toc-number">4.</span> <span class="toc-text">心得</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">4.1.</span> <span class="toc-text">小結</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%AC%E8%A9%A6%E7%92%B0%E5%A2%83"><span class="toc-number">5.</span> <span class="toc-text">測試環境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">6.</span> <span class="toc-text">參考資料</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
