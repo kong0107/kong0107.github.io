@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Product 的子類中，有幾個容易相混淆的：  IndividualProduct ProductCollection ProductGroup ProductModel SomeProducts  後面會追加一起談 category 和 keywords 。 在說明他們有甚麼不同之前，要先釐清一個觀念：上面說的 Product 和其「子類別」，是從物件導向的類別繼承角度來看，而不是產品分類的角">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Schema.org 的 Product 相關類別">
+<meta property="og:url" content="https://kong0107.github.io/posts/2022/11/schema-product/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="Product 的子類中，有幾個容易相混淆的：  IndividualProduct ProductCollection ProductGroup ProductModel SomeProducts  後面會追加一起談 category 和 keywords 。 在說明他們有甚麼不同之前，要先釐清一個觀念：上面說的 Product 和其「子類別」，是從物件導向的類別繼承角度來看，而不是產品分類的角">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-11-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-16T16:38:58.240Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="Microdata">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Schema.org 的 Product 相關類別</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2022/11/oauth-php-google/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2022/11/microdata/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/schema-product/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/schema-product/&text=Schema.org 的 Product 相關類別"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/schema-product/&is_video=false&description=Schema.org 的 Product 相關類別"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Schema.org 的 Product 相關類別&body=Check out this article: https://kong0107.github.io/posts/2022/11/schema-product/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/schema-product/&name=Schema.org 的 Product 相關類別&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/schema-product/&t=Schema.org 的 Product 相關類別"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IndividualProduct"><span class="toc-number">1.</span> <span class="toc-text">IndividualProduct</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Product"><span class="toc-number">2.</span> <span class="toc-text">Product</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProductGroup"><span class="toc-number">3.</span> <span class="toc-text">ProductGroup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProductModel"><span class="toc-number">4.</span> <span class="toc-text">ProductModel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProductCollection"><span class="toc-number">5.</span> <span class="toc-text">ProductCollection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SomeProducts"><span class="toc-number">6.</span> <span class="toc-text">SomeProducts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Product-category"><span class="toc-number">7.</span> <span class="toc-text">Product.category</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Product-keywords"><span class="toc-number">8.</span> <span class="toc-text">Product.keywords</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A%E8%A6%81%E7%B5%A6-Google-%E7%9C%8B%E7%9A%84%E6%9D%B1%E8%A5%BF%EF%BC%8C%E5%B0%91%E7%94%A8%E9%80%97%E9%BB%9E"><span class="toc-number">9.</span> <span class="toc-text">附論：要給 Google 看的東西，少用逗點</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Schema.org 的 Product 相關類別
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-17T16:00:00.000Z" itemprop="datePublished">2022-11-18</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Microdata/" rel="tag">Microdata</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <p>Product 的子類中，有幾個容易相混淆的：</p>
+<ul>
+<li>IndividualProduct</li>
+<li>ProductCollection</li>
+<li>ProductGroup</li>
+<li>ProductModel</li>
+<li>SomeProducts</li>
+</ul>
+<p>後面會追加一起談 <code>category</code> 和 <code>keywords</code> 。</p>
+<p>在說明他們有甚麼不同之前，要先釐清一個觀念：<br>上面說的 <code>Product</code> 和其「子類別」，是從物件導向的類別繼承角度來看，而不是產品分類的角度。</p>
+<p>下面我們會看到，雖然從 OO 來看， <code>ProductGroup</code> 是 <code>Product</code> 的子類別；<br>但在商品展示資訊上，某個 <code>Product</code> 實體（例如某件衣服的S號尺寸）是隸屬於某個 <code>ProductGroup</code> （該件衣服）之下<br>—這個上下關係就是產品分類的角度，而不是物件導向的角度。</p>
+<h2 id="IndividualProduct"><a href="#IndividualProduct" class="headerlink" title="IndividualProduct"></a>IndividualProduct</h2><p>例如：</p>
+<ul>
+<li>《蒙娜麗莎》真跡</li>
+<li>某地、某房、某戶</li>
+<li>特定一張網卡（有獨特的 MAC 位址）</li>
+<li>特定一輛車（跟車號一起）</li>
+</ul>
+<p>只會有一個，跟其他同類產品有所區別、相互間不可替代的。<br>用物件導向來理解的話即是類別實體，用法律來理解的話即是「特定物」。</p>
+<h2 id="Product"><a href="#Product" class="headerlink" title="Product"></a>Product</h2><p>例如：</p>
+<ul>
+<li>iPhone 14 紫色 256GB</li>
+<li>某大樓裡的每一戶</li>
+<li>百樂0.5按鍵式魔擦筆 粉紅色</li>
+<li>「狗才想你 &#x2F; 汪」T恤 墨綠色 L 號</li>
+</ul>
+<p>特定的產品樣貌，每一個新品之間幾乎完全相同。（仍可能會有序號的差別，如 3C 類）<br>用法律來理解的話即是「種類物」。<br>Google 說到各個 <code>Product</code> 在「詳細資料方面有差異，例如尺寸、顏色、材質、圖案、年齡層，以及性別。」</p>
+<h2 id="ProductGroup"><a href="#ProductGroup" class="headerlink" title="ProductGroup"></a>ProductGroup</h2><p>例如：</p>
+<ul>
+<li>iPhone 14</li>
+<li>百樂0.5按鍵式魔擦筆</li>
+<li>「懶得理你 &#x2F; 喵」T恤</li>
+</ul>
+<p>特別注意這個「不是」套裝商品（例如「一個漢堡和四個雞塊」的套餐）的概念。<br>Google 說到：</p>
+<blockquote>
+<p>如果一件 T 恤有 9 個子類：3 種尺寸 (「小」、「中」、「大」) 和 3 種顏色 (「紅色」、「藍色」、「綠色」)，請將每項子類做為獨立產品提交 (共 9 項不同的產品)，並為每項子類的商品群組 ID 屬性提交相同的值，藉此表示這些子類屬於同一產品。</p>
+</blockquote>
+<p>其中「9 項不同的產品」即是指要有 9 個 <code>Product</code>；「這些子類屬於同一產品」的「同一產品」則是指同一個 <code>ProductGroup</code> 。</p>
+<h2 id="ProductModel"><a href="#ProductModel" class="headerlink" title="ProductModel"></a>ProductModel</h2><p>例如：</p>
+<ul>
+<li>iPhone</li>
+<li>洛克人系列遊戲</li>
+</ul>
+<p>說明文是「商品原型的規格」</p>
+<blockquote>
+<p>A datasheet or vendor specification of a product (in the sense of a prototypical description).</p>
+</blockquote>
+<p>我是打算將之應用為商品分類，而且可以實作樹狀多層結構。</p>
+<h2 id="ProductCollection"><a href="#ProductCollection" class="headerlink" title="ProductCollection"></a>ProductCollection</h2><p>例如：</p>
+<ul>
+<li>可口可樂易開罐 330mL 六瓶裝</li>
+<li>大麥克經典套餐</li>
+<li>PILOT LJU-10UF 0.38mm Juice 果汁筆 12色組</li>
+</ul>
+<p>把原本可以單賣的商品組在一起，可以另外設定賣價和供應情形。</p>
+<p>Google 另外有兩個詞：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324488?hl=zh-Hant">multipack</a> 組合：用於「將多個相同產品包裝成一項商品」的情形，如上例的可口可樂六瓶裝。</li>
+<li><a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324449?hl=zh-Hant&ref_topic=6324338">bundle</a>套裝組合：將一個主要產品搭配其他不同產品，並以單一價格成套出售。</li>
+</ul>
+<h2 id="SomeProducts"><a href="#SomeProducts" class="headerlink" title="SomeProducts"></a>SomeProducts</h2><p>這個我還不太確定，感覺就只是把 <code>Product</code> 多一個庫存量的屬性 <code>inventoryLevel</code> 而已。</p>
+<p>庫存量允許一個數字範圍，不一定要精確值（可用 <a target="_blank" rel="noopener" href="https://www.schema.org/QuantitativeValue">QuantitativeValue</a> 的 <code>maxValue</code> 和 <code>minValue</code> 屬性），<br>但如果不打算精確的話，我覺得用 <code>Product.offers.availability</code> 才比較對…吧？</p>
+<h2 id="Product-category"><a href="#Product-category" class="headerlink" title="Product.category"></a>Product.category</h2><p><code>Product.category</code> 屬性可接受的資料型態中，比較符合其字義的是 <code>CategoryCode</code> ，但那個還要搭配 <code>CategoryCodeSet</code> 使用，而且似乎不支援多層的分類，我是不打算用。</p>
+<p>Google 有一個 <a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324436">google_product_category</a> ，由於名稱上的高度相似，我認為 <code>Product.category</code> 就直接當成 <code>google_product_category</code> ，型態就用 <code>Text</code> 比較好。</p>
+<p>Google 還有提供一個屬性叫做 <a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324406?hl=zh-Hant">product_type</a>，可以「加入自己的產品分類系統」，或是可以「為 Google 產品類別 [google_product_category] 屬性和產品類型 [product_type] 屬性提供相同的值」。<br>但由於同樣只接受單一字串的值，想要實作多層的分類時要留意。</p>
+<h2 id="Product-keywords"><a href="#Product-keywords" class="headerlink" title="Product.keywords"></a>Product.keywords</h2><p>首先說一下：<a target="_blank" rel="noopener" href="https://developers.google.com/search/blog/2009/09/google-does-not-use-keywords-meta-tag?hl=zh-tw">Google 決定網站排名時不會參考keywords 中繼標記</a> (2009-09-21)。</p>
+<p>不過，那是在 Schema.org 成立（2011）之前，所以有可能只是指 <code>&lt;head&gt;</code> 裡面的 <code>&lt;meta name=&quot;keywords&quot;&gt;</code> 而已。<br>至於商品的標記裡的 <code>itemprop=&quot;keywords&quot;</code> （以 Microdata 為例），即使 Google 真的不參考，就網站而言仍有可能想提供給訪客參考（例如提供連結，列出有同樣關鍵字的商品）。</p>
+<p><code>Product.keywords</code> 可以使用 <code>DefinedTerm</code> 型態，與其對應的是 <code>DefinedTermSet</code> 類別。<br>但跟 <code>CategoryCode</code> 及 <code>CategoryCodeSet</code> 一樣，看起來不支援多層次的結構。</p>
+<p>若是直接使用字串，使用逗號分隔值或是多次宣告屬性都可以。 <a target="_blank" rel="noopener" href="https://schema.org/keywords">Schema.org</a> 寫道：</p>
+<blockquote>
+<p>Multiple textual entries in a keywords list are typically delimited by commas, or by repeating the property.</p>
+</blockquote>
+<h2 id="附論：要給-Google-看的東西，少用逗點"><a href="#附論：要給-Google-看的東西，少用逗點" class="headerlink" title="附論：要給 Google 看的東西，少用逗點"></a>附論：要給 Google 看的東西，少用逗點</h2><p>Google 在 <a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324406?hl=zh-Hant&ref_topic=6324338">product_type</a> 的說明中寫道：</p>
+<blockquote>
+<p>切勿在個別產品類型的值中使用半形逗號 (,)，因為這樣會導致 Google 將其視為不同產品類型的分隔。</p>
+</blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324487">顏色</a>的說明中寫道：</p>
+<blockquote>
+<p>如果產品是由多種顏色組成，您可以指定 1 種主要顏色，後面加上最多 2 種次要顏色，並分別以斜線 (&#x2F;) 隔開，例如：<code>Red/Green/Black</code>。<br>請勿使用逗號 (,) 來分隔多個顏色</p>
+</blockquote>
+<p>在<a target="_blank" rel="noopener" href="https://support.google.com/merchants/answer/6324410">材質</a>的說明中寫道：</p>
+<blockquote>
+<p>如果產品是由多種材質組成，可以指定一種主要材質，後面加上最多 2 種次要材質，並分別以斜線 (&#x2F;) 隔開。</p>
+</blockquote>
+<p>綜上，我建議在 <code>keywords</code> 也不要用逗點。因此若同時要符合 Schema.org 的說法的話，那就是會要在多個 HTML 物件上套用 <code>itempropo=&quot;keywords&quot;</code> 。</p>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2022/11/schema-product/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2022/11/schema-product/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IndividualProduct"><span class="toc-number">1.</span> <span class="toc-text">IndividualProduct</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Product"><span class="toc-number">2.</span> <span class="toc-text">Product</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProductGroup"><span class="toc-number">3.</span> <span class="toc-text">ProductGroup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProductModel"><span class="toc-number">4.</span> <span class="toc-text">ProductModel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ProductCollection"><span class="toc-number">5.</span> <span class="toc-text">ProductCollection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SomeProducts"><span class="toc-number">6.</span> <span class="toc-text">SomeProducts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Product-category"><span class="toc-number">7.</span> <span class="toc-text">Product.category</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Product-keywords"><span class="toc-number">8.</span> <span class="toc-text">Product.keywords</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A%E8%A6%81%E7%B5%A6-Google-%E7%9C%8B%E7%9A%84%E6%9D%B1%E8%A5%BF%EF%BC%8C%E5%B0%91%E7%94%A8%E9%80%97%E9%BB%9E"><span class="toc-number">9.</span> <span class="toc-text">附論：要給 Google 看的東西，少用逗點</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/schema-product/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/schema-product/&text=Schema.org 的 Product 相關類別"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/schema-product/&is_video=false&description=Schema.org 的 Product 相關類別"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Schema.org 的 Product 相關類別&body=Check out this article: https://kong0107.github.io/posts/2022/11/schema-product/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/schema-product/&title=Schema.org 的 Product 相關類別"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/schema-product/&name=Schema.org 的 Product 相關類別&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/schema-product/&t=Schema.org 的 Product 相關類別"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

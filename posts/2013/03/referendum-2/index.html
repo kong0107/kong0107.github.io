@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前一篇寫的有點亂，想說重寫一篇，不過好像花了太多時間，最後面還沒完成。 壹、「否決」的效果公投案開票後，其效果規定於公投法第31至33條。 一、政府依然可以執行被否決的行為比較公投法第31與32條： 公民投票案經通過者，各該選舉委員會應於投票完畢七日內公告公民投票結果，並依下列方式處理：…三、有關重大政策者，應由權責機關為實現該公民投票案內容之必要處置。… 公投法第31條  公民投票案經否決者，各">
+<meta property="og:type" content="article">
+<meta property="og:title" content="公投的酵果">
+<meta property="og:url" content="https://kong0107.github.io/posts/2013/03/referendum-2/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="前一篇寫的有點亂，想說重寫一篇，不過好像花了太多時間，最後面還沒完成。 壹、「否決」的效果公投案開票後，其效果規定於公投法第31至33條。 一、政府依然可以執行被否決的行為比較公投法第31與32條： 公民投票案經通過者，各該選舉委員會應於投票完畢七日內公告公民投票結果，並依下列方式處理：…三、有關重大政策者，應由權責機關為實現該公民投票案內容之必要處置。… 公投法第31條  公民投票案經否決者，各">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://kong0107.github.io/flowchart.jpg">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?C/A%20%5Cgeq%20%200.5">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E/D%20%3E%200.5">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E/A%20%5Cgeq%20%200.25">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?B/A%20%5Cgeq%20%200.75">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?C/B%20%5Cgeq%20%200.75">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E/B%20%3E%200.5">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?E/A%20%3E%200.5">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F(X+1)%20%5Cgeq%20%20F(X)">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?F(X+1)%20%5Cleq%20%20F(X)+1">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(x)%20%5Cleq%20%20f(x+a)%20%5Cleq%20%20f(x)+a">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?0%5Cleq%20x%5Cleq%20x+a%5Cleq%201">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(x)=%5Cbegin%7Bcases%7D%0A%5Cfrac%7B3%7D%7B4%7Dx%20%20%20%20%20%20%20%20%20%20%20%20&%20%5Ctext%7B%20if%20%7D%20x%5Cin%20%5B0,%5Cfrac%7B2%7D%7B3%7D%5D%5C%5C%0A%5Cfrac%7Bx%7D%7B2%7D+%5Cfrac%7B1%7D%7B6%7D%20&%20%5Ctext%7B%20if%20%7D%20x%5Cin%20(%5Cfrac%7B2%7D%7B3%7D,1%5D%0A%5Cend%7Bcases%7D">
+<meta property="og:image" content="https://kong0107.github.io/polyline.jpg">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?0%20%5Cleq%20%20f%27(x)%20%5Cleq%20%201">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?0%20%5Cleq%20%20f(x)%20%5Cleq%20%20x%20%3C%201">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(x)=%5Cfrac%7B4%7D%7B9%7D(x-0.25)%5E2+0.25">
+<meta property="og:image" content="https://kong0107.github.io/parabola-up.jpg">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(x)=%5Csqrt%7Bx%7D/2">
+<meta property="og:image" content="https://kong0107.github.io/parabola-right.jpg">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(0)%20%5Cgeq%20%200">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(1)%20%3C%201">
+<meta property="og:image" content="https://kong0107.github.io/logarithm.jpg">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?f(x)=%5Cbegin%7Bcases%7D%20%5Cinfty%20&%20%5Ctext%7B%20if%20%7D%20x%3C%5Cfrac%7B1%7D%7B2%7D%20%5C%5C%20%5Cfrac%7B2%7D%7B3%7Dx%20&%20%5Ctext%7B%20if%20%7D%20x%5Cgeq%5Cfrac%7B1%7D%7B2%7D%20%5Cend%7Bcases%7D">
+<meta property="article:published_time" content="2013-03-11T16:00:00.000Z">
+<meta property="article:modified_time" content="2013-04-17T16:00:00.000Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="法律">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://kong0107.github.io/flowchart.jpg">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>公投的酵果</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2013/06/javascript/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2012/07/foreword/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2013/03/referendum-2/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2013/03/referendum-2/&text=公投的酵果"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2013/03/referendum-2/&is_video=false&description=公投的酵果"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=公投的酵果&body=Check out this article: https://kong0107.github.io/posts/2013/03/referendum-2/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2013/03/referendum-2/&name=公投的酵果&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2013/03/referendum-2/&t=公投的酵果"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9%E3%80%81%E3%80%8C%E5%90%A6%E6%B1%BA%E3%80%8D%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">壹、「否決」的效果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%94%BF%E5%BA%9C%E4%BE%9D%E7%84%B6%E5%8F%AF%E4%BB%A5%E5%9F%B7%E8%A1%8C%E8%A2%AB%E5%90%A6%E6%B1%BA%E7%9A%84%E8%A1%8C%E7%82%BA"><span class="toc-number">1.1.</span> <span class="toc-text">一、政府依然可以執行被否決的行為</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2013-04-18%E6%96%B0%E5%A2%9E"><span class="toc-number">1.2.</span> <span class="toc-text">2013-04-18新增</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%95%B8%E5%B9%B4%E5%85%A7%E4%B8%8D%E5%BE%97%E9%87%8D%E8%A1%8C%E6%8F%90%E6%A1%88"><span class="toc-number">1.3.</span> <span class="toc-text">二、數年內不得重行提案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8D%E5%BE%97%E9%87%8D%E8%A1%8C%E6%8F%90%E5%87%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">（一）不得重行提出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E3%80%8C%E5%95%9F%E7%94%A8%E3%80%8D%E5%BE%8C%E5%85%AB%E5%B9%B4"><span class="toc-number">1.3.2.</span> <span class="toc-text">（二）「啟用」後八年</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%90%8C%E4%B8%80%E4%BA%8B%E9%A0%85"><span class="toc-number">1.3.3.</span> <span class="toc-text">（三）同一事項</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%A2%BA%E7%AB%8B%E6%94%BF%E5%BA%9C%E7%9A%84%E8%87%AA%E7%94%B1"><span class="toc-number">1.4.</span> <span class="toc-text">三、確立政府的自由</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B2%B3%E3%80%81%E9%96%80%E6%AA%BB%E8%88%87%E7%AC%AC%E4%B8%89%E7%A8%AE%E7%B5%90%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">貳、門檻與第三種結果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E3%80%8C%E5%90%A6%E6%B1%BA%E3%80%8D%E5%88%86%E7%82%BA%E5%85%A9%E7%A8%AE%E5%8E%9F%E5%9B%A0%EF%BC%8C%E4%BD%86%E5%8D%BB%E5%8F%AA%E6%9C%89%E4%B8%80%E5%80%8B%E6%95%88%E6%9E%9C"><span class="toc-number">2.1.</span> <span class="toc-text">一、「否決」分為兩種原因，但卻只有一個效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B2%92%E9%81%93%E7%90%86%E7%9A%84%EF%BC%8C%E6%98%AF%E3%80%8C%E5%8F%AA%E8%83%BD%E6%9C%89%E4%B8%80%E5%80%8B%E5%80%99%E9%81%B8%E9%81%B8%E9%A0%85%E3%80%8D"><span class="toc-number">2.2.</span> <span class="toc-text">二、沒道理的，是「只能有一個候選選項」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BF%AE%E6%B3%95%E5%BB%BA%E8%AD%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%A8%AE%E6%88%96%E7%AC%AC%E5%9B%9B%E7%A8%AE%E5%85%AC%E6%8A%95%E7%B5%90%E6%9E%9C"><span class="toc-number">2.3.</span> <span class="toc-text">三、修法建議：第三種或第四種公投結果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E3%80%81%E8%A7%80%E5%AF%9F%E5%90%84%E9%A1%9E%E6%8A%95%E7%A5%A8%E5%88%B6%E5%BA%A6%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">3.</span> <span class="toc-text">參、觀察各類投票制度的注意事項</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BB%A2%E7%A5%A8"><span class="toc-number">3.1.</span> <span class="toc-text">一、廢票</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%AF%94%E8%BC%83%E6%A8%99%E7%9A%84%E7%82%BA%E4%BD%95%EF%BC%9F%E6%9C%AA%E9%81%94%E9%96%80%E6%AA%BB%E7%9A%84%E6%95%88%E6%9E%9C%E7%82%BA%E4%BD%95%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">二、比較標的為何？未達門檻的效果為何？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%AF%94%E4%BE%8B%E7%9A%84%E6%87%B8%E6%AE%8A"><span class="toc-number">3.3.</span> <span class="toc-text">三、比例的懸殊</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%AF%94%E4%BE%8B%E9%81%B8%E8%88%89%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">四、比例選舉制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86%E3%80%81%E6%95%B8%E5%AD%B8"><span class="toc-number">4.</span> <span class="toc-text">肆、數學</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%96%80%E6%AA%BB%E5%87%BD%E6%95%B8%E6%87%89%E6%9C%89%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">一、門檻函數應有的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%96%80%E6%AA%BB%E5%87%BD%E6%95%B8%E6%87%89%E9%81%A9%E7%94%A8%E6%96%BC%E6%89%80%E6%9C%89%E9%81%B8%E9%A0%85"><span class="toc-number">4.2.</span> <span class="toc-text">二、門檻函數應適用於所有選項</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B6%E4%BB%96%E6%B3%95%E5%BE%8B%E7%9A%84%E3%80%8C%E9%8B%B8%E9%BD%92%E3%80%8D%E7%8B%80%E5%87%BD%E6%95%B8"><span class="toc-number">4.3.</span> <span class="toc-text">三、其他法律的「鋸齒」狀函數</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        公投的酵果
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2013-03-11T16:00:00.000Z" itemprop="datePublished">2013-03-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%B3%95%E5%BE%8B/" rel="tag">法律</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <p><img src="/flowchart.jpg" alt="流程圖"><br><a target="_blank" rel="noopener" href="http://kong0107.blogspot.tw/2013/03/referendum.html">前一篇</a>寫的有點亂，想說重寫一篇，不過好像花了太多時間，最後面還沒完成。</p>
+<h1 id="壹、「否決」的效果"><a href="#壹、「否決」的效果" class="headerlink" title="壹、「否決」的效果"></a>壹、「否決」的效果</h1><p>公投案開票後，其效果規定於公投法第31至33條。</p>
+<h2 id="一、政府依然可以執行被否決的行為"><a href="#一、政府依然可以執行被否決的行為" class="headerlink" title="一、政府依然可以執行被否決的行為"></a>一、政府依然可以執行被否決的行為</h2><p>比較公投法第31與32條：</p>
+<blockquote><p>公民投票案經通過者，各該選舉委員會應於投票完畢七日內公告公民投票結果，並依下列方式處理：<br>…三、有關重大政策者，應由權責機關為實現該公民投票案內容之必要處置。…</p>
+<footer><strong>公投法第31條</strong></footer></blockquote>
+
+<blockquote><p>公民投票案經否決者，各該選舉委員會應於投票完畢七日內公告公民投票結果，並通知提案人之領銜人。</p>
+<footer><strong>公投法第32條</strong></footer></blockquote>
+
+<p>簡言之：<strong>公投案「通過」時的確是「必須要做」，但「否決」時卻不是「不可以做」，而是「可以不做」</strong>，等同於「也可以做」。<br>用術語來說的話就是：「否決」對政府並無拘束力或強制力。<br>舉例而言，假設有一個法案是「男性必須穿裙子」，而這個法案被否決了，那麼其效果並不是「男性不能穿裙子」。</p>
+<p>就核四案來說，無論公投題目究竟是「續建」還是「停建」，只要投票率未達一半，那麼政府蓋或是不蓋都可以。<br>至此，我們應當理解：<strong>公投不是在決定「要政府做甚麼」，而是在決定「要不要逼政府」</strong>－－至於「要政府做甚麼」，是提案時就要決定的事情。<br>用人事選舉來譬喻的話，就是：目前的公投制度並不是要在兩個候選人中選擇一個，而是只能登記一個候選人，然後我們要決定要不要讓他當選。</p>
+<p>可能有人會說：但是民意的導向就是「不要做那件事」才會否決啊，這樣政客們為了選票還是不會做吧？<br>回想我國歷來的六次公投，均是因為投票率未達一半而否決，且只有第四次的同意率（此處指有效票之中的同意票比例）不到87%，換言之：在那幾次的公投中，沒有照提案內容做的話，才是違反民意。<br>例如，第二次公投的題目為</p>
+<blockquote><p>您是否同意政府與中共展開協商，推動建立兩岸和平穩定的互動架構，以謀求兩岸的共識與人民的福祉？</p>
+<footer><strong>中華民國全國性公民投票第二案</strong></footer></blockquote>
+
+<p>當時的結果是「否決」的，但顯然我們並沒有回到解嚴前連通信都不行的時代。</p>
+<h2 id="2013-04-18新增"><a href="#2013-04-18新增" class="headerlink" title="2013-04-18新增"></a>2013-04-18新增</h2><p><a target="_blank" rel="noopener" href="http://judicial.ronny.tw/TPA/A/101/%E5%88%A4/514">最高行政法院101年判字514號判決</a>認為：「投票率達半、反對票過半」的情形可以當作反面提案的「通過」，也就是發生「不可以那麼做」的效果（見判決理由七、（五）、５，另見<a target="_blank" rel="noopener" href="http://www.appledaily.com.tw/appledaily/article/headline/20130228/34857796/">這篇</a>和<a target="_blank" rel="noopener" href="http://yangshengchen.wordpress.com/2013/02/28/%E5%85%AC%E6%8A%95%E4%B9%8B%E3%80%8C%E9%80%9A%E9%81%8E%E3%80%8D%E8%88%87%E3%80%8C%E5%90%A6%E6%B1%BA%E3%80%8D/">這篇</a>）。<br>雖然這明顯與<a target="_blank" rel="noopener" href="http://law.moj.gov.tw/LawClass/LawSearchNo.aspx?PC=D0020050&SNo=22,30">公投法§22、30</a>的文義不合，也不為本文所採，不過卻是重要的實務意見，或許可以作為現行（不理想的）公投法的解套辦法之一。與本文同樣認為該判決是「法官（越權）造法」的意見，可參閱法律工作者<a target="_blank" rel="noopener" href="http://hsuotto.blogspot.tw/2013/02/blog-post_27.html">小杜白雲的文章</a>）</p>
+<h2 id="二、數年內不得重行提案"><a href="#二、數年內不得重行提案" class="headerlink" title="二、數年內不得重行提案"></a>二、數年內不得重行提案</h2><p>公投法第33條規定公投若遭否決，數年內不得重行提案：</p>
+<blockquote><ul>
+<li>公民投票案之提案經通過或否決者，自各該選舉委員會公告該投票結果之日起三年內，不得就同一事項重行提出。但有關公共設施之重大政策複決案經否決者，自投票結果公告之日起至該設施完工啟用後八年內，不得重行提出。</li>
+<li>前項之同一事項，包括提案之基礎事實類似、擴張或減縮應受判斷事項者。</li>
+<li>前項之認定由審議委員會為之。</li>
+</ul>
+<footer><strong>公投法第33條</strong></footer></blockquote>
+
+<p>在此要注意的有：</p>
+<h3 id="（一）不得重行提出"><a href="#（一）不得重行提出" class="headerlink" title="（一）不得重行提出"></a>（一）不得重行提出</h3><p>對政府來說，一個被否決的公投案，其意義根本不在「該做甚麼事」，而是「這三年（或八年）內，這個議題上，一定可以不用做那件事－－而要做的話，也是可以。」<br>類似的狀況亦發生於對行政院長的不信任案。如果擁簇行政院長的一方，認為不信任案不會通過，那麼反而可以故意讓不信任案必須表決，進而確立「一年內不得…再提不信任案」的效果。（憲法增修條文第3條第2項第3款）</p>
+<h3 id="（二）「啟用」後八年"><a href="#（二）「啟用」後八年" class="headerlink" title="（二）「啟用」後八年"></a>（二）「啟用」後八年</h3><p>請務必注意起算時點的不同：</p>
+<ul>
+<li>（一般情形）自…公告該投票結果之日起三年內</li>
+<li>（公共設施）…至該設施完工啟用後八年內</li>
+</ul>
+<p>也就是說在公共設施的情形：</p>
+<ol>
+<li>不是公告結果後的八年。所以如果一直沒有蓋好，也就一直可以燒錢而不能再過問。</li>
+<li>不是完工後起算，而是啟用後才開始算八年。因此啟用典禮之前如果來個「試運轉」，也仍是得等啟用典禮後才開始起算八年。</li>
+</ol>
+<h3 id="（三）同一事項"><a href="#（三）同一事項" class="headerlink" title="（三）同一事項"></a>（三）同一事項</h3><p>民事訴訟上，雖然有「聲明相反時，仍屬同一事件」的理論（例如：「確認婚姻存在」跟「確認婚姻不存在」是同一事件，因而不能以問題的反面重行起訴），但是即使直接套用到公投制度上，「續建」跟「停建」仍是不同事項（給法律人：我覺得公投比較像是課予義務性質，而不是確認性質）。<br>同樣以「穿裙子」為例：如果「男性必須穿裙子」的法案被否決了，那麼「男性不能穿裙子」的法案應該仍要可以提出－－其提出後的結果為何，是另一回事。</p>
+<p>不過，第33條第2項卻不是這樣說：</p>
+<blockquote><p>…同一事項，包括提案之基礎事實類似、擴張或減縮應受判斷事項者。</p>
+<footer><strong>公投法第33條第2項</strong></footer></blockquote>
+
+<p>除了基礎事實完全相同之外，由於「續建」的反面是「沒有續建的義務」，包含了「不能夠續建」這部分，因此若以「續建」為題，而結果是否決，那麼八年內都不可以提「停建」；反之亦然。</p>
+<h2 id="三、確立政府的自由"><a href="#三、確立政府的自由" class="headerlink" title="三、確立政府的自由"></a>三、確立政府的自由</h2><p>由前述（一）知道，「否決」並沒有「不能做」的意思，那麼對於反對提案內容的民眾來說，就會有「就算我去投了反對票，最後政府還是可以做－－那我幹嘛去投票」的心態出現，而這種心態一旦出現，就會造成投票率大幅下降。由於反對票的出現率不高，因此可以預見這兩個現象是常態：</p>
+<ol>
+<li>投票率未過半，因而否決；</li>
+<li>有效票中，同意票占大多數。</li>
+</ol>
+<p>而由前述（三）知道，只要公投案經過否決，就會造成該題目的正反兩面及其類似事項，在數年內都不能再行提案，也就是說，在這段期間內，政府做不做該提案內容都可以。</p>
+<p>所以，提出一個公投案，其實並沒有「約束政府一定得怎麼樣」的效果，反而是維持且確立了「數年內怎麼樣都可以」的狀態。想要執行提案內容的就會說「多數人均同意，所以可以做」；不想執行提案內容的，就會講「公投結果是否決」。</p>
+<h1 id="貳、門檻與第三種結果"><a href="#貳、門檻與第三種結果" class="headerlink" title="貳、門檻與第三種結果"></a>貳、門檻與第三種結果</h1><p>公投法§30目前的規定可能會發生「多一個人投反對票，反而讓全案通過」的情形，其條文為：</p>
+<blockquote><ul>
+<li>公民投票案投票結果，投票人數達全國、直轄市、縣 (市) 投票權人總數二分之一以上，且有效投票數超過二分之一同意者，即為通過。</li>
+<li>投票人數不足前項規定數額或未有有效投票數超過二分之一同意者，均為否決。</li>
+</ul>
+<footer><strong>公投法第30條</strong></footer></blockquote>
+
+<p>舉例來說，若有100個人有投票權，但投票率僅有一半左右：<br>A. 同意票49，不同意票0，結果為否決；<br>B. 同意票49，不同意票1，結果為通過。<br>C. 同意票26，不同意票23，結果為否決；<br>D. 同意票26，不同意票24，結果為通過。</p>
+<p>許多人認為這樣的設計是不合理的，但我認為既然「否決」的效果只是「可以不用那樣」而不是「不能夠那樣」，那麼其實並不是完全沒道理的。</p>
+<h2 id="一、「否決」分為兩種原因，但卻只有一個效果"><a href="#一、「否決」分為兩種原因，但卻只有一個效果" class="headerlink" title="一、「否決」分為兩種原因，但卻只有一個效果"></a>一、「否決」分為兩種原因，但卻只有一個效果</h2><p>將「否決」的情形分為兩種：<br>E. 投票率未達一半<br>F. 同意票少於或等於不同意票</p>
+<p>之前提到公投本身並不是在決定「要逼政府做甚麼」，而是「要不要逼政府」，那麼<br>在情形E（還有前述的A、C），其意義是「表態人數不足以代表民意」；<br>在情形F，其意義是「民意認為政府沒有這個義務」。<br>簡言之，其意義不同，但是效果卻相同－－都是「政府不需要那麼做，但要做的話也可以」。</p>
+<p>而前述A到B，以及C到D的差別，則在於：表態人數足以代表民意。而既然表態人數足以代表民意，且同意票較多，那麼認定「人民是同意的」並沒有甚麼問題。<br>問題在於：既然表態人數足以代表民意，為何「人民不同意」時，政府仍然可以做？</p>
+<h2 id="二、沒道理的，是「只能有一個候選選項」"><a href="#二、沒道理的，是「只能有一個候選選項」" class="headerlink" title="二、沒道理的，是「只能有一個候選選項」"></a>二、沒道理的，是「只能有一個候選選項」</h2><p>公投，依公投法前兩條以觀，是由人民行使「直接民權」。然而在我國原則上是代議政治的制度上，行使直接民權其實是指對民意機關（立法院、縣市議會）的「不信任」。</p>
+<p>由於不相信自己選出來的政府，因此「公投」在性質上其實帶有「反政府」的性質。不管是解釋成「違反自己先前做出的決定」還是「不相信自己選出的民意代表（包含元首）」的反悔行為需要節制，將公投的結果規定為「原則上不能拘束政府」，是還算說得通的。</p>
+<p>但是，當一部分人民想要政府做A，另一部分想要政府做B，偏偏A與B互相衝突，但是政府又不決定自己要做甚麼的現在，我們卻只能選擇其中一個當作公投題目，讓另一個選項變得不確定，這就很詭異了。<strong>公投法要我們先決定「要A還是B」才能決定「要不要逼政府做」，問題是：我們根本就是為了決定「要A還是B」才想要公投的啊!?</strong></p>
+<h2 id="三、修法建議：第三種或第四種公投結果"><a href="#三、修法建議：第三種或第四種公投結果" class="headerlink" title="三、修法建議：第三種或第四種公投結果"></a>三、修法建議：第三種或第四種公投結果</h2><p>核四案的狀況是，人民並不是要確定「要不要逼政府」，而是要決定「要逼政府做甚麼」。所以，這類的公投，應該至少要有「必須XX」和「不能XX」這兩個可能的結果，而再加上這個「反政府」的行為原則上必須有「XX與否均可」的預設結果，公投的結果應該要有三種。</p>
+<p>以核四公投為例，或許可以這樣設計：<br>I. 投票率未達一半：沒有拘束政府的效果；<br>J. 投票率達一半，同意票多於不同意票：必須要建，不可以不建；<br>K. 投票率達一半，不同意票多於同意票：必須停建，不可以續建。</p>
+<p>細心的朋友應該發現我漏列了一個情形：同意票與不同意票的票數相同。雖然這個情形在全國性投票來說幾乎不會發生，不過我們可以再將之擴充為「同意票與不同意票的票數相近」，然後制度就變成：<br>W. 投票率未達一半：沒有拘束政府的效果（因為不足以代表人民的意志，或說人民的意志就是「隨便」）；<br>X. 投票率達一半，同意票達有效票數的三分之二：必須要建，不可以不建；<br>Y. 投票率達一半，不同意票達有效票數的三分之二：必須停建，不可以續建；<br>Z. 投票率達一半，同意票與不同意票的票數相近：沒有拘束政府的效果（因為人民的意見並不一致，那麼就留給專業的決定）。</p>
+<p>其中X和Y就是人民的決定，政府應該依其內容而續建或停建。<br>而W和Z雖然都是「對政府沒有拘束力」，但是由於意義依然不同，因此仍然可以設計不同的效果（比方說W的情況是一年內不得重複提案，Z的則是三年內）</p>
+<p>至於到底是不是「一半」、「三分之二」，則需再討論。</p>
+<p>雖然在某些狀況下，並不一定能夠判斷「何謂『反面』提案」。例如提案內容如果是「國旗的『青天』應該改為天空藍」，那麼硬要生出一個相反提案，也是蠻詭異的－－這也是為何我不認同最高行101判514的原因：「何謂『提案的反面』」會是另一個會被操弄的議題。<br>但是應該也可以改用「併案」（訴訟法用語）或是「乙式修正案」（議事規則用語）的方式處理。也就是當要辦公投時，允許有兩個以上相衝突的題目（可以維持提案與連署門檻的存在），讓不同意見的人民都有機會讓自己的立場得到貫徹。至於如果出現不衝突的多個提案時該怎麼辦，我則未有想法。</p>
+<h1 id="參、觀察各類投票制度的注意事項"><a href="#參、觀察各類投票制度的注意事項" class="headerlink" title="參、觀察各類投票制度的注意事項"></a>參、觀察各類投票制度的注意事項</h1><h2 id="一、廢票"><a href="#一、廢票" class="headerlink" title="一、廢票"></a>一、廢票</h2><p>除了「投票結果（應當）有第三種可能」之外，其實在只有兩個選項的選票上，也可以有第三種可能：廢票。<br>幸好，公投的門檻是同意票要超過「有效投票數」的一半而不是「投票人數」的一半，所以在公投案我們不用在此著墨太多。<br>但還是要稍微注意（在現行的制度下）：以公投為例，假設投票權人總數是10萬，2萬人投贊成票、1萬人投反對，那麼剩下的7萬人如果都沒投票，就是否決，如果都投廢票，就會通過。</p>
+<p>許多朋友常常忽略廢票的存在。但其實在不同的選舉制度中，是有可能設計成讓「廢票」有其意義的，俄羅斯曾經施行的「反對所有候選人」選項即屬類似（但不完全相同）的制度。<br>儘管有許多人擔心，用廢票或是「反對所有候選人」的票數比例來決定選舉無效（因而必須再辦理一次選舉），可能會造成「永遠沒有人當選」的狀況。但我認為可以這樣改：</p>
+<ul>
+<li>第一次投票時，廢票率達到10%，則選舉無效；</li>
+<li>第二次投票時，廢票率達到20%，則選舉無效；</li>
+<li>第三次投票時，不考慮廢票率。</li>
+</ul>
+<p>或是乾脆一點，只要曾因為廢票率或是「反對所有候選人」的選項而讓選舉無效的話，那麼重行選舉的那一次就不理會廢票，或是沒有「反對所有候選人」的選項就好了。</p>
+<h2 id="二、比較標的為何？未達門檻的效果為何？"><a href="#二、比較標的為何？未達門檻的效果為何？" class="headerlink" title="二、比較標的為何？未達門檻的效果為何？"></a>二、比較標的為何？未達門檻的效果為何？</h2><p>再看一次公投通過的門檻</p>
+<blockquote><p>投票人數達…投票權人總數二分之一以上，且有效投票數超過二分之一同意者，即為通過。</p>
+<footer><strong>公投法第30條第1項</strong></footer></blockquote>
+<p>這裡提到四個數值：投票人數、投票權人總數、有效票數、同意票數。</p>
+<p>另以修憲為例：</p>
+<blockquote><p>憲法之修改，須經立法院立法委員四分之一之提議，四分之三之出席，及出席委員四分之三之決議，提出憲法修正案，並於公告半年後，經中華民國自由地區選舉人投票複決，有效同意票過選舉人總額之半數，即通過之…</p>
+<footer><strong>憲法增修條文第12條</strong></footer></blockquote>
+
+<p>至此我們可以列出常見的五個數值：<br>A: 投票權人<br>B: 出席人數（公投沒有此問題，或說B&#x3D;&#x3D;C）<br>C: 投票人數（可能出席但不投票）<br>D: 有效票數（可能投廢票）<br>E: 贊成票數</p>
+<p>公投表決的門檻是：<span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=C/A%20%5Cgeq%20%200.5"><img src="http://latex.codecogs.com/gif.latex?C/A%20%5Cgeq%20%200.5" alt="C&#x2F;A &gt;&#x3D; 0.5"></a></span> 且 <span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=E/D%20%3E%200.5"><img src="http://latex.codecogs.com/gif.latex?E/D%20%3E%200.5" alt="E&#x2F;D &gt; 0.5"></a></span></p>
+<p>修憲的門檻就麻煩的多：</p>
+<ul>
+<li>立法院內的提議門檻是 <span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=E/A%20%5Cgeq%20%200.25"><img src="http://latex.codecogs.com/gif.latex?E/A%20%5Cgeq%20%200.25" alt="E&#x2F;A &gt;&#x3D; 0.25"></a></span>，</li>
+<li>立院（對外）提出憲法修正案的門檻是：<ul>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=B/A%20%5Cgeq%20%200.75"><img src="http://latex.codecogs.com/gif.latex?B/A%20%5Cgeq%20%200.75" alt="B&#x2F;A &gt;&#x3D; 0.75"></a></span></li>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=C/B%20%5Cgeq%20%200.75"><img src="http://latex.codecogs.com/gif.latex?C/B%20%5Cgeq%20%200.75" alt="C&#x2F;B &gt;&#x3D; 0.75"></a></span></li>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=E/B%20%3E%200.5"><img src="http://latex.codecogs.com/gif.latex?E/B%20%3E%200.5" alt="E&#x2F;B &gt; 0.5"></a></span></li>
+</ul>
+</li>
+<li>全民複決的門檻是 <span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=E/A%20%3E%200.5"><img src="http://latex.codecogs.com/gif.latex?E/A%20%3E%200.5" alt="E&#x2F;A &gt; 0.5"></a></span></li>
+</ul>
+<p>註：公投也有提案門檻，依題目性質而定。</p>
+<h2 id="三、比例的懸殊"><a href="#三、比例的懸殊" class="headerlink" title="三、比例的懸殊"></a>三、比例的懸殊</h2><p>不習慣觀察表決的朋友，第一次操作「同意票達有效票數的三分之二」的時候總要計算很久。但其意義其實等同於：同意票數為反對票數的兩倍以上。<br>而知道這個計算技巧的同時，也要注意到：門檻從「過半」到「三分之二」字面上看來只差了六分之一，但其實是從「比反對票數多一票」到「反對票數的兩倍」的差距。一個表決制度的通過門檻，請務必嘗試代換過多種可能的數字再去評斷門檻究竟是高還是低。</p>
+<h2 id="四、比例選舉制"><a href="#四、比例選舉制" class="headerlink" title="四、比例選舉制"></a>四、比例選舉制</h2><p>類似立委的政黨票制度，不過這部分我不熟，也跟公投不直接相關，暫略。</p>
+<h1 id="肆、數學"><a href="#肆、數學" class="headerlink" title="肆、數學"></a>肆、數學</h1><p>洪朝貴教授的〈<a target="_blank" rel="noopener" href="http://ckhung0.blogspot.tw/2013/03/referendum-math.html">數學觀點看公投門檻: 高中數學的 「單調遞增函數」 是立法委員的死穴嗎?</a>〉以贊成票數除以投票權人總數（而非投票人數）作為縱軸作圖，這點是很棒的觀察方式，可以輕易地畫出通過門檻的示意圖。</p>
+<h2 id="一、門檻函數應有的特性"><a href="#一、門檻函數應有的特性" class="headerlink" title="一、門檻函數應有的特性"></a>一、門檻函數應有的特性</h2><p>該文並認為：不應「多一個人來投反對票, 反而讓原本的不通過翻盤成通過」<br>這個部分雖然我並不完全贊成（見前述二（一）），但如果遵照這個規則，並延伸其論點，應該可以再多一個原則：不應「多一個人來投贊成票， 反而讓原本的通過翻盤成不通過」</p>
+<p>而假設投票門檻函數為F（定義域：自然數；對應域：實數），其中X為投票人數，F(X)則滿足「同意票數大於F(X)時，公投案即通過」的條件。那麼：<br>該文的論點為：<span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=F(X+1)%20%5Cgeq%20%20F(X)"><img src="http://latex.codecogs.com/gif.latex?F(X+1)%20%5Cgeq%20%20F(X)" alt="F(X+1) &gt;&#x3D; F(X)"></a></span><br>我延伸的論點是：<span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=F(X+1)%20%5Cleq%20%20F(X)+1"><img src="http://latex.codecogs.com/gif.latex?F(X+1)%20%5Cleq%20%20F(X)+1" alt="F(X+1) &lt;&#x3D; F(X)+1"></a></span></p>
+<p>如果把函數的定義域與對應域改成投票率與贊成率（以投票權人數為分母），那麼門檻函數f（定義域：有理數；對應域：實數）即須滿足：任意兩點的連線斜率必介於0與1之間<br>改寫成不等式即是：</p>
+<span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(x)%20%5Cleq%20%20f(x+a)%20%5Cleq%20%20f(x)+a"><img src="http://latex.codecogs.com/gif.latex?f(x)%20%5Cleq%20%20f(x+a)%20%5Cleq%20%20f(x)+a" alt="f(x) &lt;&#x3D; f(x+a) &lt;&#x3D; f(x)+a"></a></span> ，其中 <span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=0%5Cleq%20x%5Cleq%20x+a%5Cleq%201"><img src="http://latex.codecogs.com/gif.latex?0%5Cleq%20x%5Cleq%20x+a%5Cleq%201" alt="0&lt;&#x3D;x&lt;&#x3D;x+a&lt;&#x3D;1"></a></span>
+
+<p>進而可以證明：如果 f(x) 以實數為定義域，那麼 f(x) 即是連續函數，只是不必然可微分。<br>舉例而言，</p>
+<span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(x)=%5Cbegin%7Bcases%7D%0A%5Cfrac%7B3%7D%7B4%7Dx%20%20%20%20%20%20%20%20%20%20%20%20&%20%5Ctext%7B%20if%20%7D%20x%5Cin%20%5B0,%5Cfrac%7B2%7D%7B3%7D%5D%5C%5C%0A%5Cfrac%7Bx%7D%7B2%7D+%5Cfrac%7B1%7D%7B6%7D%20&%20%5Ctext%7B%20if%20%7D%20x%5Cin%20(%5Cfrac%7B2%7D%7B3%7D,1%5D%0A%5Cend%7Bcases%7D"><img src="http://latex.codecogs.com/gif.latex?f(x)=%5Cbegin%7Bcases%7D%0A%5Cfrac%7B3%7D%7B4%7Dx%20%20%20%20%20%20%20%20%20%20%20%20&%20%5Ctext%7B%20if%20%7D%20x%5Cin%20%5B0,%5Cfrac%7B2%7D%7B3%7D%5D%5C%5C%0A%5Cfrac%7Bx%7D%7B2%7D+%5Cfrac%7B1%7D%7B6%7D%20&%20%5Ctext%7B%20if%20%7D%20x%5Cin%20(%5Cfrac%7B2%7D%7B3%7D,1%5D%0A%5Cend%7Bcases%7D" alt="f(x)&#x3D;3x&#x2F;4 if 0&lt;&#x3D;x&lt;&#x3D;2&#x2F;3;
+f(x)&#x3D;x&#x2F;2+1&#x2F;6 if 2&#x2F;3&lt;x&lt;&#x3D;1"></a></span>
+<p>即屬符合前述條件。<br><a target="_blank" rel="noopener" href="https://www.google.com.tw/search?q=3x/4,x/2+1/6+from+0+to+1"><img src="/polyline.jpg" alt="polyline"></a></p>
+<hr>
+<p>而如果 f 有可微區間，那麼在其內即滿足 <span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=0%20%5Cleq%20%20f%27(x)%20%5Cleq%20%201"><img src="http://latex.codecogs.com/gif.latex?0%20%5Cleq%20%20f%27(x)%20%5Cleq%20%201" alt="0 &lt;&#x3D; f&#39;(x) &lt;&#x3D; 1"></a></span></p>
+<p>其實，條件可以放寬一些：因為贊成票數不可能大於投票人數，所以符合前述條件的情況只需要限定在<span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=0%20%5Cleq%20%20f(x)%20%5Cleq%20%20x%20%3C%201"><img src="http://latex.codecogs.com/gif.latex?0%20%5Cleq%20%20f(x)%20%5Cleq%20%20x%20%3C%201" alt="0 &lt;&#x3D; f(x) &lt;&#x3D; x &lt; 1"></a></span>的範圍內即可。<br>是故，下列兩個函數也符合條件：</p>
+<ul>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(x)=%5Cfrac%7B4%7D%7B9%7D(x-0.25)%5E2+0.25"><img src="http://latex.codecogs.com/gif.latex?f(x)=%5Cfrac%7B4%7D%7B9%7D(x-0.25)%5E2+0.25" alt="f(x)&#x3D;\frac{4}{9}(x-0.25)^2+0.25"></a></span>
+（一開始斜率小於0）<br><a target="_blank" rel="noopener" href="https://www.google.com.tw/search?q=4(x-1/4)%5E2/9+1/4,x+from+0+to+2"><img src="/parabola-up.jpg" alt="parabola-up"></a></li>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(x)=%5Csqrt%7Bx%7D/2"><img src="http://latex.codecogs.com/gif.latex?f(x)=%5Csqrt%7Bx%7D/2" alt="f(x)&#x3D;\sqrt{x}&#x2F;2"></a></span>
+（一開始斜率大於1）<br><a target="_blank" rel="noopener" href="https://www.google.com.tw/search?q=x%5E.5/2,x+from+0+to+1"><img src="/parabola-right.jpg" alt="parabola-right"></a></li>
+</ul>
+<p>不過，即使是前述例外，也不能跳脫最原則的限制：</p>
+<ol>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(0)%20%5Cgeq%20%200"><img src="http://latex.codecogs.com/gif.latex?f(0)%20%5Cgeq%20%200" alt="f(0) &gt;&#x3D; 0"></a></span> （無人投票時，必須為「否決」）</li>
+<li><span class="inline-block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(1)%20%3C%201"><img src="http://latex.codecogs.com/gif.latex?f(1)%20%3C%201" alt="f(1) &lt; 1"></a></span> （投票率與贊成率均為100%時，必須為「通過」）</li>
+</ol>
+<p>以上條件還可以推出兩個特性：</p>
+<ol>
+<li>y&#x3D;f(x) 與 y&#x3D;x 至少有一交點落於 [0,1]</li>
+<li>斜率不在 [0,1] 之間的部份，必定位於前述交點的左側</li>
+</ol>
+<p>附帶一提，我覺得 f(x)&#x3D;ln(x+1) 還蠻適合的：<br><a target="_blank" rel="noopener" href="https://www.google.com.tw/search?q=ln(x+1),x+from+-0.1+to+1"><img src="/logarithm.jpg" alt="logarithm"></a></p>
+<h2 id="二、門檻函數應適用於所有選項"><a href="#二、門檻函數應適用於所有選項" class="headerlink" title="二、門檻函數應適用於所有選項"></a>二、門檻函數應適用於所有選項</h2><p>前面提到，我並不認為「多一個人來投反對票, 反而讓原本的不通過翻盤成通過」這個現象必定是錯誤的。我認為門檻函數只有在「表決有拘束力」的情況下，需要符合前述條件。<br>也就是說，如果未達門檻的效果是「政府不能夠那麼做」（也就是多數人誤解的公投遭否決時的法律效力），那麼前述現象才不合理。</p>
+<p>其實，我認為門檻函數只要掌握一個原則：所有選項的門檻函數均相同。</p>
+<p>不過所謂「選項」並不包含「預設」的那個投票結果，例如人事選舉的「無人當選」，還有公投的「對政府無拘束力」。而現行公投的問題在於「只有一個選項」，不再贅述。</p>
+<p>這也是為甚麼，我前面提出的公投設計方案，對於「續建」和「停建」的門檻都是：</p>
+<span class="block formula"><a target="_blank" rel="external" href="https://www.codecogs.com/eqnedit.php?latex=f(x)=%5Cbegin%7Bcases%7D%20%5Cinfty%20&%20%5Ctext%7B%20if%20%7D%20x%3C%5Cfrac%7B1%7D%7B2%7D%20%5C%5C%20%5Cfrac%7B2%7D%7B3%7Dx%20&%20%5Ctext%7B%20if%20%7D%20x%5Cgeq%5Cfrac%7B1%7D%7B2%7D%20%5Cend%7Bcases%7D"><img src="http://latex.codecogs.com/gif.latex?f(x)=%5Cbegin%7Bcases%7D%20%5Cinfty%20&%20%5Ctext%7B%20if%20%7D%20x%3C%5Cfrac%7B1%7D%7B2%7D%20%5C%5C%20%5Cfrac%7B2%7D%7B3%7Dx%20&%20%5Ctext%7B%20if%20%7D%20x%5Cgeq%5Cfrac%7B1%7D%7B2%7D%20%5Cend%7Bcases%7D" alt="f(x)&#x3D;infinity if x&lt;1&#x2F;2; f(x)&#x3D;2x&#x2F;3 if x&gt;&#x3D;1&#x2F;2"></a></span>
+
+<p>不過仍要注意：門檻函數不必然僅以投票人數（或投票率）為唯一自變量。也不必然可以用簡單方式表達。<br>以上的函數均未考慮廢票，而有「如果未達門檻，仍然『可能』通過」的現象。前述參、二提到的五個數字，均可能影響選項是否會成為最終決定。</p>
+<h2 id="三、其他法律的「鋸齒」狀函數"><a href="#三、其他法律的「鋸齒」狀函數" class="headerlink" title="三、其他法律的「鋸齒」狀函數"></a>三、其他法律的「鋸齒」狀函數</h2><p>總覺得有。也許可以確認一下：</p>
+<ul>
+<li>中獎 $4000 以上需扣 20% 的稅，因而中 $3900 的獎比 $4100 的好。</li>
+<li>二代健保</li>
+</ul>
+
+  </div>
+  <footer>
+    
+    
+      <div>
+        本文最初發表於：
+        <cite><a target="_blank" rel="external" href="http://kong0107.blogspot.tw/2013/03/referendum_12.html">http://kong0107.blogspot.tw/2013/03/referendum_12.html</a></cite>
+      </div>
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2013/03/referendum-2/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2013/03/referendum-2/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A3%B9%E3%80%81%E3%80%8C%E5%90%A6%E6%B1%BA%E3%80%8D%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-number">1.</span> <span class="toc-text">壹、「否決」的效果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%94%BF%E5%BA%9C%E4%BE%9D%E7%84%B6%E5%8F%AF%E4%BB%A5%E5%9F%B7%E8%A1%8C%E8%A2%AB%E5%90%A6%E6%B1%BA%E7%9A%84%E8%A1%8C%E7%82%BA"><span class="toc-number">1.1.</span> <span class="toc-text">一、政府依然可以執行被否決的行為</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2013-04-18%E6%96%B0%E5%A2%9E"><span class="toc-number">1.2.</span> <span class="toc-text">2013-04-18新增</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%95%B8%E5%B9%B4%E5%85%A7%E4%B8%8D%E5%BE%97%E9%87%8D%E8%A1%8C%E6%8F%90%E6%A1%88"><span class="toc-number">1.3.</span> <span class="toc-text">二、數年內不得重行提案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%80%EF%BC%89%E4%B8%8D%E5%BE%97%E9%87%8D%E8%A1%8C%E6%8F%90%E5%87%BA"><span class="toc-number">1.3.1.</span> <span class="toc-text">（一）不得重行提出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%BA%8C%EF%BC%89%E3%80%8C%E5%95%9F%E7%94%A8%E3%80%8D%E5%BE%8C%E5%85%AB%E5%B9%B4"><span class="toc-number">1.3.2.</span> <span class="toc-text">（二）「啟用」後八年</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%EF%BC%88%E4%B8%89%EF%BC%89%E5%90%8C%E4%B8%80%E4%BA%8B%E9%A0%85"><span class="toc-number">1.3.3.</span> <span class="toc-text">（三）同一事項</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E7%A2%BA%E7%AB%8B%E6%94%BF%E5%BA%9C%E7%9A%84%E8%87%AA%E7%94%B1"><span class="toc-number">1.4.</span> <span class="toc-text">三、確立政府的自由</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B2%B3%E3%80%81%E9%96%80%E6%AA%BB%E8%88%87%E7%AC%AC%E4%B8%89%E7%A8%AE%E7%B5%90%E6%9E%9C"><span class="toc-number">2.</span> <span class="toc-text">貳、門檻與第三種結果</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E3%80%8C%E5%90%A6%E6%B1%BA%E3%80%8D%E5%88%86%E7%82%BA%E5%85%A9%E7%A8%AE%E5%8E%9F%E5%9B%A0%EF%BC%8C%E4%BD%86%E5%8D%BB%E5%8F%AA%E6%9C%89%E4%B8%80%E5%80%8B%E6%95%88%E6%9E%9C"><span class="toc-number">2.1.</span> <span class="toc-text">一、「否決」分為兩種原因，但卻只有一個效果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%B2%92%E9%81%93%E7%90%86%E7%9A%84%EF%BC%8C%E6%98%AF%E3%80%8C%E5%8F%AA%E8%83%BD%E6%9C%89%E4%B8%80%E5%80%8B%E5%80%99%E9%81%B8%E9%81%B8%E9%A0%85%E3%80%8D"><span class="toc-number">2.2.</span> <span class="toc-text">二、沒道理的，是「只能有一個候選選項」</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BF%AE%E6%B3%95%E5%BB%BA%E8%AD%B0%EF%BC%9A%E7%AC%AC%E4%B8%89%E7%A8%AE%E6%88%96%E7%AC%AC%E5%9B%9B%E7%A8%AE%E5%85%AC%E6%8A%95%E7%B5%90%E6%9E%9C"><span class="toc-number">2.3.</span> <span class="toc-text">三、修法建議：第三種或第四種公投結果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E3%80%81%E8%A7%80%E5%AF%9F%E5%90%84%E9%A1%9E%E6%8A%95%E7%A5%A8%E5%88%B6%E5%BA%A6%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85"><span class="toc-number">3.</span> <span class="toc-text">參、觀察各類投票制度的注意事項</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%BB%A2%E7%A5%A8"><span class="toc-number">3.1.</span> <span class="toc-text">一、廢票</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%AF%94%E8%BC%83%E6%A8%99%E7%9A%84%E7%82%BA%E4%BD%95%EF%BC%9F%E6%9C%AA%E9%81%94%E9%96%80%E6%AA%BB%E7%9A%84%E6%95%88%E6%9E%9C%E7%82%BA%E4%BD%95%EF%BC%9F"><span class="toc-number">3.2.</span> <span class="toc-text">二、比較標的為何？未達門檻的效果為何？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%AF%94%E4%BE%8B%E7%9A%84%E6%87%B8%E6%AE%8A"><span class="toc-number">3.3.</span> <span class="toc-text">三、比例的懸殊</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%AF%94%E4%BE%8B%E9%81%B8%E8%88%89%E5%88%B6"><span class="toc-number">3.4.</span> <span class="toc-text">四、比例選舉制</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%82%86%E3%80%81%E6%95%B8%E5%AD%B8"><span class="toc-number">4.</span> <span class="toc-text">肆、數學</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%96%80%E6%AA%BB%E5%87%BD%E6%95%B8%E6%87%89%E6%9C%89%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-number">4.1.</span> <span class="toc-text">一、門檻函數應有的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%96%80%E6%AA%BB%E5%87%BD%E6%95%B8%E6%87%89%E9%81%A9%E7%94%A8%E6%96%BC%E6%89%80%E6%9C%89%E9%81%B8%E9%A0%85"><span class="toc-number">4.2.</span> <span class="toc-text">二、門檻函數應適用於所有選項</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%85%B6%E4%BB%96%E6%B3%95%E5%BE%8B%E7%9A%84%E3%80%8C%E9%8B%B8%E9%BD%92%E3%80%8D%E7%8B%80%E5%87%BD%E6%95%B8"><span class="toc-number">4.3.</span> <span class="toc-text">三、其他法律的「鋸齒」狀函數</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2013/03/referendum-2/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2013/03/referendum-2/&text=公投的酵果"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2013/03/referendum-2/&is_video=false&description=公投的酵果"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=公投的酵果&body=Check out this article: https://kong0107.github.io/posts/2013/03/referendum-2/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2013/03/referendum-2/&title=公投的酵果"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2013/03/referendum-2/&name=公投的酵果&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2013/03/referendum-2/&t=公投的酵果"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="要引入其他網站的資料時，有時會遇到同源政策 (same-origin policy) 的限制。最常見的就是在設計 A 網站時，想要使用者在瀏覽時引用 B 網站的資料，但是前端卻出現這樣的錯誤：  Access to script at ‘https:&#x2F;&#x2F;bbb.com&#39; from origin ‘https:&#x2F;&#x2F;aaa.com&#39; has been blocked by CORS p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*">
+<meta property="og:url" content="https://kong0107.github.io/posts/2023/05/crossorigin/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="要引入其他網站的資料時，有時會遇到同源政策 (same-origin policy) 的限制。最常見的就是在設計 A 網站時，想要使用者在瀏覽時引用 B 網站的資料，但是前端卻出現這樣的錯誤：  Access to script at ‘https:&#x2F;&#x2F;bbb.com&#39; from origin ‘https:&#x2F;&#x2F;aaa.com&#39; has been blocked by CORS p">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-05-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-03T06:10:02.955Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="HTTP">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="CORS">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2023/05/ssh-and-pwsh/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2023/05/referrer-policy/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2023/05/crossorigin/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2023/05/crossorigin/&text=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2023/05/crossorigin/&is_video=false&description=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*&body=Check out this article: https://kong0107.github.io/posts/2023/05/crossorigin/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2023/05/crossorigin/&name=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2023/05/crossorigin/&t=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-%E5%9B%9E%E6%87%89%E6%AA%94%E9%A0%AD%E7%9A%84-Access-Control-Allow"><span class="toc-number">1.</span> <span class="toc-text">HTTP 回應檔頭的 Access-Control-Allow-*</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-%E7%9A%84-crossorigin-%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 的 crossorigin 屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%88%87-referrerpolicy-%E4%B8%8D%E5%A4%AA%E6%9C%89%E9%97%9C%E4%BF%82"><span class="toc-number">2.1.</span> <span class="toc-text">與 referrerpolicy 不太有關係</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E6%84%8F%E8%A6%8B"><span class="toc-number">3.</span> <span class="toc-text">個人意見</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-02T16:00:00.000Z" itemprop="datePublished">2023-05-03</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CORS/" rel="tag">CORS</a>, <a class="tag-link-link" href="/tags/HTML/" rel="tag">HTML</a>, <a class="tag-link-link" href="/tags/HTTP/" rel="tag">HTTP</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <p>要引入其他網站的資料時，有時會遇到<strong>同源政策</strong> (same-origin policy) 的限制。<br>最常見的就是在設計 A 網站時，想要使用者在瀏覽時引用 B 網站的資料，但是前端卻出現這樣的錯誤：</p>
+<blockquote>
+<p>Access to script at ‘<a target="_blank" rel="noopener" href="https://bbb.com&/#39;">https://bbb.com&#39;</a> from origin ‘<a target="_blank" rel="noopener" href="https://aaa.com&/#39;">https://aaa.com&#39;</a> has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource.</p>
+</blockquote>
+<p>先說前提：要引用資料，一定要 B 網站的配合。不可能僅編輯 A 網站就成功讓瀏覽器可以在 A 網站的頁面中引用 B 網站的資料。<br>這是基於安全考量而有的限制，原因不在此文贅述。而是做些下述筆記。</p>
+<p>前備知識：「HTTP 回應檔頭」(response header) 並<strong>不是</strong> HTML 的一部分，所以對網頁進行「檢視原始碼」也是看不到的。如果你只能編輯 HTML ，那麼是沒法解決前述問題的。請到別處學習「 HTTP 連線的請求與回應」的相關知識。</p>
+<h1 id="HTTP-回應檔頭的-Access-Control-Allow"><a href="#HTTP-回應檔頭的-Access-Control-Allow" class="headerlink" title="HTTP 回應檔頭的 Access-Control-Allow-*"></a>HTTP 回應檔頭的 Access-Control-Allow-*</h1><p>意義：<br>於前述跨源請求（A網站跟瀏覽器說「請去跟B網站要資料」，而後瀏覽器向B網站發出請求）時，<br>被請求資源的伺服器（B網站）會表示此資源是否有設計讓來源（A網站）進行<strong>跨源請求</strong>。</p>
+<ul>
+<li><code>Access-Control-Allow-Origin</code> ：僅能為 <code>*</code> 或一個來源名。若需要允許多個來源存取資源，即要設計為針對不同來源做出不同回應檔頭。<br>雖然規格上允許設為 <code>null</code> ，但 MDN 表示那會被視為跟 <code>data:</code> 和 <code>file:</code> 同源而有安全疑慮。</li>
+<li><code>Access-Control-Allow-Credentials</code> ：要設定的話就只能為 <code>true</code> ，不然就是省略這個檔頭。若有設定此檔頭，則 <code>Access-Control-Allow-Origin</code> 不可為 <code>*</code> 。</li>
+</ul>
+<p>由於 CORS 的請求檔頭應要包含 <code>Origin</code> ，所以 <code>Access-Control-Allow-Origin</code> 直接回傳域名即可。以 PHP 為例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_ORIGIN&#x27;</span>]))</span><br><span class="line">		<span class="title function_ invoke__">header</span>(<span class="string">&#x27;Access-Control-Allow-Origin:&#x27;</span> . <span class="variable">$_SERVER</span>[<span class="string">&#x27;HTTP_ORIGIN&#x27;</span>]);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h1 id="HTML-的-crossorigin-屬性"><a href="#HTML-的-crossorigin-屬性" class="headerlink" title="HTML 的 crossorigin 屬性"></a>HTML 的 crossorigin 屬性</h1><p>意義：<br>在 A 網站的頁面中要引入 B 網站的資源時，瀏覽器會依 A 網站中的此屬性而對 B 網站的請求與回應有不同的措施。<br>此設計同於 <code>fetch()</code> 或 <code>XMLHttpRequest</code> 請求跨源資源時的限制。</p>
+<p>適用標籤：<code>&lt;audio&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;video&gt;</code></p>
+<p>不同的設置情形：</p>
+<table>
+<thead>
+<tr>
+<th>設定值</th>
+<th>請求檔頭的 <code>Origin</code></th>
+<th>回應檔頭的 <code>Access-Control-Allow-Origin</code></th>
+<th>回應檔頭的 <code>Access-Control-Allow-Credentials</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>不設定</td>
+<td>不存在</td>
+<td>隨便</td>
+<td>可不存在</td>
+</tr>
+<tr>
+<td><code>anonymous</code> 、留白或其他</td>
+<td>存在</td>
+<td>須為 <code>*</code> 或 <strong>源名</strong></td>
+<td>可不存在</td>
+</tr>
+<tr>
+<td><code>use-credentials</code></td>
+<td>存在</td>
+<td>須為源名</td>
+<td><code>true</code></td>
+</tr>
+</tbody></table>
+<p>總地來說，僅有「不設定」、「設為 <code>use-credentials</code> 」、「其他均視為 <code>anonymous</code>」 三種情形。<br>其中「源名」指前述A網站的網址中，從同訊協定（https）到網域名稱結尾，但不包含路徑開頭的斜線的部分。</p>
+<h2 id="與-referrerpolicy-不太有關係"><a href="#與-referrerpolicy-不太有關係" class="headerlink" title="與 referrerpolicy 不太有關係"></a>與 referrerpolicy 不太有關係</h2><p>這二者均是在指示瀏覽器，在存取後續（或當前網頁的內嵌）資源時，是否要調整 HTTP 檔頭。<br><code>crossorigin</code> 並會指示瀏覽器，對伺服器的回應進行檢查。  </p>
+<table>
+<thead>
+<tr>
+<th>差別</th>
+<th>referrerpolicy</th>
+<th>crossorigin</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>適用的存取對象</td>
+<td>所有資源</td>
+<td>跨源資源</td>
+</tr>
+<tr>
+<td>影響的請求檔頭</td>
+<td><code>Referer</code></td>
+<td><code>Origin</code></td>
+</tr>
+<tr>
+<td>檢查回應檔頭</td>
+<td>不檢查</td>
+<td>可能檢查 <code>Access-Control-Allow-Origin</code> 和 <code>Access-Control-Allow-Credentials</code></td>
+</tr>
+</tbody></table>
+<p>試想在 <code>https://aaa.com/foo.html</code> 的網頁有這樣的 HTML ：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://bbb.com/x.js&quot;</span> <span class="attr">crossorigin</span>=<span class="string">&quot;anonymous&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>由於有設定 <code>crossorigin</code> 屬性，瀏覽器會使用 CORS 連線。<br>這個意思是，請求檔頭會有一個 <code>Origin: https://aaa.com</code>  。</p>
+<p>但關於「A網站跟瀏覽器說『請去跟B網站要資料』」這件事，一般瀏覽器對 B 網站連線時，還會傳送 <code>referer</code> 檔頭： <code>Referer: https://aaa.com/</code> 。</p>
+<p>雖然在一般情形下， <code>Origin</code> 和 <code>Referer</code> 是差不多的（預設情形下會差那個斜線），但請務必注意其目的不同：</p>
+<ul>
+<li>Origin 是針對同源政策而設計出來的東西，僅考量協定、主機名、埠號（通常會省略，表示使用域設埠號）</li>
+<li>Referer （注意這個字是拼錯的）是為了傳遞「前一個網頁的（完整）網址是啥」，是早期為了統計網路流量的設計。後來考量隱私，現今瀏覽器在跨源的時候會預設為僅傳送根目錄（包含最後的斜線）。</li>
+</ul>
+<p>若要指示讓瀏覽器傳送不同詳細程度的 Referer ，則可以設定 referrerpolicy 屬性（注意後者的 referrer 是拚對的），參閱<a href="https://kong0107.github.io/posts/2023/05/referrer-policy/">前一篇文</a>。</p>
+<h1 id="個人意見"><a href="#個人意見" class="headerlink" title="個人意見"></a>個人意見</h1><ul>
+<li>若不想讓B網站知道「訪客是從A網站連過去的」的話，就要設定 <code>referrerpolicy=&quot;same-origin&quot;</code> ，但<strong>不能</strong>設定 <code>crossorigin</code> 。<br>不過 MDN 說 <code>&lt;link&gt;</code> 的情形下， <code>Request with no appropriate crossorigin header may be discarded.</code></li>
+<li>若要運作「會被其他網站引用的資源」的伺服器（例如CDN），且僅為特定來源設計，可以在來源不明（或已被列入黑名單）時直接拒絕請求，而根本不用告知 <code>Access-Control-Allow-*</code> 。</li>
+</ul>
+<h1 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin">https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin</a></li>
+</ul>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2023/05/crossorigin/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2023/05/crossorigin/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-%E5%9B%9E%E6%87%89%E6%AA%94%E9%A0%AD%E7%9A%84-Access-Control-Allow"><span class="toc-number">1.</span> <span class="toc-text">HTTP 回應檔頭的 Access-Control-Allow-*</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML-%E7%9A%84-crossorigin-%E5%B1%AC%E6%80%A7"><span class="toc-number">2.</span> <span class="toc-text">HTML 的 crossorigin 屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%88%87-referrerpolicy-%E4%B8%8D%E5%A4%AA%E6%9C%89%E9%97%9C%E4%BF%82"><span class="toc-number">2.1.</span> <span class="toc-text">與 referrerpolicy 不太有關係</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%80%8B%E4%BA%BA%E6%84%8F%E8%A6%8B"><span class="toc-number">3.</span> <span class="toc-text">個人意見</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">4.</span> <span class="toc-text">參考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2023/05/crossorigin/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2023/05/crossorigin/&text=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2023/05/crossorigin/&is_video=false&description=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*&body=Check out this article: https://kong0107.github.io/posts/2023/05/crossorigin/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2023/05/crossorigin/&title=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2023/05/crossorigin/&name=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2023/05/crossorigin/&t=HTML 的 crossorigin 屬性 及 HTTP 回應檔頭的 Access-Control-Allow-*"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

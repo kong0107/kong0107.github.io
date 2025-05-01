@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="概念 用 Microdata 是為了 SEO ，讓各大搜尋引擎也能解析出網頁裡有哪些資料。 跟 DOM 樹做結合，並用 HTML 標籤的屬性來宣告資料的範 (scope)、型態 (type)、屬性 (prop) 。  基本範例 以「商品」為例，要標記一個商品時，即： 1&lt;div itemscope itemtype&#x3D;&quot;https:&#x2F;&#x2F;schema.org&#x2F;Product&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Microdata 與 Schema.org 入門">
+<meta property="og:url" content="https://kong0107.github.io/posts/2022/11/microdata/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="概念 用 Microdata 是為了 SEO ，讓各大搜尋引擎也能解析出網頁裡有哪些資料。 跟 DOM 樹做結合，並用 HTML 標籤的屬性來宣告資料的範 (scope)、型態 (type)、屬性 (prop) 。  基本範例 以「商品」為例，要標記一個商品時，即： 1&lt;div itemscope itemtype&#x3D;&quot;https:&#x2F;&#x2F;schema.org&#x2F;Product&quot;">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-11-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-22T06:39:03.240Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="Microdata">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Microdata 與 Schema.org 入門</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2022/11/schema-product/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2019/12/onlyfans/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/microdata/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/microdata/&text=Microdata 與 Schema.org 入門"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/microdata/&is_video=false&description=Microdata 與 Schema.org 入門"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Microdata 與 Schema.org 入門&body=Check out this article: https://kong0107.github.io/posts/2022/11/microdata/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/microdata/&name=Microdata 與 Schema.org 入門&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/microdata/&t=Microdata 與 Schema.org 入門"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%AF%84%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">基本範例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%B1%E6%80%A8"><span class="toc-number">2.1.</span> <span class="toc-text">抱怨</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A0%85%E7%9B%AE%E8%A3%A1%E7%9A%84%E5%B1%AC%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">項目裡的屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A2%BA%E8%AA%8D%E8%87%AA%E5%B7%B1%E5%9C%A8%E9%97%9C%E6%B3%A8%E5%93%AA%E7%A8%AE%E7%B5%90%E6%A7%8B"><span class="toc-number">3.1.</span> <span class="toc-text">確認自己在關注哪種結構</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8B%A5%E5%B1%AC%E6%80%A7%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E7%B5%90%E6%A7%8B"><span class="toc-number">4.</span> <span class="toc-text">若屬性有自己的結構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%8F%E6%A0%BC"><span class="toc-number">5.</span> <span class="toc-text">規格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8D%E6%A9%9F%E5%99%A8%E5%8F%8B%E5%96%84%EF%BC%8C%E4%B9%9F%E8%A6%81%E5%B0%8D%E4%BA%BA%E5%8F%8B%E5%96%84"><span class="toc-number">6.</span> <span class="toc-text">對機器友善，也要對人友善</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92"><span class="toc-number">6.1.</span> <span class="toc-text">提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E8%A6%8B%E7%9A%84-HTML-%E5%85%83%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">不可見的 HTML 元件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#meta"><span class="toc-number">7.1.</span> <span class="toc-text">meta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#link"><span class="toc-number">7.2.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95"><span class="toc-number">7.3.</span> <span class="toc-text">其他用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E5%B1%A4%E7%9A%84-itemprop-%E4%B9%8B%E9%96%93%E5%8F%AF%E4%BB%A5%E5%9C%A8-DOM-%E4%B8%8A%E6%9C%89%E8%A6%AA%E5%AD%90%E9%97%9C%E4%BF%82%E5%97%8E%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">同一層的 itemprop 之間可以在 DOM 上有親子關係嗎？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B-HTML-%E5%B1%AC%E6%80%A7%E6%9C%83%E8%A2%AB%E7%95%B6%E6%88%90-Microdata-%E7%9A%84%E5%80%BC%EF%BC%9F"><span class="toc-number">9.</span> <span class="toc-text">哪些 HTML 屬性會被當成 Microdata 的值？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">9.1.</span> <span class="toc-text">小結</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-number">9.2.</span> <span class="toc-text">各搜尋引擎的要求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A%E7%B0%A1%E5%8C%96-itemscope-%E5%92%8C-itemtype"><span class="toc-number">10.</span> <span class="toc-text">附論：簡化 itemscope 和 itemtype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A%E6%88%91%E7%82%BA%E4%BD%95%E9%81%B8%E7%94%A8-Microdata"><span class="toc-number">11.</span> <span class="toc-text">附論：我為何選用 Microdata</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vs-JSON-LD"><span class="toc-number">11.1.</span> <span class="toc-text">vs JSON-LD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Microdata-%E8%88%87-RDFa"><span class="toc-number">11.2.</span> <span class="toc-text">Microdata 與 RDFa</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Microdata 與 Schema.org 入門
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-16T16:00:00.000Z" itemprop="datePublished">2022-11-17</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Microdata/" rel="tag">Microdata</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li>用 Microdata 是為了 SEO ，讓各大搜尋引擎也能解析出網頁裡有哪些資料。</li>
+<li>跟 DOM 樹做結合，並用 HTML 標籤的屬性來宣告資料的範 (scope)、型態 (type)、屬性 (prop) 。</li>
+</ul>
+<h2 id="基本範例"><a href="#基本範例" class="headerlink" title="基本範例"></a>基本範例</h2><p> 以「商品」為例，要標記一個商品時，即：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Product&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>表示這個元件裡頭是一個範圍 (scope)，會描述一個型態 (type) 為 <code>Product</code> 的項目 (item)，而項目內的屬性等規格宣告於 <code>https://schema.org/Product</code> 。</p>
+<p>這個元件不一定要是 <code>&lt;div&gt;</code> ，也可以是其他「可包含其他元件」的 HTML 元件。</p>
+<h3 id="抱怨"><a href="#抱怨" class="headerlink" title="抱怨"></a>抱怨</h3><p><code>itemscope</code> 似乎跟 <code>itemtype</code> 必一起出現，但是 <code>itemscope</code> 不可省，而由於基本上都是用 Schema.org 的字典，所以實際上 <code>itemtype</code> 每次都要以 <code>https://schema.org/</code> 開頭。</p>
+<p>若能像 #RDFa 那樣，在頂層用一次 <code>vocab</code> 屬性的話應該可以省版面，可惜不行。<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/itemref">MDN 在 <code>itemref</code> 屬性的頁面</a>有個範例是「有 <code>itemscope</code> 但沒有 <code>itemtype</code> 」，但我沒翻到有哪個網站真的那樣用。</p>
+<h2 id="項目裡的屬性"><a href="#項目裡的屬性" class="headerlink" title="項目裡的屬性"></a>項目裡的屬性</h2><p>前述例子只宣告了「這裡有個商品」，但其他什麼資訊都沒有。<br>若要加其他屬性，則要在該容器裡加 HTML <em>元件</em> (element)，一個 HTML 元件可以代表一個 Microdata <em>屬性</em> (property)。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Product&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span>微鹼性手工玫瑰香皂<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>此即宣告</p>
+<blockquote>
+<p>有一個 <code>Product</code> ，它的 <code>name</code> 是「微鹼性手工玫瑰香皂」。</p>
+</blockquote>
+<h3 id="確認自己在關注哪種結構"><a href="#確認自己在關注哪種結構" class="headerlink" title="確認自己在關注哪種結構"></a>確認自己在關注哪種結構</h3><p>前例中，<br>若從 HTML 的結構來描述， <code>&lt;span&gt;</code> 有一個屬性 (attribute) 名叫 <code>itemprop</code> ，它的值是 <code>&quot;name&quot;</code> ；<br>若從 Microdata 的結構來描述，這個 <code>Product</code> 有一個屬性 (property) 名叫 <code>name</code> ，它的值是「微鹼性手工玫瑰香皂」。</p>
+<p>中文都常翻成「屬性」，但英文的用詞不同，結構上指稱的也不同，撰寫時要留意。</p>
+<h2 id="若屬性有自己的結構"><a href="#若屬性有自己的結構" class="headerlink" title="若屬性有自己的結構"></a>若屬性有自己的結構</h2><p>一個物件的屬性值可能是另一個物件，例如一本書的作者是某些人，每個人有各自的所屬屬性（而不是只有名字）。<br>在 Microdata ，這恰好可以跟 HTML&#x2F;XML 的巢狀結構結合。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Painting&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;headline&quot;</span>&gt;</span>蒙娜麗莎<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">itemprop</span>=<span class="string">&quot;author&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Person&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;givenName&quot;</span>&gt;</span>李奧納多<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    達</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;birthPlace&quot;</span>&gt;</span>文西<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">itemprop</span>=<span class="string">&quot;maintainer&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Organization&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span>羅浮宮<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;location&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Place&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span>法國巴黎<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上例即意指有一個畫作 (Painting) ，它的</p>
+<ul>
+<li>標題 (headline) 是「蒙娜麗莎」；</li>
+<li>作者 (author) 是一個人 (Person) ，他的<ul>
+<li>名字 (givenName) 是「李奧納多」；</li>
+<li>出生地 (birthPlace) 是「文西」。</li>
+</ul>
+</li>
+<li>維護者 (maintainer) 是一個機構 (Organization)，它的<ul>
+<li>名稱 (name) 是「羅浮宮」；</li>
+<li>地點 (location) 是一個場所 (Place)，它的<ul>
+<li>名稱 (name) 是「法國巴黎」。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>其中「達」字落單了，但沒有關係，它會被 Microdata 解析的程式忽略。</p>
+<p>若有其他沒有宣告 <code>item*</code> 屬性的 HTML 元件，也會被 Microdata 解析的程式忽略。<br>例如上例中，瀏覽器渲染的結果對於人來說並不好閱讀，實際的網頁應該會比較像這樣：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dl</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Painting&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>畫作標題<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span> <span class="attr">itemprop</span>=<span class="string">&quot;headline&quot;</span>&gt;</span>蒙娜麗莎<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>作者<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span> <span class="attr">itemprop</span>=<span class="string">&quot;author&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Person&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;givenName&quot;</span>&gt;</span>李奧納多<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    達</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;birthPlace&quot;</span>&gt;</span>文西<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">dt</span>&gt;</span>維護單位<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dd</span> <span class="attr">itemprop</span>=<span class="string">&quot;maintainer&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Organization&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span>羅浮宮<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;location&quot;</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Place&quot;</span>&gt;</span></span><br><span class="line">      （位於<span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span>法國巴黎<span class="tag">&lt;/<span class="name">span</span>&gt;</span>）</span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dl</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="規格"><a href="#規格" class="headerlink" title="規格"></a>規格</h2><p>哪些資料型態有哪些屬性？這個屬性應該用哪種資料型態？<br>這些並不是規範在 Microdata ，而是可以自訂的。<br>幾大搜尋引擎則都有使用 Schema.org 的規格。</p>
+<p>在前例程式碼中的「維護單位」裡， <a target="_blank" rel="noopener" href="https://schema.org/Organization">https://schema.org/Organization</a> 提到了 <code>location</code> 屬性除了可以是 <code>Place</code> 型態外，也可以是 <code>Text</code> 。<br>其中 <code>Place</code> 即像上面那樣進行巢狀宣告，而 <code>Text</code> 屬於基本型態，可如前面香皂的例子，不再宣告 <code>itemtype</code> 就直接在 HTML 元件中使用純文字。<br>也就是說，前例關於羅浮宮那一部分的 HTML 也可寫成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dt</span>&gt;</span>維護單位<span class="tag">&lt;/<span class="name">dt</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dd</span> <span class="attr">itemprop</span>=<span class="string">&quot;maintainer&quot;</span>&gt;</span>法國巴黎羅浮宮<span class="tag">&lt;/<span class="name">dd</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>至於結構到底多複雜才好，那就是實際製作網頁時要衡量的了。</p>
+<h2 id="對機器友善，也要對人友善"><a href="#對機器友善，也要對人友善" class="headerlink" title="對機器友善，也要對人友善"></a>對機器友善，也要對人友善</h2><p>以數字為例，對一般訪客來說， <code>$ 1,234,567</code> 會比 <code>1234567</code> 清楚，但對程式來說則不是。<br>在這種情形，可以改用 HTML 的 <code>content</code> 屬性 (attribute) 來宣告 Microdata 需要的值。</p>
+<p>以商品的販售資料 (Offer 類型) 為例， Schema.org 有這樣的例子（節錄）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Offer&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;priceCurrency&quot;</span> <span class="attr">content</span>=<span class="string">&quot;USD&quot;</span>&gt;</span>$<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;price&quot;</span> <span class="attr">content</span>=<span class="string">&quot;1000.00&quot;</span>&gt;</span>1,000.00<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在讀取 <code>priceCurrency</code> 時，Microdata 的解析程式即會判斷 “USD” 才是該屬性的值，而忽略 “$” 。<br>另注意 Schema.org 有在許多地方強調數字型態 (Number) 應：</p>
+<blockquote>
+<p>Use ‘.’ (Unicode ‘FULL STOP’ (U+002E)) rather than ‘,’ to indicate a decimal point. Avoid using these symbols as a readability separator.</p>
+</blockquote>
+<p>— <a target="_blank" rel="noopener" href="https://schema.org/Number">Number - Schema.org Data Type</a></p>
+<p>筆者譯：「小數點請用 ‘.’ 而不要用 ‘,’ ，避免用這些符號增加（對人類的）可讀性。」<br>因此上例的 <code>price</code> 屬性也是把「給機器看的」和「給人看的」各寫一次。</p>
+<h3 id="提醒"><a href="#提醒" class="headerlink" title="提醒"></a>提醒</h3><p>「給機器看 HTML ，再用 JavaScript 把一些東西改成人類好閱讀的」這個方法不可行，因為 Google 現在看的是執行 JavaScript 後的 DOM 結構，包含非同步執行的那些。</p>
+<p>也就是說，「不要」這樣做：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;price&quot;</span>&gt;</span>1000<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;[itemprop=price]&#x27;</span>).<span class="title function_">forEach</span>(<span class="function"><span class="params">elem</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      elem.<span class="property">textContent</span> = <span class="built_in">parseFloat</span>(elem.<span class="property">textContent</span>).<span class="title function_">toLocaleString</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;);</span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// Don&#x27;t do this.</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="不可見的-HTML-元件"><a href="#不可見的-HTML-元件" class="headerlink" title="不可見的 HTML 元件"></a>不可見的 HTML 元件</h2><p>有時 <em>給機器看的</em> 和 <em>給人看的</em> 結構差太多，不方便用前述的方式表達，則可以用下述兩個「以往只用在 <code>&lt;head&gt;</code> 裡」且「不需要結束標籤」的元件：</p>
+<h3 id="meta"><a href="#meta" class="headerlink" title="meta"></a>meta</h3><p>用法如其他 HTML 元件加上 <code>content</code> 屬性 (attribute) 。<br>Google 的文件即有這樣的範例（節錄）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/NewsArticle&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">itemprop</span>=<span class="string">&quot;headline&quot;</span>&gt;</span>Title of News Article<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://example.com/photos/1x1/photo.jpg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;image&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://example.com/photos/4x3/photo.jpg&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">img</span> <span class="attr">itemprop</span>=<span class="string">&quot;image&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://example.com/photos/16x9/photo.jpg&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>— <a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/appearance/structured-data/article">瞭解文章結構定義標記 | Google 搜尋中心  |  說明文件  |  Google Developers</a></p>
+<p>本例中我們也看到：一個屬性 (property) 可以出現多次，且使用不同的 HTML 標籤和屬性 (attribute) 來呈現。</p>
+<h3 id="link"><a href="#link" class="headerlink" title="link"></a>link</h3><p>若資料型態為 <a target="_blank" rel="noopener" href="https://schema.org/Enumeration">Enumeration</a>， Schema.org 有範例如下（節錄）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Offer&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">itemprop</span>=<span class="string">&quot;availability&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://schema.org/InStock&quot;</span> /&gt;</span>In stock</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>— <a target="_blank" rel="noopener" href="https://schema.org/Offer#eg-0010">Offer - Schema.org Type</a></p>
+<p>看起來似乎是：</p>
+<ul>
+<li>若是網址類的，就用 <code>&lt;link&gt;</code> ，且用 <code>href</code> （而非 <code>content</code> ）指定值。</li>
+<li>Enumeration 型態的，其值必須是規格網址，而非單純字串（如 “InStock” ）。</li>
+</ul>
+<h3 id="其他用法"><a href="#其他用法" class="headerlink" title="其他用法"></a>其他用法</h3><p>不過， Google 則有將 <code>&lt;meta&gt;</code> 和 <code>&lt;link&gt;</code> 交替使用的例子（節錄）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Offer&quot;</span> <span class="attr">itemscope</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">link</span> <span class="attr">itemprop</span>=<span class="string">&quot;url&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://example.com/anvil&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;availability&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://schema.org/InStock&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;priceCurrency&quot;</span> <span class="attr">content</span>=<span class="string">&quot;USD&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;itemCondition&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://schema.org/UsedCondition&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;price&quot;</span> <span class="attr">content</span>=<span class="string">&quot;119.99&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;priceValidUntil&quot;</span> <span class="attr">content</span>=<span class="string">&quot;2020-11-20&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>— <a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/appearance/structured-data/product#microdata">如何加入產品結構化資料 | Google 搜尋中心  |  說明文件  |  Google Developers</a></p>
+<p>本例中我們也看到：</p>
+<ul>
+<li>可使用 <code>&lt;link href&gt;</code> 在 <a target="_blank" rel="noopener" href="https://schema.org/URL"><code>URL</code> 型態</a>的屬性上。</li>
+<li>文字、數字、日期型態，也可用 <code>&lt;meta content&gt;</code> 表示。</li>
+<li>可以用 <code>&lt;div&gt;</code> 將多個不可見的元件包起來，成為一個不可見的 <code>itemscope</code> 。</li>
+</ul>
+<p>另外，在 <code>availability</code> 屬性的指示上， Google 也說</p>
+<blockquote>
+<p>系統也支援不含網址前置字元的簡稱 (例如 <code>BackOrder</code>)。</p>
+</blockquote>
+<p>亦即， Google 支援 <code>&lt;meta itemprop=&quot;availability&quot; content=&quot;InStock&quot; /&gt;</code> 這樣的簡寫。</p>
+<h2 id="同一層的-itemprop-之間可以在-DOM-上有親子關係嗎？"><a href="#同一層的-itemprop-之間可以在-DOM-上有親子關係嗎？" class="headerlink" title="同一層的 itemprop 之間可以在 DOM 上有親子關係嗎？"></a>同一層的 itemprop 之間可以在 DOM 上有親子關係嗎？</h2><p>可以。Google 在導覽標記（ #麵包屑 ）的範例有：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">itemprop</span>=<span class="string">&quot;item&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://example.com/books&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;name&quot;</span>&gt;</span>Books<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="哪些-HTML-屬性會被當成-Microdata-的值？"><a href="#哪些-HTML-屬性會被當成-Microdata-的值？" class="headerlink" title="哪些 HTML 屬性會被當成 Microdata 的值？"></a>哪些 HTML 屬性會被當成 Microdata 的值？</h2><p>大部分的元件加上 <code>itemprop</code> 時，都是意指「我包住的文字內容就是這個屬性的值」，但有些元件如 <code>&lt;img&gt;</code> 和 <code>&lt;meta&gt;</code> 並不能「包住」其他節點，此時「屬性的值要去哪找」的規則就不太一樣。<br>Mark Pilgrim 整理出下表（筆者略改格式）：</p>
+<blockquote>
+<p>A microdata property <strong>name</strong> … is always declared on an HTML element.<br>The corresponding property <strong>value</strong> is then taken from the element’s DOM. For most HTML elements, the property value is simply the text content of the element. But there are a handful of exceptions.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>element</th>
+<th align="right">property value from</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>meta</td>
+<td align="right"><code>content</code> attribute</td>
+</tr>
+<tr>
+<td>audio, embed, iframe, img, source, video</td>
+<td align="right"><code>src</code> attribute</td>
+</tr>
+<tr>
+<td>a, area, link</td>
+<td align="right"><code>href</code> attribute</td>
+</tr>
+<tr>
+<td>object</td>
+<td align="right"><code>data</code> attribute</td>
+</tr>
+<tr>
+<td>time</td>
+<td align="right"><code>datetime</code> attribute</td>
+</tr>
+<tr>
+<td>(all other elements)</td>
+<td align="right">text content</td>
+</tr>
+</tbody></table>
+<p>— <a target="_blank" rel="noopener" href="https://diveinto.html5doctor.com/extensibility.html#property-values">Microdata - Dive Into HTML5</a></p>
+<p>不過，在前述的例子裡，我們看到 HTML 的 <code>content</code> 屬性不只能放在 <code>&lt;meta&gt;</code> 標籤中， Schema.org 也將之用在 <code>&lt;span&gt;</code> 上來表示 Microdata 的資料。</p>
+<h3 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h3><p>這樣看來，下面五種寫法在 Microdata 的結構上是等價的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">itemprop</span>=<span class="string">&quot;contentUrl&quot;</span> <span class="attr">src</span>=<span class="string">&quot;https://fakeimg.pl/64/&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">itemprop</span>=<span class="string">&quot;contentUrl&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://fakeimg.pl/64/&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">itemprop</span>=<span class="string">&quot;contentUrl&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://fakeimg.pl/64/&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;contentUrl&quot;</span> <span class="attr">content</span>=<span class="string">&quot;https://fakeimg.pl/64/&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> <span class="attr">itemprop</span>=<span class="string">&quot;contentUrl&quot;</span>&gt;</span>href=&quot;https://fakeimg.pl/64/<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="各搜尋引擎的要求"><a href="#各搜尋引擎的要求" class="headerlink" title="各搜尋引擎的要求"></a>各搜尋引擎的要求</h3><p>各搜尋引擎會有不同要求，例如 Google 要求圖片物件：</p>
+<blockquote>
+<p>除了 contentUrl 以外，您還必須添加下列其中一個屬性：</p>
+<ul>
+<li>creator</li>
+<li>creditText</li>
+<li>copyrightNotice</li>
+<li>license</li>
+</ul>
+</blockquote>
+<p>— <a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/appearance/structured-data/image-license-metadata?hl=zh-tw#json-ld">圖片 SEO：圖片中繼資料  |  說明文件  |  Google Developers</a></p>
+<p>實際上使用 Microdata 畢竟是為了 SEO ， Google 也說：</p>
+<blockquote>
+<p>雖然大部分的 Google 搜尋結構化資料都使用 schema.org 詞彙，但在瞭解 Google 搜尋的運作方式時，請忽略 schema.org 的說明文件，並以 Google 搜尋中心說明文件為最終參考指南。<br>schema.org 上有許多屬性或物件對其他搜尋引擎、服務、工具和平台來說可能很實用，但對 Google 搜尋而言並非必要。</p>
+</blockquote>
+<p>— <a target="_blank" rel="noopener" href="https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data#structured-data-format">瞭解結構化資料標記的運作方式 | Google 搜尋中心  |  說明文件  |  Google Developers</a></p>
+<p>所以若遇到有衝突的情形，請不要糾結「我的語法又沒錯，你為什麼不吃」這種事，<br>善用 Google 的<a target="_blank" rel="noopener" href="https://search.google.com/test/rich-results">複合式搜尋結果測試</a>來達成弄這些東西的目的。</p>
+<h2 id="附論：簡化-itemscope-和-itemtype"><a href="#附論：簡化-itemscope-和-itemtype" class="headerlink" title="附論：簡化 itemscope 和 itemtype"></a>附論：簡化 <code>itemscope</code> 和 <code>itemtype</code></h2><p>既然 Google 會執行完 JavaScript 後才從 DOM 裡去抓資料，那也許我們在寫 HTML 的時候，可以簡化  <code>itemscope</code> 和 <code>itemtype</code> ，到前端再用 JavaScript 補完整。</p>
+<p>原本的：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemscope</span> <span class="attr">itemtype</span>=<span class="string">&quot;https://schema.org/Product&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>簡化成：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">itemtype</span>=<span class="string">&quot;Product&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但每頁都再執行 JavaScript ：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;DOMContentLoaded&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&#x27;[itemtype]&#x27;</span>).<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    item.<span class="title function_">setAttribute</span>(<span class="string">&#x27;itemscope&#x27;</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    <span class="keyword">let</span> type = item.<span class="title function_">getAttribute</span>(<span class="string">&#x27;itemtype&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(!type.<span class="title function_">startsWith</span>(<span class="string">&#x27;https://&#x27;</span>)) &#123;</span><br><span class="line">      type = <span class="string">&#x27;https://schema.org/&#x27;</span> + type;</span><br><span class="line">      item.<span class="title function_">setAttribute</span>(<span class="string">&#x27;itemtype&#x27;</span>, type);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>不過，我不知道這在其他情形（例如對於其他搜尋引擎）是否會有問題。</p>
+<h2 id="附論：我為何選用-Microdata"><a href="#附論：我為何選用-Microdata" class="headerlink" title="附論：我為何選用 Microdata"></a>附論：我為何選用 Microdata</h2><h3 id="vs-JSON-LD"><a href="#vs-JSON-LD" class="headerlink" title="vs JSON-LD"></a>vs JSON-LD</h3><p>Google 已經主推 <strong>JSON-LD</strong> 了，但我總覺得 JSON-LD 應該是要獨立出去成為 API 的東西，而不該內嵌在給使用者看的網頁之中。</p>
+<p>在傳統「由伺服器端運算出靜態 HTML ，再傳輸給瀏覽器」的結構下， <code>&lt;body&gt;</code> 中就已經有資料了， JSON-LD 則要求在 <code>&lt;head&gt;</code> 裡也要有一份資料。這樣根本就浪費資源——瀏覽器拿到 JSON-LD 到底要幹嘛？</p>
+<p>若要用 JSON-LD ，應該是搭配 Angular 那類，讓資料可以由瀏覽器解析後，再逐一建構出 HTML 元件，呈現給使用者看。這樣的話，資料就只需傳輸一次。</p>
+<p>不過我目前仍是「用伺服器端輸出靜態 HTML 」的方式寫網站，因此用不到 JSON-LD 的前述特點。</p>
+<h3 id="Microdata-與-RDFa"><a href="#Microdata-與-RDFa" class="headerlink" title="Microdata 與 RDFa"></a>Microdata 與 RDFa</h3><p>相比之下，使用 Microdata 和 RDFa 在某種程度上可以協助前端編排的人員更理解資料的結構。</p>
+<p>比方說，網頁底部的版權宣告，依傳統方式有可能是這樣呈現</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="symbol">&amp;copy;</span> 2022 My Corporation<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>Tel: xx-xxxx-xxxx<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但我在試著套用 Microdata 後，才「意識」到這個結構其實不對。資料的結構上應該是：</p>
+<ul>
+<li>Webpage:<ul>
+<li>copyrightYear (Number): 2022</li>
+<li>copyrightHolder (Organization):<ul>
+<li>legalName (Text): “My Corporation”</li>
+<li>telephone (Text): “xx-xxxx-xxxx”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>意即，公司的「名稱」和「電話」之間，在資料上的連結性才比較強，跟版權年份的關聯反而較低。</p>
+<p>使用 Microdata 和 RDFa 這種，要在 HTML 裡面加屬性的框架，則有助於釐清這樣的情形，可以讓我們在理解「這個資料是甚麼」的情形下，再去編排 HTML。</p>
+<p>當然這也有缺點。<br>同樣在此例，要順應結構又達成傳統的版面編排（版權年與公司名在同一行，電話在另一行）就會比較困難。<br>儘管可以考慮用 HTML 的 <code>itemref</code> 屬性，但我覺得那樣結構很容易變亂。</p>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2022/11/microdata/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2022/11/microdata/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%AF%84%E4%BE%8B"><span class="toc-number">2.</span> <span class="toc-text">基本範例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%B1%E6%80%A8"><span class="toc-number">2.1.</span> <span class="toc-text">抱怨</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A0%85%E7%9B%AE%E8%A3%A1%E7%9A%84%E5%B1%AC%E6%80%A7"><span class="toc-number">3.</span> <span class="toc-text">項目裡的屬性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A2%BA%E8%AA%8D%E8%87%AA%E5%B7%B1%E5%9C%A8%E9%97%9C%E6%B3%A8%E5%93%AA%E7%A8%AE%E7%B5%90%E6%A7%8B"><span class="toc-number">3.1.</span> <span class="toc-text">確認自己在關注哪種結構</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%8B%A5%E5%B1%AC%E6%80%A7%E6%9C%89%E8%87%AA%E5%B7%B1%E7%9A%84%E7%B5%90%E6%A7%8B"><span class="toc-number">4.</span> <span class="toc-text">若屬性有自己的結構</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%8F%E6%A0%BC"><span class="toc-number">5.</span> <span class="toc-text">規格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8D%E6%A9%9F%E5%99%A8%E5%8F%8B%E5%96%84%EF%BC%8C%E4%B9%9F%E8%A6%81%E5%B0%8D%E4%BA%BA%E5%8F%8B%E5%96%84"><span class="toc-number">6.</span> <span class="toc-text">對機器友善，也要對人友善</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92"><span class="toc-number">6.1.</span> <span class="toc-text">提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E8%A6%8B%E7%9A%84-HTML-%E5%85%83%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">不可見的 HTML 元件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#meta"><span class="toc-number">7.1.</span> <span class="toc-text">meta</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#link"><span class="toc-number">7.2.</span> <span class="toc-text">link</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95"><span class="toc-number">7.3.</span> <span class="toc-text">其他用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E4%B8%80%E5%B1%A4%E7%9A%84-itemprop-%E4%B9%8B%E9%96%93%E5%8F%AF%E4%BB%A5%E5%9C%A8-DOM-%E4%B8%8A%E6%9C%89%E8%A6%AA%E5%AD%90%E9%97%9C%E4%BF%82%E5%97%8E%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">同一層的 itemprop 之間可以在 DOM 上有親子關係嗎？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B-HTML-%E5%B1%AC%E6%80%A7%E6%9C%83%E8%A2%AB%E7%95%B6%E6%88%90-Microdata-%E7%9A%84%E5%80%BC%EF%BC%9F"><span class="toc-number">9.</span> <span class="toc-text">哪些 HTML 屬性會被當成 Microdata 的值？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%B5%90"><span class="toc-number">9.1.</span> <span class="toc-text">小結</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E7%9A%84%E8%A6%81%E6%B1%82"><span class="toc-number">9.2.</span> <span class="toc-text">各搜尋引擎的要求</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A%E7%B0%A1%E5%8C%96-itemscope-%E5%92%8C-itemtype"><span class="toc-number">10.</span> <span class="toc-text">附論：簡化 itemscope 和 itemtype</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A%E6%88%91%E7%82%BA%E4%BD%95%E9%81%B8%E7%94%A8-Microdata"><span class="toc-number">11.</span> <span class="toc-text">附論：我為何選用 Microdata</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#vs-JSON-LD"><span class="toc-number">11.1.</span> <span class="toc-text">vs JSON-LD</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Microdata-%E8%88%87-RDFa"><span class="toc-number">11.2.</span> <span class="toc-text">Microdata 與 RDFa</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/microdata/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/microdata/&text=Microdata 與 Schema.org 入門"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/microdata/&is_video=false&description=Microdata 與 Schema.org 入門"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Microdata 與 Schema.org 入門&body=Check out this article: https://kong0107.github.io/posts/2022/11/microdata/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/microdata/&title=Microdata 與 Schema.org 入門"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/microdata/&name=Microdata 與 Schema.org 入門&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/microdata/&t=Microdata 與 Schema.org 入門"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

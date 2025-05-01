@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="網頁中的圖示在網頁中使用符號圖示的概念，有多種不同的實作方式與發展：  純文字，例如顏文字和 ASCII 藝術，後來 Unicode 發展的 emoji 也可算入。 在 &lt;img&gt; 裡顯示一整張圖片。 不使用 &lt;img&gt; ，用 CSS 的 background-image 來顯示一整張圖片。 不使用 &lt;img&gt; ，用 CSS 的 background-posit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="圖標字體 (iconfont) 與無障礙網頁">
+<meta property="og:url" content="https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="網頁中的圖示在網頁中使用符號圖示的概念，有多種不同的實作方式與發展：  純文字，例如顏文字和 ASCII 藝術，後來 Unicode 發展的 emoji 也可算入。 在 &lt;img&gt; 裡顯示一整張圖片。 不使用 &lt;img&gt; ，用 CSS 的 background-image 來顯示一整張圖片。 不使用 &lt;img&gt; ，用 CSS 的 background-posit">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-12-14T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-16T01:44:01.586Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="無障礙">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>圖標字體 (iconfont) 與無障礙網頁</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2024/02/child-porn/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2023/05/apache-rotatelogs/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&text=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&is_video=false&description=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=圖標字體 (iconfont) 與無障礙網頁&body=Check out this article: https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&name=圖標字體 (iconfont) 與無障礙網頁&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&t=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B6%B2%E9%A0%81%E4%B8%AD%E7%9A%84%E5%9C%96%E7%A4%BA"><span class="toc-number">1.</span> <span class="toc-text">網頁中的圖示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%84%A1%E9%9A%9C%E7%A4%99%E7%B6%B2%E9%A0%81"><span class="toc-number">2.</span> <span class="toc-text">無障礙網頁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B0%A1%E5%96%AE%E7%9A%84%E9%96%8B%E5%A7%8B"><span class="toc-number">3.</span> <span class="toc-text">簡單的開始</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8D%E4%B8%8D%E7%86%9F%E5%9C%96%E7%A4%BA%E7%9A%84%E4%BA%BA%E5%8F%8B%E5%96%84"><span class="toc-number">4.</span> <span class="toc-text">對不熟圖示的人友善</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A6%96%E9%9A%9C%E5%8F%8B%E5%96%84"><span class="toc-number">5.</span> <span class="toc-text">視障友善</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A4%87%E8%A3%BD%E5%8F%8B%E5%96%84"><span class="toc-number">6.</span> <span class="toc-text">複製友善</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">8.</span> <span class="toc-text">參考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        圖標字體 (iconfont) 與無障礙網頁
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-12-14T16:00:00.000Z" itemprop="datePublished">2023-12-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/HTML/" rel="tag">HTML</a>, <a class="tag-link-link" href="/tags/%E7%84%A1%E9%9A%9C%E7%A4%99/" rel="tag">無障礙</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <h1 id="網頁中的圖示"><a href="#網頁中的圖示" class="headerlink" title="網頁中的圖示"></a>網頁中的圖示</h1><p>在網頁中使用符號圖示的概念，有多種不同的實作方式與發展：</p>
+<ol>
+<li>純文字，例如顏文字和 ASCII 藝術，後來 Unicode 發展的 emoji 也可算入。</li>
+<li>在 <code>&lt;img&gt;</code> 裡顯示一整張圖片。</li>
+<li>不使用 <code>&lt;img&gt;</code> ，用 CSS 的 <code>background-image</code> 來顯示一整張圖片。</li>
+<li>不使用 <code>&lt;img&gt;</code> ，用 CSS 的 <code>background-position</code> 來顯示一大張圖片的一小部分。即 image sprites 技術。</li>
+<li>用 dataurl 直接將圖片資料以 base64 格式寫在 HTML 的 <code>&lt;img src&gt;</code> 或 CSS 的 <code>background-image</code> 中。</li>
+<li>用字型儲存多個向量圖，將 HTML 中的文字以該字型顯示。 Wingdings 系列字型即是如此。因晚近的實作多使用 Unicode 的 Private Use Area 區塊 (<code>U+E000..U+F8FF</code>) ，也稱 Unicode 模式。</li>
+<li>用字型儲存多個向量圖，利用連字 (ligature) 的設計，將多個字元顯示成所須的圖示。 Google Fonts 的 Icons 的程式碼範例即使用此方式。我稱之為 Ligature 模式。</li>
+<li>用字型儲存多個向量圖，將元件用 CSS 在偽元素 (pseudo-element) 中顯示。 Font Awesome 和 Bootstrap Icons 使用此方式。因使用 CSS 的 Class 實作，也稱 Font Class 模式。</li>
+</ol>
+<p>這些發展都有其歷史因素，涉及 HTTP 協定原理、開發週期等，不過本篇想要討論的是：</p>
+<h1 id="無障礙網頁"><a href="#無障礙網頁" class="headerlink" title="無障礙網頁"></a>無障礙網頁</h1><p>我在意的有下列情形：</p>
+<ol>
+<li>當外部資源（無論是圖片或字型，甚至可能是 CSS）失效或被禁用時，網頁上的資料是否仍好理解。</li>
+<li>視障者（未必全盲）或螢幕閱讀軟體 (screen reader ，中國稱「讀屏軟件」) 的使用者是否好理解頁面內容。</li>
+<li>視力沒有問題，但不理解圖示意義的人，是否能輕易理解其意義。</li>
+<li>複製網頁內容並於其他軟體貼上純文字時，該純文字是否容易理解。</li>
+</ol>
+<p>其中第 4 點通常在無障礙網頁的議題不太會討論，但我個人有點在意，故而前述的方法 6 與 7 即不適合。<br>從 Unicode 模式複製出來的，是一個在其他字型中均沒有意義的字元；<br>從 Ligature 模式複製出來的是會有一些語意，但一來對中文使用者來說仍然不通順，二來圖示的使用情境未必符合使用的單詞。</p>
+<p>以下用「一個『加入購物車』的按鈕，若螢幕夠寬，則顯示文字於圖片之後」的需求，討論兩種圖示的引用方式：</p>
+<ul>
+<li>使用 <code>&lt;img&gt;</code> ，即前述方法 2 。</li>
+<li>不使用 <code>&lt;img&gt;</code> ，也不在 HTML 中直接設定顯示的文字，即前述方法 3, 4, 8 。以下用 FontAwesome 以方法 8 實作。</li>
+</ul>
+<h1 id="簡單的開始"><a href="#簡單的開始" class="headerlink" title="簡單的開始"></a>簡單的開始</h1><p>以最簡單的，一個圖示按鈕為例。</p>
+<p>用 <code>&lt;img&gt;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;cart-add.svg&quot;</span>&gt;</span></span><br><span class="line">    加入購物車</span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>iconfont 的 Font Class 模式（以 FontAwesome 為例）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;fa-solid fa-cart-plus&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    加入購物車</span><br><span class="line"><span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意 <code>&lt;a href=&quot;#&quot; /&gt;</code> 是一個被濫用過久的寫法。<br>一來 <code>href=&quot;#&quot;</code> 從未被規範要做什麼事（在某些情形，可能會重載頁面）；<br>二來此處我們想要的是一個「按鈕」，那麼就應該使用對應的元件 <code>&lt;button&gt;</code> 。</p>
+<p>但 <code>&lt;button&gt;</code> 又因為歷史因素，我們必須指定其 <code>type</code> （否則其預設值為 <code>submit</code> ）。<br>故上述寫法宜均改為：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="對不熟圖示的人友善"><a href="#對不熟圖示的人友善" class="headerlink" title="對不熟圖示的人友善"></a>對不熟圖示的人友善</h1><p>有時為了版面需求，只想留下圖示，或是「螢幕不夠寬時，只顯示圖示」，但這樣看不懂圖示的人就會不知道怎麼操作。<br>這時我們可以善用 <code>title</code> 屬性的「滑鼠移上時會顯示小提示框給健全者看」的表現：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">title</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">src</span>=<span class="string">&quot;cart-add.svg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;d-none d-md-inline&quot;</span>&gt;</span>加入購物車<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">title</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">class</span>=<span class="string">&quot;fa-solid fa-cart-plus&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;d-none d-md-inline&quot;</span>&gt;</span>加入購物車<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>這邊使用了 Bootstrap 的 <code>d-none</code> 和 <code>d-md-inline</code> 實作「螢幕夠寬時才會顯示」的效果。</p>
+<h1 id="視障友善"><a href="#視障友善" class="headerlink" title="視障友善"></a>視障友善</h1><p>若是不「看見」圖片（可能是使用者看不到，也可能是圖片或字型連結失效），則無從得知這個連結是要做啥。<br>因此 WCAG 要求 <code>&lt;img&gt;</code> 原則上必須有 <code>alt</code> 屬性；其他元件的情形，則可以用 <code>aria-label</code> 屬性。</p>
+<p>遺憾的是，螢幕閱讀軟體不會讀出 <code>title</code> ，因此同樣的東西我們要設置多次。（也可以設定為不同的值，但除非狀況複雜不然一般不建議那樣。）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">title</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">src</span>=<span class="string">&quot;cart-add.svg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;d-none d-md-inline&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span>加入購物車<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>alt</code> 除了會被螢幕閱讀軟體念出；當圖片顯示錯誤時，瀏覽器也會改顯示此處設定的文字給健全者看。<br>而 <code>aria-hidden</code> 則會指示螢幕閱讀軟體忽視此元件，這樣就不會重複念出「加入購物車」了。</p>
+<p>如此：<br>對於健全者的視覺，看到的是按鈕中有一張圖片，滑鼠移上後可以看到文字說明；<br>對於螢幕閱讀軟體，可辨識出那是一個按鈕，裡面的元件說明是「加入購物車」（源自 <code>&lt;img&gt;</code> 的 <code>alt</code> 屬性）， <code>&lt;span&gt;</code> 則會被略過不讀。</p>
+<p>使用 font class 模式的情形：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">aria-label</span>=<span class="string">&quot;加入購物車&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">title</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">class</span>=<span class="string">&quot;fa-solid fa-cart-plus&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;d-none d-md-inline&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span>加入購物車<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>這裡在 iconfont 那邊也使用了 <code>aria-hidden</code> ，這是因為偽元素（此處是 <code>i::before</code> ）的內容在複製貼上時雖然不會被選擇到，但螢幕閱讀軟體卻仍會試著唸出該內容。若不設定 <code>aria-hidden=&quot;true&quot;</code> 則 Accessibility Tree 在那邊還是有一個亂碼字元（歸屬於 Unicode 的 Private Use Area ）。</p>
+<h1 id="複製友善"><a href="#複製友善" class="headerlink" title="複製友善"></a>複製友善</h1><p>前述的程式碼應該已能符合一些無障礙規範和需求，不過我自己還蠻希望網頁的內容被複製後，再被貼到其他軟體—例如純文字的對話框—時，也可以直接有不錯的內容。</p>
+<p>但是，前述的 <code>&lt;img&gt;</code> 寫法，在貼上為純文字時，會因為 <code>&lt;img&gt;</code> 被替換為其 <code>alt</code> 屬性內文， <code>&lt;span&gt;</code> 的內文在螢幕夠寬時也會被貼上，而變成「加入購物車加入購物車」這樣重複的文字。</p>
+<p>想了許久，最後覺得棄用 <code>alt</code> ，並且把 <code>&lt;span&gt;</code> 改成「看不到時仍複製得到」較好：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span> <span class="attr">title</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">src</span>=<span class="string">&quot;cart-add.svg&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;hidden-md&quot;</span>&gt;</span>加入購物車<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="keyword">@media</span> (<span class="attribute">max-width</span>: <span class="number">767.98px</span>) &#123;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.hidden-md</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">width</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">margin</span>: -<span class="number">1px</span>;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其中 <code>.hidden-md</code> 早期的寫法是 <code>left: -9999px</code> ，不過晚近是上面的寫法，或另參考 Bootstrap 5 的 <code>.visually-hidden</code> ，還有 Font Awesome 的 <code>.sr-only</code> 。<br>（注意： <code>display: none</code> 和 <code>visibility: hidden</code> 均會使螢幕閱讀軟體也忽視該元件；而元件若是無須顯示（例如寬度或高度為0），則複製時也會被忽略。）</p>
+<p>依照 <a target="_blank" rel="noopener" href="https://www.w3.org/WAI/tutorials/images/decorative/">W3C 的指引</a>，<code>alt</code> 屬性仍然必須指定，只是可以為空字串。</p>
+<p>而以 Font Class 模式使用 iconfont 的情形，在前面的程式碼中，在螢幕較窄而文字被隱藏時，複製起來也不會有文字。<br>故宜用 CSS 來達成「看不到但複製得到」的效果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">i</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span> <span class="attr">title</span>=<span class="string">&quot;加入購物車&quot;</span> <span class="attr">class</span>=<span class="string">&quot;fa-solid fa-cart-plus&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;hidden-md&quot;</span>&gt;</span>加入購物車<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如此，便能同時符合「視覺上OK」、「螢幕閱讀軟體也OK」、「複製後貼到別的地方也OK」三種需求。且兩種寫法也相似，在 iconfont 和 <code>&lt;img&gt;</code> 混用的情形也較好維護。</p>
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>其實我個人很不喜歡用 <code>visually-hidden</code> 和 <code>sr-only</code> 那類方式來「在視覺上隱藏該元件，但螢幕閱讀軟體可支援」的作法，我認為根本就應該有一個 CSS 屬性要可以做到這件事。<br>不過在目前的技術和瀏覽器支援下，前述的似乎是主流做法了。</p>
+<p>至於各家 iconfont 的發展多元，我總覺得這應該是 Unicode 制定要解決的問題—就像 emoji 一樣。<br>以齒輪為例， Unicode 的 <code>U+2699</code> 即是齒輪 <code>⚙</code> 。那麼各 iconfont 的齒輪圖示就應該要在實作時套用此 unicode 編碼，而不是在 private use area 自訂，造成使用者變更字型時的顯示問題。<br>現在這種「各家 iconfont 自己訂出字元編碼和圖示的對應」的情形，讓我想到大五碼時代我國的不同政府機關也是對許多字做了不同編碼，造成後來整頓的許多困難。（unicode 都不 uni 了啊）<br>但 Unicode 的符號選擇一直都不夠齊全。例如，直到現在裡面甚至沒有交通錐的符號，但是卻有獨角獸的符號 (🦄，U+1F984)。</p>
+<p>附帶提一下，除了「複製友善」之外，其實也有「列印友善」的設計需求，早期是設計另外的頁面，後來則通常是在 CSS 用 <code>@media print &#123;&#125;</code> 實作。<br>（但說到底…我目前從來沒看過複製友善的討論文章…該不會只有我在意吧 QQ ）</p>
+<h1 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://lepture.com/zh/2015/fe-aria-label">https://lepture.com/zh/2015/fe-aria-label</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label">https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.w3.org/WAI/tutorials/images/decision-tree/">https://www.w3.org/WAI/tutorials/images/decision-tree/</a></li>
+</ul>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B6%B2%E9%A0%81%E4%B8%AD%E7%9A%84%E5%9C%96%E7%A4%BA"><span class="toc-number">1.</span> <span class="toc-text">網頁中的圖示</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%84%A1%E9%9A%9C%E7%A4%99%E7%B6%B2%E9%A0%81"><span class="toc-number">2.</span> <span class="toc-text">無障礙網頁</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B0%A1%E5%96%AE%E7%9A%84%E9%96%8B%E5%A7%8B"><span class="toc-number">3.</span> <span class="toc-text">簡單的開始</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B0%8D%E4%B8%8D%E7%86%9F%E5%9C%96%E7%A4%BA%E7%9A%84%E4%BA%BA%E5%8F%8B%E5%96%84"><span class="toc-number">4.</span> <span class="toc-text">對不熟圖示的人友善</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A6%96%E9%9A%9C%E5%8F%8B%E5%96%84"><span class="toc-number">5.</span> <span class="toc-text">視障友善</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A4%87%E8%A3%BD%E5%8F%8B%E5%96%84"><span class="toc-number">6.</span> <span class="toc-text">複製友善</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">7.</span> <span class="toc-text">結語</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">8.</span> <span class="toc-text">參考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&text=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&is_video=false&description=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=圖標字體 (iconfont) 與無障礙網頁&body=Check out this article: https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&title=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&name=圖標字體 (iconfont) 與無障礙網頁&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2023/12/iconfont-accessiblility/&t=圖標字體 (iconfont) 與無障礙網頁"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

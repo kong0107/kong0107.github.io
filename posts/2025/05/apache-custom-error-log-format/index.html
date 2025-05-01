@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Apache 中可設定紀錄檔的指令 (directive)   名稱 條件篩選 自訂格式    ErrorLog 視 ErrorLogFormat 設定，預設不篩選 用 ErrorLogFormat，若無則為預設格式   TransferLog 無 最後一個未取別名的 LogFormat ，若無則為預設格式   CustomLog env&#x3D;, expr&#x3D; 直接寫，或用 LogFormat 設定的別">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apache 的 ErrorLog 和 CustomLog 比較">
+<meta property="og:url" content="https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="Apache 中可設定紀錄檔的指令 (directive)   名稱 條件篩選 自訂格式    ErrorLog 視 ErrorLogFormat 設定，預設不篩選 用 ErrorLogFormat，若無則為預設格式   TransferLog 無 最後一個未取別名的 LogFormat ，若無則為預設格式   CustomLog env&#x3D;, expr&#x3D; 直接寫，或用 LogFormat 設定的別">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-04-30T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-01T16:14:53.508Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="Apache">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Apache 的 ErrorLog 和 CustomLog 比較</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2025/01/bent-spoons/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&text=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&is_video=false&description=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Apache 的 ErrorLog 和 CustomLog 比較&body=Check out this article: https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&name=Apache 的 ErrorLog 和 CustomLog 比較&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&t=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-%E4%B8%AD%E5%8F%AF%E8%A8%AD%E5%AE%9A%E7%B4%80%E9%8C%84%E6%AA%94%E7%9A%84%E6%8C%87%E4%BB%A4-directive"><span class="toc-number">1.</span> <span class="toc-text">Apache 中可設定紀錄檔的指令 (directive)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%8A%E6%95%B8%E5%B0%8D%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">可用的變數對照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8C%E8%AE%8A%E6%95%B8%E7%84%A1%E5%80%BC%E3%80%8D%E6%99%82%E7%9A%84%E6%95%88%E6%9E%9C%E8%88%87%E4%BF%AE%E9%A3%BE%E5%AD%90-modifier"><span class="toc-number">3.</span> <span class="toc-text">「變數無值」時的效果與修飾子 (modifier)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Apache 的 ErrorLog 和 CustomLog 比較
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-04-30T16:00:00.000Z" itemprop="datePublished">2025-05-01</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Apache/" rel="tag">Apache</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <h2 id="Apache-中可設定紀錄檔的指令-directive"><a href="#Apache-中可設定紀錄檔的指令-directive" class="headerlink" title="Apache 中可設定紀錄檔的指令 (directive)"></a>Apache 中可設定紀錄檔的指令 (directive)</h2><table>
+<thead>
+<tr>
+<th align="right">名稱</th>
+<th>條件篩選</th>
+<th>自訂格式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="right">ErrorLog</td>
+<td>視 <code>ErrorLogFormat</code> 設定，預設不篩選</td>
+<td>用 <code>ErrorLogFormat</code>，若無則為預設格式</td>
+</tr>
+<tr>
+<td align="right">TransferLog</td>
+<td>無</td>
+<td>最後一個未取別名的 <code>LogFormat</code> ，若無則為預設格式</td>
+</tr>
+<tr>
+<td align="right">CustomLog</td>
+<td><code>env=</code>, <code>expr=</code></td>
+<td>直接寫，或用 <code>LogFormat</code> 設定的別名</td>
+</tr>
+<tr>
+<td align="right">GlobalLog</td>
+<td><code>env=</code>, <code>expr=</code></td>
+<td>直接寫，或用 <code>LogFormat</code> 設定的別名</td>
+</tr>
+</tbody></table>
+<ul>
+<li>均須在 <code>*.conf</code> 中設定，不能在 <code>.htaccess</code> 設定。</li>
+<li>僅有 <code>ErrorLog</code> 是由核心模組提供，其他均須啟用 <code>mod_log_config</code> 才能用。</li>
+<li><code>TransferLog</code> 可完全被 <code>CustomLog</code> 替代。</li>
+<li><code>GlobalLog</code> 要 Apache 版本 2.4.19 以後才有，特色是即使虛擬主機有自訂 <code>CustomLog</code> 了， <code>GlobalLog</code> 也仍會紀錄。（也因此，<code>GlobalLog</code> 被設計為不能在 Virtual Host 中使用，而是整個伺服器共通的）</li>
+</ul>
+<p>本文中提到 <code>LogFormat</code> 時的描述，也適用於 <code>CustomLog</code> 和 <code>GlobalLog</code> 直接將格式字串寫出的情形。</p>
+<h2 id="可用的變數對照"><a href="#可用的變數對照" class="headerlink" title="可用的變數對照"></a>可用的變數對照</h2><table>
+<thead>
+<tr>
+<th>format</th>
+<th align="center">in ErrorLogFormat</th>
+<th align="center">in LogFormat</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>%%</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>百分比符號</td>
+</tr>
+<tr>
+<td>%a, %{c}a</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>連線 IP ，後者不受 <code>mod_remoteip</code> 影響</td>
+</tr>
+<tr>
+<td>%A</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>伺服器本地 IP</td>
+</tr>
+<tr>
+<td>%B, %b</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>回應主體 (response body) 的位元數，為 0 時後者記錄 <code>-</code></td>
+</tr>
+<tr>
+<td>%{<em>name</em>}C</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>Cookie</td>
+</tr>
+<tr>
+<td>%D</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>此請求的處理總時，單位為微秒（百萬分之一秒）</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}e</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>環境變數</td>
+</tr>
+<tr>
+<td>%E</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>APR&#x2F;OS error status code and string</td>
+</tr>
+<tr>
+<td>%F</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>Source file name and line number of the log call</td>
+</tr>
+<tr>
+<td>%h, %{c}h</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>請求中描述的伺服器名稱或位址</td>
+</tr>
+<tr>
+<td>%H</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>請求的協定</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}i</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>請求的 HTTP 標頭，可能被 <code>mod_headers</code> 改過</td>
+</tr>
+<tr>
+<td>%k</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>被 keep-alive 的連線數</td>
+</tr>
+<tr>
+<td>%l</td>
+<td align="center">LogLevel</td>
+<td align="center">請求者名稱</td>
+<td>兩邊意義不同</td>
+</tr>
+<tr>
+<td>%L</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>請求的 id 。若 ErrorLog 沒有記錄這筆，則 LogFormat 的對應結果會是 <code>-</code></td>
+</tr>
+<tr>
+<td>%{c}L, %{C}L</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>連線 id</td>
+</tr>
+<tr>
+<td>%m</td>
+<td align="center">觸發此訊息的模組名</td>
+<td align="center">請求方法(GET, POST, …)</td>
+<td>兩邊意義不同</td>
+</tr>
+<tr>
+<td>%M</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>訊息內容</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}n</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>The contents of note VARNAME from another module.</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}o</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>回應的 HTTP 標頭</td>
+</tr>
+<tr>
+<td>%p, %{<em>format</em>}p</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>連接埠</td>
+</tr>
+<tr>
+<td>%P</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>process ID</td>
+</tr>
+<tr>
+<td>%{<em>format</em>}P</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>pid, tid, hextid</td>
+</tr>
+<tr>
+<td>%q</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>請求網址的查詢字串（如 <code>?a=b&amp;c=d</code>）</td>
+</tr>
+<tr>
+<td>%r</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>請求標頭的第一行（如 <code>POST /path HTTP/1.1</code>）</td>
+</tr>
+<tr>
+<td>%R</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>The handler generating the response (if any).</td>
+</tr>
+<tr>
+<td>%s, %&gt;s</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>回應的狀態碼</td>
+</tr>
+<tr>
+<td>%t</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>請求時間，格式如 <code>18/Sep/2011:19:18:28 -0400</code></td>
+</tr>
+<tr>
+<td>%{<em>format</em>}t</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>自訂的時間格式（使用 <code>strftime</code> 的格式），精度僅到秒</td>
+</tr>
+<tr>
+<td>%{u}t, %{cu}t, %{cuz}t</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>精確至微秒的時間</td>
+</tr>
+<tr>
+<td>%{sec}t, %{msec}t, %{usec}t</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>自 Epoch 起的秒／毫秒／微秒數</td>
+</tr>
+<tr>
+<td>%{msec_frac}, %{usec_frac}t</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>未達一秒的毫秒／微秒數</td>
+</tr>
+<tr>
+<td>%T, %{<em>unit</em>}T</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>此請求的處理總時，單位預設為秒</td>
+</tr>
+<tr>
+<td>%u</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>認證的使用者名稱</td>
+</tr>
+<tr>
+<td>%U</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>請求的路徑（不含查詢字串）</td>
+</tr>
+<tr>
+<td>%v, %V</td>
+<td align="center">v</td>
+<td align="center">v</td>
+<td>伺服器名稱</td>
+</tr>
+<tr>
+<td>%X</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>連線是否被完成或中斷</td>
+</tr>
+<tr>
+<td>%I</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>包含標頭的請求位元數。若未啟用 <code>mod_logio</code> 會報錯</td>
+</tr>
+<tr>
+<td>%O</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>包含標頭的回應位元數。若未啟用 <code>mod_logio</code> 會報錯</td>
+</tr>
+<tr>
+<td>%S</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>前兩者的加總。若未啟用 <code>mod_logio</code> 會報錯</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}^ti</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>請求主體後的 trailer 資訊</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}^to</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>回應主體後的 trailer 資訊</td>
+</tr>
+<tr>
+<td>%{<em>name</em>}x</td>
+<td align="center"></td>
+<td align="center">v</td>
+<td>其他模組提供的變數引用，如 <code>mod_ssl</code> 提供了 <code>%&#123;SSL_PROTOCOL&#125;x</code></td>
+</tr>
+<tr>
+<td>“\ “</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>排版用空格</td>
+</tr>
+<tr>
+<td>“% “</td>
+<td align="center">v</td>
+<td align="center"></td>
+<td>無空格的分隔符</td>
+</tr>
+</tbody></table>
+<p>注意事項：</p>
+<ul>
+<li><code>%I</code>, <code>%O</code>, <code>%S</code> 需要啟用 <code>mod_logio</code> 才能用，否則伺服器會根本不能啟動；<br>相對地，<code>LogFormat</code> 中 <code>%l</code> 雖然依賴 <code>mod_ident</code> ，但就算未啟用後者，也只是造成前者必定轉換為 <code>-</code> 而已。</li>
+<li><code>ErrorLogFormat</code> 要取得比秒更高的精度就只能用 <code>%&#123;u&#125;t</code> 系列；<br><code>%&#123;sec&#125;t</code> 系列只有 <code>LogFormat</code> 支援。</li>
+</ul>
+<h2 id="「變數無值」時的效果與修飾子-modifier"><a href="#「變數無值」時的效果與修飾子-modifier" class="headerlink" title="「變數無值」時的效果與修飾子 (modifier)"></a>「變數無值」時的效果與修飾子 (modifier)</h2><p>在 <code>LogFormat</code> ，若引用的變數沒有值，則預設會顯示 <code>-</code> ；<br>但在 <code>ErrorLogFormat</code> ，則是會將「往前找到的空格」和「往後找到的空格」之間的東西都拿掉。</p>
+<p>例如：</p>
+<table>
+<thead>
+<tr>
+<th>語法</th>
+<th>無 <code>%&#123;Referer&#125;i</code> 時的結果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>LogFormat &quot;A [%&#123;Referer&#125;i] B&quot;</code></td>
+<td><code>A [-] B</code></td>
+</tr>
+<tr>
+<td><code>ErrorLogFormat &quot;A [%&#123;Referer&#125;i] B&quot;</code></td>
+<td><code>A B</code></td>
+</tr>
+</tbody></table>
+<p>關於 <code>ErrorLogFormat</code>，<a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/core.html#page-header">官網</a>是說：</p>
+<blockquote>
+<p>If no output is produced, the default behavior is to delete everything <strong>from the preceding space character to the next space character</strong>.</p>
+</blockquote>
+<p>但其實並非前後的空格都一起被刪（否則前述結果應該會是 <code>AB</code> 而非 <code>A B</code>）。<br>實測感覺是刪了前方的空格，但沒有刪後方的空格（在變數位於字串最前或最後時會有差）。</p>
+<p>由於這個特性，切記在 <code>ErrorLogFormat</code> 中原則上變數之間至少要有一個空格，或是使用 “\ “ 或 “% “。否則像是 <code>%&#123;AA&#125;i__%&#123;BB&#125;i__%&#123;CC&#125;i</code>，會在任一個標頭不存在時整個都不被記錄。<br>另外， <code>\n</code> 和 <code>\t</code> 「不會」被當成空格。<br>（一般來說也不建議使用 <code>\n</code> ，會造成後續要用程式解析紀錄檔時的困擾）</p>
+<p>或是使用修飾子 (modifier) 來變更這個效果：</p>
+<table>
+<thead>
+<tr>
+<th>修飾子</th>
+<th>例</th>
+<th>變數無值時的效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>（無）</td>
+<td><code>%&#123;Referer&#125;i</code></td>
+<td>連同前後的字元一起刪除，連鎖直至空格</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td><code>%-&#123;Referer&#125;i</code></td>
+<td>轉譯為減號 <code>-</code></td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td><code>%+&#123;Referer&#125;i</code></td>
+<td>直接不進行這筆紀錄</td>
+</tr>
+<tr>
+<td>整數0~15</td>
+<td><code>%4&#123;Referer&#125;i</code></td>
+<td>嚴重程度比此數字高時才紀錄，否則同無修飾子的效果</td>
+</tr>
+</tbody></table>
+<p>可留意的是 <code>+</code> ，應能做為篩選的依據。<br>（畢竟 <code>ErrorLog</code> 不支援 <code>env=</code> 和 <code>expr=</code> 的篩選方式）</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/core.html#errorlogformat">https://httpd.apache.org/docs/current/mod/core.html#errorlogformat</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header">https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_ssl.html#page-header">https://httpd.apache.org/docs/current/mod/mod_ssl.html#page-header</a></li>
+</ul>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache-%E4%B8%AD%E5%8F%AF%E8%A8%AD%E5%AE%9A%E7%B4%80%E9%8C%84%E6%AA%94%E7%9A%84%E6%8C%87%E4%BB%A4-directive"><span class="toc-number">1.</span> <span class="toc-text">Apache 中可設定紀錄檔的指令 (directive)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E8%AE%8A%E6%95%B8%E5%B0%8D%E7%85%A7"><span class="toc-number">2.</span> <span class="toc-text">可用的變數對照</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E3%80%8C%E8%AE%8A%E6%95%B8%E7%84%A1%E5%80%BC%E3%80%8D%E6%99%82%E7%9A%84%E6%95%88%E6%9E%9C%E8%88%87%E4%BF%AE%E9%A3%BE%E5%AD%90-modifier"><span class="toc-number">3.</span> <span class="toc-text">「變數無值」時的效果與修飾子 (modifier)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">4.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&text=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&is_video=false&description=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Apache 的 ErrorLog 和 CustomLog 比較&body=Check out this article: https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&title=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&name=Apache 的 ErrorLog 和 CustomLog 比較&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2025/05/apache-custom-error-log-format/&t=Apache 的 ErrorLog 和 CustomLog 比較"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

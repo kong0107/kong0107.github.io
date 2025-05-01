@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="cURL 相關函數對新手不是很友善，但若是要用 PHP 下載大型檔案，又不能將之全部暫存在記憶體，使用 cURL 便是常見的作法。本篇宣告一個簡化後的 cURL ： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849function curl_download(    s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 PHP 中簡化 cURL 的操作">
+<meta property="og:url" content="https://kong0107.github.io/posts/2024/05/php-curl/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="cURL 相關函數對新手不是很友善，但若是要用 PHP 下載大型檔案，又不能將之全部暫存在記憶體，使用 cURL 便是常見的作法。本篇宣告一個簡化後的 cURL ： 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849function curl_download(    s">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-05-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-05-13T06:50:13.884Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="cURL">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>在 PHP 中簡化 cURL 的操作</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2024/05/numbered-musical-notation/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2024/05/notify-icons/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2024/05/php-curl/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2024/05/php-curl/&text=在 PHP 中簡化 cURL 的操作"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2024/05/php-curl/&is_video=false&description=在 PHP 中簡化 cURL 的操作"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在 PHP 中簡化 cURL 的操作&body=Check out this article: https://kong0107.github.io/posts/2024/05/php-curl/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2024/05/php-curl/&name=在 PHP 中簡化 cURL 的操作&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2024/05/php-curl/&t=在 PHP 中簡化 cURL 的操作"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        在 PHP 中簡化 cURL 的操作
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-05-05T16:00:00.000Z" itemprop="datePublished">2024-05-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/PHP/" rel="tag">PHP</a>, <a class="tag-link-link" href="/tags/cURL/" rel="tag">cURL</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <p>cURL 相關函數對新手不是很友善，但若是要用 PHP 下載大型檔案，又不能將之全部暫存在記憶體，使用 cURL 便是常見的作法。本篇宣告一個簡化後的 cURL ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curl_download</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">string</span>|<span class="keyword">array</span> <span class="variable">$options</span>, // 選項變數，或是下載源 URL</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">string</span> <span class="variable">$dest</span> = <span class="string">&#x27;&#x27;</span>, // 要儲存的目的地</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">string</span> <span class="variable">$header_dest</span> = <span class="string">&#x27;&#x27;</span> // 儲存 http response header 的地方，如果想存的話。</span></span></span><br><span class="line"><span class="params"><span class="function"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">gettype</span>(<span class="variable">$options</span>) === <span class="string">&#x27;string&#x27;</span>)</span><br><span class="line">        <span class="variable">$options</span> = <span class="keyword">array</span>(CURLOPT_URL =&gt; <span class="variable">$options</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="variable">$options</span>[CURLOPT_URL])) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Exception</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">empty</span>(CURLOPT_RETURNTRANSFER) &amp;&amp; <span class="keyword">empty</span>(<span class="variable">$options</span>[CURLOPT_FILE]) &amp;&amp; ! <span class="variable">$dest</span>) <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Exception</span>;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$default</span> = <span class="keyword">array</span>(</span><br><span class="line">        CURLOPT_AUTOREFERER =&gt; <span class="literal">true</span>,</span><br><span class="line">        CURLOPT_FOLLOWLOCATION =&gt; <span class="literal">true</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$default</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$v</span>) <span class="comment">// 不能用 array_merge ，因為 index 會被改變</span></span><br><span class="line">        <span class="keyword">if</span> (! <span class="title function_ invoke__">array_key_exists</span>(<span class="variable">$k</span>, <span class="variable">$options</span>))</span><br><span class="line">            <span class="variable">$options</span>[<span class="variable">$k</span>] = <span class="variable">$v</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$options</span>[CURLOPT_FILE]) &amp;&amp; <span class="title function_ invoke__">gettype</span>(<span class="variable">$options</span>[CURLOPT_FILE]) === <span class="string">&#x27;string&#x27;</span>)</span><br><span class="line">        <span class="variable">$dest</span> = <span class="variable">$options</span>[CURLOPT_FILE];</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$dest</span>) &#123;</span><br><span class="line">        <span class="variable">$options</span>[CURLOPT_RETURNTRANSFER] = <span class="literal">false</span>;</span><br><span class="line">        <span class="variable">$fh_file</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$dest</span>, <span class="string">&#x27;w&#x27;</span>);</span><br><span class="line">        <span class="variable">$options</span>[CURLOPT_FILE] = <span class="variable">$fh_file</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$options</span>[CURLOPT_WRITEHEADER]) &amp;&amp; <span class="title function_ invoke__">gettype</span>(<span class="variable">$options</span>[CURLOPT_WRITEHEADER]) === <span class="string">&#x27;string&#x27;</span>)</span><br><span class="line">        <span class="variable">$header_dest</span> = <span class="variable">$options</span>[CURLOPT_WRITEHEADER];</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$header_dest</span>) &#123;</span><br><span class="line">        <span class="comment">// $options[CURLOPT_HEADER] = true; // this shouldn&#x27;t be included; otherwise either CURLOPT_FILE or CURLOPT_RETURNTRANSFER would starts with response header.</span></span><br><span class="line">        <span class="variable">$fh_writeheader</span> = <span class="title function_ invoke__">fopen</span>(<span class="variable">$header_dest</span>, <span class="string">&#x27;w&#x27;</span>);</span><br><span class="line">        <span class="variable">$options</span>[CURLOPT_WRITEHEADER] = <span class="variable">$fh_writeheader</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$ch</span> = <span class="title function_ invoke__">curl_init</span>();</span><br><span class="line">    <span class="title function_ invoke__">curl_setopt_array</span>(<span class="variable">$ch</span>, <span class="variable">$options</span>);</span><br><span class="line"></span><br><span class="line">    <span class="variable">$result</span> = <span class="title function_ invoke__">curl_exec</span>(<span class="variable">$ch</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$result</span> === <span class="literal">false</span>) <span class="variable">$result</span> = <span class="keyword">array</span>(</span><br><span class="line">        <span class="string">&#x27;info&#x27;</span> =&gt; <span class="title function_ invoke__">curl_getinfo</span>(<span class="variable">$ch</span>),</span><br><span class="line">        <span class="string">&#x27;error&#x27;</span> =&gt; <span class="title function_ invoke__">curl_error</span>(<span class="variable">$ch</span>)</span><br><span class="line">    );</span><br><span class="line">    <span class="title function_ invoke__">curl_close</span>(<span class="variable">$ch</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$dest</span>) <span class="title function_ invoke__">fclose</span>(<span class="variable">$fh_file</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$header_dest</span>) <span class="title function_ invoke__">fclose</span>(<span class="variable">$fh_writeheader</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$result</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>原本 <code>CURLOPT_FILE</code> 和 <code>CURLOPT_WRITEHEADER</code> 只接受 write stream ，我另外改成也可接收字串作為寫入檔的路徑。</p>
+<p>範例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 將目標檔案存到 `test.html`</span></span><br><span class="line"><span class="title function_ invoke__">curl_download</span>(<span class="string">&#x27;http://example.com&#x27;</span>, <span class="string">&#x27;test.html&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 將目標檔案讀入變數</span></span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">curl_download</span>(<span class="keyword">array</span>(</span><br><span class="line">    CURLOPT_URL =&gt; <span class="string">&#x27;http://example.com&#x27;</span>,</span><br><span class="line">    CURLOPT_RETURNTRANSFER =&gt; <span class="literal">true</span></span><br><span class="line">));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 確認有無錯誤</span></span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">curl_download</span>(<span class="string">&#x27;http://example.com&#x27;</span>, <span class="string">&#x27;test.html&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="title function_ invoke__">is_array</span>(<span class="variable">$result</span>) &amp;&amp; <span class="keyword">isset</span>(<span class="variable">$result</span>[<span class="string">&#x27;error&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$result</span>[<span class="string">&#x27;error&#x27;</span>];</span><br><span class="line">    <span class="title function_ invoke__">print_r</span>(<span class="variable">$result</span>[<span class="string">&#x27;info&#x27;</span>]);</span><br><span class="line">    <span class="keyword">exit</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ref: <a target="_blank" rel="noopener" href="https://www.php.net/manual/en/function.curl-setopt.php">PHP: curl_setopt - Manual</a></p>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2024/05/php-curl/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2024/05/php-curl/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2024/05/php-curl/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2024/05/php-curl/&text=在 PHP 中簡化 cURL 的操作"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2024/05/php-curl/&is_video=false&description=在 PHP 中簡化 cURL 的操作"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在 PHP 中簡化 cURL 的操作&body=Check out this article: https://kong0107.github.io/posts/2024/05/php-curl/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2024/05/php-curl/&title=在 PHP 中簡化 cURL 的操作"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2024/05/php-curl/&name=在 PHP 中簡化 cURL 的操作&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2024/05/php-curl/&t=在 PHP 中簡化 cURL 的操作"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

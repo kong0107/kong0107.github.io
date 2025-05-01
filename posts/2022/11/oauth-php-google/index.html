@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="參考資料 [筆記] 認識 OAuth 2.0：一次了解各角色、各類型流程的差異 | by Mike Huang | 麥克的半路出家筆記 | Medium 串接 Google OAuth 2.0 實現第三方登入 | GrowingDNA 成長基因 為網路應用程式應用程式使用 OAuth 2.0  |  Authorization  |  Google Developers OpenID Connec">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OAuth 2.0 ，以 PHP 登入 Google 為例">
+<meta property="og:url" content="https://kong0107.github.io/posts/2022/11/oauth-php-google/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="參考資料 [筆記] 認識 OAuth 2.0：一次了解各角色、各類型流程的差異 | by Mike Huang | 麥克的半路出家筆記 | Medium 串接 Google OAuth 2.0 實現第三方登入 | GrowingDNA 成長基因 為網路應用程式應用程式使用 OAuth 2.0  |  Authorization  |  Google Developers OpenID Connec">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-11-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-12-16T16:39:04.076Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="PHP">
+<meta property="article:tag" content="OAuth">
+<meta property="article:tag" content="Google">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>OAuth 2.0 ，以 PHP 登入 Google 為例</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2022/11/win11-apache24-php82/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2022/11/schema-product/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/oauth-php-google/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&text=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&is_video=false&description=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=OAuth 2.0 ，以 PHP 登入 Google 為例&body=Check out this article: https://kong0107.github.io/posts/2022/11/oauth-php-google/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&name=OAuth 2.0 ，以 PHP 登入 Google 為例&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/oauth-php-google/&t=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">1.</span> <span class="toc-text">參考資料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-%E5%AF%A6%E4%BD%9C%EF%BC%9A%E8%AE%93%E4%BD%BF%E7%94%A8%E8%80%85%E7%94%A8-Google-%E7%99%BB%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">PHP 實作：讓使用者用 Google 登入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">0. 準備</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-Google-Cloud-Console-%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%A1%88"><span class="toc-number">3.1.1.</span> <span class="toc-text">在 Google Cloud Console 建立專案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-post-request-%E5%87%BD%E6%95%B8"><span class="toc-number">3.1.2.</span> <span class="toc-text">HTTP post request 函數</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%9F%E6%88%90%E9%80%A3%E7%B5%90%EF%BC%8C%E4%BE%9B%E4%BD%BF%E7%94%A8%E8%80%85%E5%89%8D%E5%BE%80"><span class="toc-number">3.2.</span> <span class="toc-text">1. 生成連結，供使用者前往</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8E%A5%E6%94%B6%E4%BD%BF%E7%94%A8%E8%80%85%E5%82%B3%E4%BE%86%E7%9A%84-code-%E7%AD%89%E8%B3%87%E6%96%99"><span class="toc-number">3.3.</span> <span class="toc-text">2. 接收使用者傳來的 code 等資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%A8-code-%E5%90%91-Google-%E8%A6%81-token"><span class="toc-number">3.4.</span> <span class="toc-text">3. 用 code 向 Google 要 token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%9C%A8%E5%8F%96%E5%BE%97-token-%E6%99%82%E4%B9%9F%E5%8F%AF%E5%8F%96%E5%BE%97%E7%9A%84%E5%85%B6%E4%BB%96%E8%B3%87%E6%96%99"><span class="toc-number">3.5.</span> <span class="toc-text">4. 在取得 token 時也可取得的其他資料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#refresh-token"><span class="toc-number">3.5.1.</span> <span class="toc-text">refresh_token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#id-token"><span class="toc-number">3.5.2.</span> <span class="toc-text">id_token</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        OAuth 2.0 ，以 PHP 登入 Google 為例
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-27T16:00:00.000Z" itemprop="datePublished">2022-11-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Google/" rel="tag">Google</a>, <a class="tag-link-link" href="/tags/OAuth/" rel="tag">OAuth</a>, <a class="tag-link-link" href="/tags/PHP/" rel="tag">PHP</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://medium.com/c42da83a6015">[筆記] 認識 OAuth 2.0：一次了解各角色、各類型流程的差異 | by Mike Huang | 麥克的半路出家筆記 | Medium</a></li>
+<li><a target="_blank" rel="noopener" href="https://growingdna.com/google-oauth-2-0-for-3rd-party-login/">串接 Google OAuth 2.0 實現第三方登入 | GrowingDNA 成長基因</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/identity/protocols/oauth2/web-server">為網路應用程式應用程式使用 OAuth 2.0  |  Authorization  |  Google Developers</a></li>
+<li><a target="_blank" rel="noopener" href="https://developers.google.com/identity/openid-connect/openid-connect">OpenID Connect  |  Authentication  |  Google Developers</a></li>
+</ul>
+<h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><ol>
+<li>User 跟 Auth 說：我想要允許 Site 使用我的資料。</li>
+<li>Auth 回應 User ：請把這個 <code>code</code> 轉交給 Site ，以讓 Site 等會向我證明他要的是您的資料。</li>
+<li>User 跟 Site 說：這是 Auth 給我的 <code>code</code> 。</li>
+<li>Site 跟 Auth 說：我收到這個 <code>code</code> ，請驗證。</li>
+<li>Auth 回應 Site ：請用這個 <code>token</code> 向 Resource 要資料。</li>
+<li>Site 跟 Resource 說：我有這個 <code>token</code> ，我要操作 User 的資料。</li>
+<li>Resource 回應 Site 。</li>
+</ol>
+<p>說明：</p>
+<ul>
+<li>最後面的 6 跟 7 可重複進行，直到 <code>token</code> 過期。</li>
+<li>Auth 和 Resource 是一夥的，就本文而言即是 Google 的整個系統。他們之間有自己的溝通方式。</li>
+<li><code>code</code> 與 <code>token</code> 都是亂數字串，都是用於驗證身分，但由於 <code>code</code> 是經由 User 轉交的，又常是透過 HTTP Get ，因此有被使用者環境（如 Wifi 分享器）探知的風險。<br>故設計上 <code>code</code> 只能用一次； <code>token</code> 才是反覆用來存取資料的。</li>
+<li>實際上第 1 步驟常是 User 點選 Site 網頁上的連結，而第 3 步驟常是 Auth 在回應中請瀏覽器轉址。<br>使用者的感受比較像是「Google 來問我，是否願意把資料給 Site 」，而不太會覺得是「我主動請 Google 提供資料給 Site 」，即使後者才是實情。</li>
+</ul>
+<h1 id="PHP-實作：讓使用者用-Google-登入"><a href="#PHP-實作：讓使用者用-Google-登入" class="headerlink" title="PHP 實作：讓使用者用 Google 登入"></a>PHP 實作：讓使用者用 Google 登入</h1><p>本文「不使用」 <a target="_blank" rel="noopener" href="https://github.com/googleapis/google-api-php-client">Google 提供的 PHP 程式庫</a> ，而全由原生 PHP 函數操作。</p>
+<h2 id="0-準備"><a href="#0-準備" class="headerlink" title="0. 準備"></a>0. 準備</h2><h3 id="在-Google-Cloud-Console-建立專案"><a href="#在-Google-Cloud-Console-建立專案" class="headerlink" title="在 Google Cloud Console 建立專案"></a>在 Google Cloud Console 建立專案</h3><ol>
+<li>登入 Google 並連向 <a target="_blank" rel="noopener" href="https://console.cloud.google.com/">https://console.cloud.google.com/</a> 。</li>
+<li>建立專案，進入「API 和 服務」。</li>
+<li>點選「 OAuth 同意畫面」進行設定。<ol>
+<li>第一步驟中，網域可以不用填。</li>
+<li>在第二步驟的「範圍」 (scope) 中，新增下列三個：<ol>
+<li>…&#x2F;auth&#x2F;userinfo.email</li>
+<li>…&#x2F;auth&#x2F;userinfo.profile</li>
+<li>openid</li>
+</ol>
+</li>
+<li>第三步驟，將自己新增為「測試使用者」。</li>
+</ol>
+</li>
+<li>點選「憑證」<ol>
+<li>點選「建立憑證」→「OAuth 用戶端 ID 」。</li>
+<li>「應用程式類型」選擇「網頁應用程式」。</li>
+<li>在「已授權的重新導向 URI」，加入預計處理登入的頁面網址。<br>（如 <code>http://localhost/login.php</code> ，頁面可能還不存在，本文後面才會寫。）</li>
+<li>存好「用戶端編號」(<code>client_id</code>) 和「用戶端密碼」(<code>client_secret</code>)。<br>（吐槽：帳號比密碼還長…）</li>
+</ol>
+</li>
+</ol>
+<h3 id="HTTP-post-request-函數"><a href="#HTTP-post-request-函數" class="headerlink" title="HTTP post request 函數"></a>HTTP post request 函數</h3><p>PHP 原生函數要發送 HTTP request 不像 JavaScript 有 <code>fetch</code> 那麼方便，以本文需求來說可以這樣：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">http_post</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">string</span> <span class="variable">$url</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="keyword">array</span> <span class="variable">$content</span></span></span></span><br><span class="line"><span class="params"><span class="function"></span>) : <span class="title">string</span>|<span class="title">false</span> </span>&#123;</span><br><span class="line">    <span class="variable">$package</span> = [</span><br><span class="line">        <span class="string">&#x27;method&#x27;</span> =&gt; <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;header&#x27;</span> =&gt; [<span class="string">&#x27;Content-Type: application/x-www-form-urlencoded&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;content&#x27;</span> =&gt; <span class="title function_ invoke__">http_build_query</span>(<span class="variable">$content</span>)</span><br><span class="line">    ];</span><br><span class="line">    <span class="variable">$context</span> = <span class="title function_ invoke__">stream_context_create</span>([<span class="string">&#x27;http&#x27;</span> =&gt; <span class="variable">$package</span>]);</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$url</span>, <span class="literal">false</span>, <span class="variable">$context</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意即使是要進行 <code>https</code> 連線，倒數第二行的鍵值仍然必須是 <code>http</code> 。</p>
+<p>（與本文無關，但：若是需要回覆的檔頭，可用 <code>fopen()</code> 和 <code>stream_get_meta_data()</code> ；若是要傳送檔案，則需使用 cURL 。）</p>
+<p>接下來其實就是依照 <a target="_blank" rel="noopener" href="https://developers.google.com/identity/protocols/oauth2/web-server">Google 的文件</a>  進行：</p>
+<h2 id="1-生成連結，供使用者前往"><a href="#1-生成連結，供使用者前往" class="headerlink" title="1. 生成連結，供使用者前往"></a>1. 生成連結，供使用者前往</h2><p>即 OAuth 2.0 流程的步驟1 ：User 跟 Auth 說「我想要允許 Site 使用我的資料。」</p>
+<p>實作上是讓 User 連向 <code>https://accounts.google.com/o/oauth2/v2/auth</code> ，並以 GET 方式附上一些參數。如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$_SESSION</span>[<span class="string">&#x27;csrf_token&#x27;</span>] = <span class="title function_ invoke__">base64_encode</span>(<span class="title function_ invoke__">random_bytes</span>(<span class="number">24</span>)); <span class="comment">// 32個亂數字元</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$query</span> = <span class="title function_ invoke__">http_build_query</span>([</span><br><span class="line">	<span class="string">&#x27;access_type&#x27;</span> =&gt; <span class="string">&#x27;offline&#x27;</span>, // 表示希望使用者離線時，網站仍能向 Google 要資料</span><br><span class="line">	<span class="string">&#x27;client_id&#x27;</span> =&gt; GOOGLE_ID, // 在 Google 建立專案後拿到的「用戶端編號」</span><br><span class="line">	<span class="string">&#x27;redirect_uri&#x27;</span> =&gt; <span class="string">&#x27;https://example.com/login.php&#x27;</span>, // 稍後要將使用者轉址到哪</span><br><span class="line">	<span class="string">&#x27;response_type&#x27;</span> =&gt; <span class="string">&#x27;code&#x27;</span>, // 其實 OAuth 有不同認證方式，本文只提一種。</span><br><span class="line">	<span class="string">&#x27;scope&#x27;</span> =&gt; <span class="string">&#x27;openid profile email&#x27;</span>, // 以空格分隔的範圍清單</span><br><span class="line">	<span class="string">&#x27;state&#x27;</span> =&gt; <span class="variable">$_SESSION</span>[<span class="string">&#x27;csrf_token&#x27;</span>] // 詳後述</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="variable">$url</span> = <span class="string">&#x27;https://accounts.google.com/o/oauth2/v2/auth?&#x27;</span> . <span class="variable">$query</span>;</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">printf</span>(<span class="string">&#x27;&lt;a href=&quot;%s&quot;&gt;使用 Google 帳號登入&lt;/a&gt;&#x27;</span>, <span class="variable">$url</span>);</span><br><span class="line"><span class="comment">// 或是： header(&#x27;Location: &#x27;. $url);</span></span><br></pre></td></tr></table></figure>
+
+<p><code>redirect_uri</code> 需與在 Google 專案中設定的「已授權的重新導向 URI」相同。</p>
+<p><code>scope</code> 不能超出專案中的「範圍」設定。除了一般開放資料之外， Google 建議採用<a target="_blank" rel="noopener" href="https://developers.google.com/identity/protocols/oauth2/web-server#incrementalAuth">漸進式授權</a>，亦即，使用者有要用到某功能時，才去請求對應的授權。</p>
+<p><code>state</code> 雖然是可選，但有兩種常見應用：</p>
+<ol>
+<li>記錄使用者原本在哪個頁面，方便驗證過後再轉址回去。這樣使用者體驗會比較好。</li>
+<li>防止 #CSRF （跨站請求偽造， cross-site request forgery），詳參<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-tw/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0">維基百科</a>。<br>上述程式碼是將暫存的資料寫在 Session 裡，應該也有其他實作方式。</li>
+</ol>
+<h2 id="2-接收使用者傳來的-code-等資料"><a href="#2-接收使用者傳來的-code-等資料" class="headerlink" title="2. 接收使用者傳來的 code 等資料"></a>2. 接收使用者傳來的 code 等資料</h2><p>使用者於 Google 那邊點選同意後，即會被 Google 轉址到 <code>redirect_uri</code> ，並在網址後加上 <code>code</code> 等資料，如 <code>https://example.com/login.php?code=xxxxxxxx&amp;state=yyyyyy</code> 。<br>於此情形，即是在 <code>login.php</code> 中要處理 <code>$_GET</code> 。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;csrf_token&#x27;</span>] !== <span class="variable">$_SESSION</span>[<span class="string">&#x27;csrf_token&#x27;</span>])</span><br><span class="line">	<span class="keyword">exit</span>(<span class="string">&#x27;未通過 STP 測試，可能是 CSRF 。&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 $_GET[&#x27;code&#x27;] 進行下一步</span></span><br></pre></td></tr></table></figure>
+
+<p>在這裡可能要避免 CSRF ，我的作法如上。</p>
+<h2 id="3-用-code-向-Google-要-token"><a href="#3-用-code-向-Google-要-token" class="headerlink" title="3. 用 code 向 Google 要 token"></a>3. 用 code 向 Google 要 token</h2><p>這裡即需要 HTTP Post request 。用前述宣告的 <code>http_post()</code> 實作如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$res_body</span> = <span class="title function_ invoke__">http_post</span>(<span class="string">&#x27;https://oauth2.googleapis.com/token&#x27;</span>, [</span><br><span class="line">    <span class="string">&#x27;grant_type&#x27;</span> =&gt; <span class="string">&#x27;authorization_code&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;client_id&#x27;</span> =&gt; GOOGLE_ID,</span><br><span class="line">    <span class="string">&#x27;client_secret&#x27;</span> =&gt; GOOGLE_SECRET,</span><br><span class="line">    <span class="string">&#x27;code&#x27;</span> =&gt; <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>],</span><br><span class="line">    <span class="string">&#x27;redirect_uri&#x27;</span> =&gt; <span class="string">&#x27;https://example.com/login.php&#x27;</span> // 不知為何需要…</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(!<span class="variable">$res_body</span>) <span class="keyword">exit</span>(<span class="string">&#x27;未能收到存取權杖。&#x27;</span>);</span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">json_decode</span>(<span class="variable">$res_body</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable">$access_token</span> = <span class="variable">$result</span>-&gt;access_token;</span><br></pre></td></tr></table></figure>
+
+<p>回來的資料是 JSON ，故用 <code>json_decode()</code> 即可轉成物件。<br>之後即可用 <code>$access_token</code> 向 Google 存取使用者的資料。<br>至此已成功驗證使用者有 Google 帳號，若沒有其他需求則可以到此就好。</p>
+<h2 id="4-在取得-token-時也可取得的其他資料"><a href="#4-在取得-token-時也可取得的其他資料" class="headerlink" title="4. 在取得 token 時也可取得的其他資料"></a>4. 在取得 token 時也可取得的其他資料</h2><p>上方程式碼中， <code>$result</code> 中除了 access token 之外，也有其他資料。整個 <code>$res_body</code> 是像：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;access_token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1/fFAGRNJru1FTz70BzhT3Zg&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;expires_in&quot;</span><span class="punctuation">:</span> <span class="number">3920</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;token_type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bearer&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;scope&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://www.googleapis.com/auth/drive.metadata.readonly&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;refresh_token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1//xEoDL4iW3cxlI7yDbSRFYNG01kVKM2C-259HOF2aQbI&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;id_token&quot;</span><span class="punctuation">:</span> <span class="string">&quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>expires_in</code>: token 還有幾秒有效。<br><code>scope</code>: 實際授權範圍，以空格分隔，順序不一定。</p>
+<h3 id="refresh-token"><a href="#refresh-token" class="headerlink" title="refresh_token"></a><code>refresh_token</code></h3><p>只在步驟1時將 <code>access_type</code> 設為 <code>offline</code> 時出現，網站可據此直接向 Google 取得新的 <code>access_token</code> ，即使使用者已不在線上。方法類同步驟3 ，如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$res_body</span> = <span class="title function_ invoke__">http_post</span>(<span class="string">&#x27;https://oauth2.googleapis.com/token&#x27;</span>, [</span><br><span class="line">    <span class="string">&#x27;grant_type&#x27;</span> =&gt; <span class="string">&#x27;refresh_token&#x27;</span>, // 這裡不同</span><br><span class="line">    <span class="string">&#x27;client_id&#x27;</span> =&gt; GOOGLE_ID,</span><br><span class="line">    <span class="string">&#x27;client_secret&#x27;</span> =&gt; GOOGLE_SECRET,</span><br><span class="line">    <span class="string">&#x27;refresh_token&#x27;</span> =&gt; <span class="variable">$refresh_token</span> // 這裡不同</span><br><span class="line">]);</span><br><span class="line"><span class="keyword">if</span>(!<span class="variable">$res_body</span>) <span class="keyword">exit</span>(<span class="string">&#x27;未能收到存取權杖。&#x27;</span>);</span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">json_decode</span>(<span class="variable">$res_body</span>);</span><br><span class="line"><span class="variable">$access_token</span> = <span class="variable">$result</span>-&gt;access_token;</span><br></pre></td></tr></table></figure>
+
+<p>除了標示不同的兩處外， Google 的例示中這裡也不用 <code>redirect_uri</code> 。<br>（吐槽：為什麼 <code>refresh_token</code> 比 <code>access_token</code> 還短啊…）</p>
+<p>我的測試經驗是：用 <code>refresh_token</code> 拿到的資料裡，也有 <code>id_token</code> ，但是解出來的資料「不一定」有姓名（given_name, family_name, name ）的資訊。</p>
+<h3 id="id-token"><a href="#id-token" class="headerlink" title="id_token"></a><code>id_token</code></h3><p>只在步驟1時將 <code>scope</code> 設為包含 <code>openid</code> 時出現（當然在專案設定中也要有）。<br>依照 OpenID 協定，這是一個 JWT 字串 (JSON Web Token)，也就是經過加密簽署的 base64url 編碼 JSON 物件。可以貼到 <a target="_blank" rel="noopener" href="https://jwt.io/">https://jwt.io/</a> 解碼，也可以用下列程式碼取得內容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 延續步驟 3</span></span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">json_decode</span>(<span class="variable">$res_body</span>);</span><br><span class="line"><span class="variable">$payload</span> = <span class="title function_ invoke__">explode</span>(<span class="string">&#x27;.&#x27;</span>, <span class="variable">$result</span>-&gt;id_token)[<span class="number">1</span>];</span><br><span class="line"><span class="variable">$user</span> = <span class="title function_ invoke__">json_decode</span>(<span class="title function_ invoke__">base64url_decode</span>(<span class="variable">$payload</span>));</span><br></pre></td></tr></table></figure>
+
+<p>上例中 <code>base64url_decode()</code> 是另外寫的函數，參閱<a target="_blank" rel="noopener" href="https://blog.longwin.com.tw/2018/12/php-base64-url-encode-decode-2018/">PHP 處理 Base64 URL 的編碼、解碼方式 – Tsung’s Blog (longwin.com.tw)</a>，或 <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/function.base64-encode.php#103849">PHP 官網留言</a>。<br>另注意 [RFC 4648](<a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc4648">RFC 4648: The Base16, Base32, and Base64 Data Encodings (rfc-editor.org)</a>) 其實有規範說 <code>base64url</code> 不應該被簡稱為 <code>base64</code> 。</p>
+<p><code>id_token</code> 包含資料可參閱 <a target="_blank" rel="noopener" href="https://developers.google.com/identity/openid-connect/openid-connect#an-id-tokens-payload">Google 的文件</a>，可利用的有：</p>
+<ul>
+<li><code>sub</code>: 使用者真正的 Google ID ，說是 ASCII ，但目前看來都是數字字元。（語源是 subject ）</li>
+<li><code>email</code>: 若步驟1的 <code>scope</code> 中有 <code>email</code> ，這裡才會有。從這裡擷取的話，就不用多跟 Google 做一次連線。Google 表示「不適合做為主鍵。」</li>
+<li>exp: 整數， token 將過期的實際時間，為 Unix 時間戳（1970 起經過的秒數）。注意與上方的 <code>expires_in</code> 是指「殘餘秒數」的意義不同。</li>
+</ul>
+<p>亦即，其實不需要真的用到 <code>access_token</code> ，就已經可以取得使用者的最基本的資料。</p>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2022/11/oauth-php-google/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2022/11/oauth-php-google/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">1.</span> <span class="toc-text">參考資料</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%81%E7%A8%8B"><span class="toc-number">2.</span> <span class="toc-text">流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-%E5%AF%A6%E4%BD%9C%EF%BC%9A%E8%AE%93%E4%BD%BF%E7%94%A8%E8%80%85%E7%94%A8-Google-%E7%99%BB%E5%85%A5"><span class="toc-number">3.</span> <span class="toc-text">PHP 實作：讓使用者用 Google 登入</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#0-%E6%BA%96%E5%82%99"><span class="toc-number">3.1.</span> <span class="toc-text">0. 準備</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8-Google-Cloud-Console-%E5%BB%BA%E7%AB%8B%E5%B0%88%E6%A1%88"><span class="toc-number">3.1.1.</span> <span class="toc-text">在 Google Cloud Console 建立專案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP-post-request-%E5%87%BD%E6%95%B8"><span class="toc-number">3.1.2.</span> <span class="toc-text">HTTP post request 函數</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%9F%E6%88%90%E9%80%A3%E7%B5%90%EF%BC%8C%E4%BE%9B%E4%BD%BF%E7%94%A8%E8%80%85%E5%89%8D%E5%BE%80"><span class="toc-number">3.2.</span> <span class="toc-text">1. 生成連結，供使用者前往</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8E%A5%E6%94%B6%E4%BD%BF%E7%94%A8%E8%80%85%E5%82%B3%E4%BE%86%E7%9A%84-code-%E7%AD%89%E8%B3%87%E6%96%99"><span class="toc-number">3.3.</span> <span class="toc-text">2. 接收使用者傳來的 code 等資料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%94%A8-code-%E5%90%91-Google-%E8%A6%81-token"><span class="toc-number">3.4.</span> <span class="toc-text">3. 用 code 向 Google 要 token</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%9C%A8%E5%8F%96%E5%BE%97-token-%E6%99%82%E4%B9%9F%E5%8F%AF%E5%8F%96%E5%BE%97%E7%9A%84%E5%85%B6%E4%BB%96%E8%B3%87%E6%96%99"><span class="toc-number">3.5.</span> <span class="toc-text">4. 在取得 token 時也可取得的其他資料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#refresh-token"><span class="toc-number">3.5.1.</span> <span class="toc-text">refresh_token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#id-token"><span class="toc-number">3.5.2.</span> <span class="toc-text">id_token</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/oauth-php-google/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&text=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&is_video=false&description=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=OAuth 2.0 ，以 PHP 登入 Google 為例&body=Check out this article: https://kong0107.github.io/posts/2022/11/oauth-php-google/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&title=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/oauth-php-google/&name=OAuth 2.0 ，以 PHP 登入 Google 為例&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/oauth-php-google/&t=OAuth 2.0 ，以 PHP 登入 Google 為例"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="發想了一下「用純文字記錄單一旋律的簡譜」能怎麼設計，紀錄於本篇。 本篇的應用重點在於「在沒有打譜工具」的情形（例如跟朋友用通訊軟體純文字討論）下弄出「人眼可以快速讀懂」的仿簡譜記法。應該是有機會發展出打譜系統，但也可能不夠完善或有諸多限制（例如多聲部）。如果需求是「將純文字轉為（漂亮的）簡譜」，推薦考慮 x-Vacle 。 每個音符的紀錄順序：  升降 #, b, n(還原), x(重升), bb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="純文字簡譜，僅用 ASCII 字元">
+<meta property="og:url" content="https://kong0107.github.io/posts/2024/05/numbered-musical-notation/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="發想了一下「用純文字記錄單一旋律的簡譜」能怎麼設計，紀錄於本篇。 本篇的應用重點在於「在沒有打譜工具」的情形（例如跟朋友用通訊軟體純文字討論）下弄出「人眼可以快速讀懂」的仿簡譜記法。應該是有機會發展出打譜系統，但也可能不夠完善或有諸多限制（例如多聲部）。如果需求是「將純文字轉為（漂亮的）簡譜」，推薦考慮 x-Vacle 。 每個音符的紀錄順序：  升降 #, b, n(還原), x(重升), bb">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-05-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-06-20T11:24:24.693Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="音樂">
+<meta property="article:tag" content="簡譜">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>純文字簡譜，僅用 ASCII 字元</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2024/06/php-script_loc/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2024/05/php-curl/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&text=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&is_video=false&description=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=純文字簡譜，僅用 ASCII 字元&body=Check out this article: https://kong0107.github.io/posts/2024/05/numbered-musical-notation/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&name=純文字簡譜，僅用 ASCII 字元&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&t=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#240620-%E6%9B%B4%E6%96%B0"><span class="toc-number">1.</span> <span class="toc-text">240620 更新</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        純文字簡譜，僅用 ASCII 字元
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2024-05-12T16:00:00.000Z" itemprop="datePublished">2024-05-13</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E7%B0%A1%E8%AD%9C/" rel="tag">簡譜</a>, <a class="tag-link-link" href="/tags/%E9%9F%B3%E6%A8%82/" rel="tag">音樂</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <p>發想了一下「用純文字記錄單一旋律的簡譜」能怎麼設計，紀錄於本篇。</p>
+<p>本篇的應用重點在於「在沒有打譜工具」的情形（例如跟朋友用通訊軟體純文字討論）下弄出「人眼可以快速讀懂」的仿簡譜記法。<br>應該是有機會發展出打譜系統，但也可能不夠完善或有諸多限制（例如多聲部）。<br>如果需求是「將純文字轉為（漂亮的）簡譜」，推薦考慮 <a target="_blank" rel="noopener" href="https://vocus.cc/article/64ce5a9cfd89780001077bb5">x-Vacle</a> 。</p>
+<p>每個音符的紀錄順序：</p>
+<ul>
+<li>升降 <code>#</code>, <code>b</code>, <code>n</code>(還原), <code>x</code>(重升), <code>bb</code>(重降)（是說我好像沒看過有簡譜標重升或重降的）</li>
+<li>音名 <code>1</code>~&#96;7&#96;</li>
+<li>音域 每個^表示高八度（簡譜的數字上加點）；每個v表示低八度</li>
+<li>音長 <code>_</code>表示半拍，<code>__</code>表示四分之一拍；<code>-</code>表示加一拍；<code>.</code>表示附點。<br>注意「一拍」未必是四分音符</li>
+</ul>
+<p>其他記號：</p>
+<ul>
+<li>休止 <code>0</code></li>
+<li>連結線後面的音改寫為 <code>9</code> （或其他符號）</li>
+<li>圓滑 <code>slur(1234)</code> （可能跨小節線、甚至跨行）</li>
+<li>三連音與多連音 <code>(567)/t</code> （t 為 triplet 的簡記）</li>
+<li>其他多連音 <code>(34)/d</code>, <code>(2345)/quad</code>, <code>(12345)/quint</code>, <code>(1-2345)/sex</code>, <code>(1-.2345)/sept</code></li>
+<li>小節線與基礎反覆記號 <code>|</code>, <code>||:</code>, <code>:||</code></li>
+<li>反覆標記：用 <code>數字</code> 搭配其位於小節線前方或後方，以分別是該區段開始或結束<br><code>|*1*</code> 表示第一段的開始， <code>*1*|</code> 表示第一段的結束</li>
+</ul>
+<p>其他文字反覆標記就照文字寫； <code>𝄋</code> 和 <code>𝄌</code> 就分別寫其原文 <code>segno</code> 和 <code>coda</code> 。（重點是「只用 ascii 字元」）</p>
+<p>空格則完全只有排版功能</p>
+<hr>
+<p>例：〈新不了情〉主歌前八個字</p>
+<p>用 4&#x2F;4 拍號記的話</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3_2_1_ | 3 - . 3_2_1_ | 7v - .</span><br></pre></td></tr></table></figure>
+
+<p>用 12&#x2F;8 拍號記的話（我其實覺得 slow rock 該用這個啦）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">321 | 3-.9-.9-. 321 | 7v-.9-.9-.</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>〈給愛麗絲〉右手前三小節</p>
+<p>time signal: 3&#x2F;8</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3^_#2^_ | 3^_#2^_3^_7_n2^_1^_ | 6   0_ 1_3_6_ | 7   0_ 3_#5_7_ | 1^</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>〈小蜜蜂〉（刻意把反覆記號用上來的，不然本曲其實把反覆的部分重寫還比較清闖）</p>
+<p>4&#x2F;4</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">||:  5 3 3 -        | 4 2 2 -      |</span><br><span class="line">|*1* 1 2 3 4        | 5 5 5 - *1*:||</span><br><span class="line">|*23*1 3 5 5 to coda| 3 - . -      |</span><br><span class="line">|    2 2 2 2        | 2 3 4 -      |</span><br><span class="line">|    3 3 3 3        | 3 4 5 - D.C  |</span><br><span class="line">|coda 1- . -       ||</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="240620-更新"><a href="#240620-更新" class="headerlink" title="240620 更新"></a>240620 更新</h2><p>音長和音高改在前面應該也不錯，適合搭配括號把多個音符框起來。<br>例如〈給愛麗絲〉右手前三小節：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_^(3 #2) | _^(3 #2 3) _(7 n2^ 1^) | 6   0_ _(1 3 6) | 7   0_ _(3 #5 7) | 1^</span><br></pre></td></tr></table></figure>
+
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2024/05/numbered-musical-notation/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2024/05/numbered-musical-notation/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#240620-%E6%9B%B4%E6%96%B0"><span class="toc-number">1.</span> <span class="toc-text">240620 更新</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&text=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&is_video=false&description=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=純文字簡譜，僅用 ASCII 字元&body=Check out this article: https://kong0107.github.io/posts/2024/05/numbered-musical-notation/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&title=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&name=純文字簡譜，僅用 ASCII 字元&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2024/05/numbered-musical-notation/&t=純文字簡譜，僅用 ASCII 字元"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

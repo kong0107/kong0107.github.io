@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題maria_communitygithub。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10.6.9,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2">
+<meta property="og:url" content="https://kong0107.github.io/posts/2022/11/win11-apache24-php82/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題maria_communitygithub。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10.6.9,">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2022-11-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-30T20:48:25.713Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="Apache">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2023/03/ai-anxiety/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2022/11/oauth-php-google/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&text=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&is_video=false&description=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2&body=Check out this article: https://kong0107.github.io/posts/2022/11/win11-apache24-php82/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&name=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&t=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Apache"><span class="toc-number">2.</span> <span class="toc-text">安裝 Apache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-PHP"><span class="toc-number">3.</span> <span class="toc-text">安裝 PHP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-Apache"><span class="toc-number">4.</span> <span class="toc-text">設定 Apache</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%93-Apache-%E8%BC%89%E5%85%A5-PHP"><span class="toc-number">4.1.</span> <span class="toc-text">讓 Apache 載入 PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BE%E5%80%8B%E5%B0%8F%E8%A8%AD%E5%AE%9A"><span class="toc-number">4.2.</span> <span class="toc-text">幾個小設定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#httpS"><span class="toc-number">4.3.</span> <span class="toc-text">httpS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E5%87%BA%E4%B8%80%E7%B5%84%E6%86%91%E8%AD%89%E3%80%82"><span class="toc-number">4.3.1.</span> <span class="toc-text">生出一組憑證。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B7%A8%E8%BC%AF-conf-httpd-conf"><span class="toc-number">4.3.2.</span> <span class="toc-text">編輯 conf&#x2F;httpd.conf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B7%A8%E8%BC%AF-conf-extra-httpd-ssl-conf"><span class="toc-number">4.3.3.</span> <span class="toc-text">編輯 conf&#x2F;extra&#x2F;httpd-ssl.conf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A-SNI"><span class="toc-number">4.3.4.</span> <span class="toc-text">附論： SNI</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-PHP"><span class="toc-number">5.</span> <span class="toc-text">設定 PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#extension-dir"><span class="toc-number">5.1.</span> <span class="toc-text">extension_dir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-Extensions"><span class="toc-number">5.2.</span> <span class="toc-text">Dynamic Extensions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8-PATH"><span class="toc-number">6.</span> <span class="toc-text">設定環境變數 (PATH)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%9F%E5%8B%95-Apache"><span class="toc-number">7.</span> <span class="toc-text">啟動 Apache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenSSL-%E7%89%88%E6%9C%AC%E5%95%8F%E9%A1%8C"><span class="toc-number">8.</span> <span class="toc-text">OpenSSL 版本問題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cURL-%E5%92%8C-sodium"><span class="toc-number">9.</span> <span class="toc-text">cURL 和 sodium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">10.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-11-29T16:00:00.000Z" itemprop="datePublished">2022-11-30</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Apache/" rel="tag">Apache</a>, <a class="tag-link-link" href="/tags/PHP/" rel="tag">PHP</a>, <a class="tag-link-link" href="/tags/Windows/" rel="tag">Windows</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題<sup id="fnref:maria_community"><a href="#fn:maria_community" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Mariadb keeps crashing under windows - MariaDB Knowledge Base](https://mariadb.com/kb/en/mariadb-keeps-crashing-under-windows/)">maria_community</span></a></sup><sup id="fnref:github"><a href="#fn:github" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[MariaDB fails to start after Windows Updates · Issue #8475 · microsoft/WSL](https://github.com/microsoft/WSL/issues/8475#issuecomment-1258748485)">github</span></a></sup>。</p>
+<blockquote>
+<p>this is a data corruption bug.<br>Restoring from backup and running on a MariaDB version at or above 10.6.9, 10.7.5, 10.8.4, 10.9.2, 10.10.1.</p>
+</blockquote>
+<p>但是 XAMPP 在今天（2022-11-30）的版本裡包的是 MariaDB 10.4.27 ，並不在該 bug <sup id="fnref:maria_jira"><a href="#fn:maria_jira" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[MDEV-28870 InnoDB: Missing FILE_CREATE, FILE_DELETE or FILE_MODIFY before FILE_CHECKPOINT during crash recovery - Jira (mariadb.org)](https://jira.mariadb.org/browse/MDEV-28870)">maria_jira</span></a></sup>的解決版本 （<code>Fix Version/s</code> 欄）之列。所以我就想說要換其他的版本。</p>
+<p>那要換裝哪個呢？ Apache 官網並沒有提供 Windows 的安裝檔，但是有推薦幾個第三方軟體<sup id="fnref:apache"><a href="#fn:apache" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Using Apache HTTP Server on Microsoft Windows - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/current/platform/windows.html#down)">apache</span></a></sup>，不過我逐個逛過後覺得都有一些問題：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.apachehaus.com/cgi-bin/download.plx">ApacheHaus</a>: 只會裝 Apache 。頁面上幾乎沒有甚麼關於日期的資訊，我都不知道這些東西是何時釋出的。</li>
+<li><a target="_blank" rel="noopener" href="http://www.apachelounge.com/download/">Apache Lounge</a>: 只會裝 Apache 。一打開就看到錯別字：”The binaries, are build with …” 這句應該是過去分詞 built 才對吧！有明顯錯字的我都不太放心…</li>
+<li><a target="_blank" rel="noopener" href="http://bitnami.com/stack/wamp">Bitnami WAMP Stack</a>: 有 PHP 和 MySQL ，但就這麼剛好也公布了不會再弄這類軟體。 “Bitnami will discontinue the support for all native installers by November 30, 2022.”<sup id="fnref:bitnami"><a href="#fn:bitnami" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Bitnami Blog: Focusing on Cloud Native Solutions](https://blog.bitnami.com/2022/11/focusing-on-cloud-native-solutions.html)">bitnami</span></a></sup></li>
+<li><a target="_blank" rel="noopener" href="http://www.wampserver.com/">WampServer</a>: 有 PHP 、 MySQL 、 MariaDB 。但安裝需求很高，要 VC9～VS16 全部都有（Visual C++ 2008～2019 Redistributable），且會裝至少三個版本的 PHP 、兩個版本的 phpMyAdmin ，根本浪費資源。</li>
+<li><a target="_blank" rel="noopener" href="https://www.apachefriends.org/zh_tw/download.html">XAMPP</a>: 有 PHP 、 MariaDB ，但就一開始的原因， MariaDB 會當。</li>
+</ul>
+<p>合輯包都陣亡了，只好從前兩個純 Apache 軟體選一個。<br>除了 ApacheHaus 的資料太少我實在覺得怪怪的之外，最後的臨門一腳是 PHP 官網<sup id="fnref:php_windows"><a href="#fn:php_windows" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP: 在 Windows 上手动安装 PHP - Manual](https://www.php.net/manual/zh/install.windows.manual.php)">php_windows</span></a></sup>寫著：</p>
+<blockquote>
+<p>推荐 ApacheLounge 编译的 Apache</p>
+</blockquote>
+<p>而且後來發現 PHP 的 Windows 版本下載頁面<sup id="fnref:php_download"><a href="#fn:php_download" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP For Windows: Binaries and sources Releases](https://windows.php.net/download/)">php_download</span></a></sup>也寫著：</p>
+<blockquote>
+<p>Please use the Apache builds provided by Apache Lounge.<br>They provide VC15 and VS16 builds of Apache for x86 and x64.<br>We use their binaries to build the Apache SAPIs.</p>
+</blockquote>
+<h2 id="安裝-Apache"><a href="#安裝-Apache" class="headerlink" title="安裝 Apache"></a>安裝 Apache</h2><p>其實沒甚麼好裝的，就是下載壓縮檔然後解壓縮。但是「要下載哪個」可能會是問題。<br>先到電腦的「程式和功能」確認自己有哪些 Microsoft Visual C++ Redistributable 的版本，然後在 ApacheLounge 選擇有支援的。</p>
+<p>撰文時有提供的是 VS17 (2022) 的 64 位元版本，及 VS16 (2019) 的 32 和 64 位元版本。<br>若是 PHP 8.1 的話建議 VS16 的版本，若是 PHP 8.2 的話則建議選 VS17 的版本。理由請見文末 [[#OpenSSL 版本問題]] 。</p>
+<p>若電腦上沒有要求的版本，記得「先」去微軟官網下載安裝。（或是 ApacheLounge 頁面也有連往微軟載點的連結）</p>
+<p>然後找個地方放解壓縮後的檔案。一般建議路徑上不要有空格，也就是不建議放在 <code>C:\Program Files\</code> 裡。<br>由於不涉及系統註冊碼，因此不一定要放在系統槽，這樣若因故要重灌作業系統的話，也不用特別備份這邊的設定。</p>
+<h2 id="安裝-PHP"><a href="#安裝-PHP" class="headerlink" title="安裝 PHP"></a>安裝 PHP</h2><p>一樣是下載和解壓縮，一樣是要確認好要下載哪個。<br>PHP 有一個專為 Windows 而弄的網域和下載頁面<sup id="fnref:php_download"><a href="#fn:php_download" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP For Windows: Binaries and sources Releases](https://windows.php.net/download/)">php_download</span></a></sup>，裡頭會有不同的分類方式：</p>
+<ul>
+<li>Visual Studio 版本</li>
+<li>位元數</li>
+<li>多執行緒安全</li>
+</ul>
+<p>前兩個好判斷，就看自己作業系統的狀況，最後一個的解答則寫在下載頁面的左側邊欄：</p>
+<blockquote>
+<p>With Apache, using the apache2handler SAPI, you have to use the Thread Safe (TS) versions of PHP.</p>
+</blockquote>
+<p>下載後同樣找個地方解壓縮放著，同樣建議路徑上不要有空格，同樣不一定要在系統槽。</p>
+<h2 id="設定-Apache"><a href="#設定-Apache" class="headerlink" title="設定 Apache"></a>設定 Apache</h2><h3 id="讓-Apache-載入-PHP"><a href="#讓-Apache-載入-PHP" class="headerlink" title="讓 Apache 載入 PHP"></a>讓 Apache 載入 PHP</h3><p>PHP 官網提供三種方式<sup id="fnref:php_apache2"><a href="#fn:php_apache2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP: Microsoft Windows 下的 Apache 2.x - Manual](https://www.php.net/manual/zh/install.windows.apache2.php)">php_apache2</span></a></sup>，我習慣是第一種。<br>編輯 Apache 資料夾裡的 <code>conf/httpd.conf</code> ，加入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php_module &quot;c:/php/php8apache2_4.dll&quot;</span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">PHPIniDir &quot;C:/php&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="幾個小設定"><a href="#幾個小設定" class="headerlink" title="幾個小設定"></a>幾個小設定</h3><ul>
+<li><code>DocumentRoot</code> 和其後的第一個 <code>&lt;Directory&gt;</code> 改成自己文件放置的位置。</li>
+<li><code>&lt;IfModule dir_module&gt;</code> 裡面的 <code>DirectoryIndex</code> 加上 <code>index.php</code> 。（空格分隔，順序有差）</li>
+<li>如果需要虛擬主機，記得啟用 <code>Include conf/extra/httpd-vhosts.conf</code> ，當然也要自己再去編輯該檔案。</li>
+<li>如果會有 <code>.htaccess</code> 檔案的配置，記得要在需要的 <code>&lt;Directory&gt;</code> 區塊裡編輯 <code>AllowOverride</code> 。</li>
+</ul>
+<h3 id="httpS"><a href="#httpS" class="headerlink" title="httpS"></a>httpS</h3><p>這裡說的是允許瀏覽器對你的伺服器進行 https 連線。<br>若是要讓伺服器對其他電腦進行 https 連線，則是 PHP 那邊的設定。</p>
+<p>要支援 https 的知識門檻比較高，沒有接觸過的話會很花時間，趕時間的話建議先跳過。<br>要讓 Apache 支援 https ，有四個部分要弄：</p>
+<h4 id="生出一組憑證。"><a href="#生出一組憑證。" class="headerlink" title="生出一組憑證。"></a>生出一組憑證。</h4><p>Apache Lounge 以外的 Apache 系列軟體，大多有附上一個自簽憑證，但我遇過的其實都過期了。是不至於不能用，但就是每次連向頁面就會被瀏覽器再警告一次。</p>
+<p>「如何取得憑證」就跟 Apache 沒甚麼關係了，另參考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.miniasp.com/post/2019/02/25/Creating-Self-signed-Certificate-using-OpenSSL">如何使用 OpenSSL 建立開發測試用途的自簽憑證 (Self-Signed Certificate) | The Will Will Web (miniasp.com)</a>。</li>
+<li><a target="_blank" rel="noopener" href="https://blog.darkthread.net/blog/issue-wildcard-ssl-cert-with-openssl/">使用 OpenSSL 製作萬用字元 SSL 憑證-黑暗執行緒</a></li>
+</ul>
+<h4 id="編輯-conf-httpd-conf"><a href="#編輯-conf-httpd-conf" class="headerlink" title="編輯 conf/httpd.conf"></a>編輯 <code>conf/httpd.conf</code></h4><ul>
+<li>啟用這兩個（預設這兩個是被註解掉的）：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadModule socache_shmcb_module modules/mod_socache_shmcb.so</span><br><span class="line">LoadModule ssl_module modules/mod_ssl.so</span><br></pre></td></tr></table></figure></li>
+<li>加上 <code>Include conf/extra/httpd-ssl.conf</code> 。（建議用 <code>&lt;IfModule ssl_module /&gt;</code> 包起來）</li>
+<li>如果要強制轉到 https （也就是使用者連向 http ，就自動被轉去 https ）的話，那就在 <code>&lt;Directory /&gt;</code> 裡加上 <code>Redirect &quot;/&quot; &quot;https://localhost/&quot;</code> <sup id="fnref:apache_redirect"><a href="#fn:apache_redirect" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[mod_alias - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/2.4/zh-cn/mod/mod_alias.html#redirect)">apache_redirect</span></a></sup>。</li>
+</ul>
+<h4 id="編輯-conf-extra-httpd-ssl-conf"><a href="#編輯-conf-extra-httpd-ssl-conf" class="headerlink" title="編輯 conf/extra/httpd-ssl.conf"></a>編輯 <code>conf/extra/httpd-ssl.conf</code></h4><p>要增／修的是 <code>&lt;VirtualHost /&gt;</code> ，基本上跟 <code>httpd-vhost.conf</code> 邏輯類似，但要注意：</p>
+<ul>
+<li><code>SSLEngine on</code> ：這個沒開的話， PHP 的 <code>$_SERVER[&#39;HPPTS&#39;]</code> 會不存在，而且可能會讀錯張憑證。<br>沒開的話 <code>error.log</code> 會有 <code>You configured HTTP(80) on the standard HTTPS(443) port!</code> 。</li>
+<li><code>ServerName</code> 的值後面要補上 <code>:443</code> （或其他埠號），不然 PHP 的 <code>$_SERVER[&#39;SERVER_PORT&#39;]</code> 會是 80 （即使順利用 https 連線）。<br><strong>但是</strong> ServerAlias 只能有主機名，「不能」加埠號！</li>
+<li>修改 <code>SSLCertificateFile</code> 和 <code>SSLCertificateKeyFile</code> ，分別指向對應的檔案。</li>
+<li>網路上有些範例會有 <code>SSLCertificateChainFile</code> 或 <code>SSLCACertificateFile</code> ，但我試的時候都不用。（注意 Apache 版本，同為 2.4.x 的運作也可能不同，例如前者是在 2.4.8 版被廢棄 <sup id="fnref:apache_ssl"><a href="#fn:apache_ssl" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[mod_ssl - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslcacertificatefile)">apache_ssl</span></a></sup>。）</li>
+</ul>
+<p>多個域名時，其一的設定會像下面這樣：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">DocumentRoot &quot;D:/xxxxx&quot;</span><br><span class="line">ServerName a.localhost:443</span><br><span class="line">ServerAlias another.localhost</span><br><span class="line">SSLEngine on</span><br><span class="line">SSLCertificateFile &quot;D:/xxxxxx/a.localhost.crt&quot;</span><br><span class="line">SSLCertificateKeyFile &quot;D:/xxxxxxx/a.localhost.key&quot;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="附論：-SNI"><a href="#附論：-SNI" class="headerlink" title="附論： SNI"></a>附論： SNI</h4><p>以前 https 是沒法支援多張憑證的，這是因為「驗證證書」是在「確認域名」之前。（依照協定，必須先建立 TCP 連線，然後 TLS 握手，接著才是 HTTP 協定）<br>在此技術之前，應對的做法是在一份證書裡面塞好幾個域名（最多20個<sup id="fnref:gca"><a href="#fn:gca" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[政府機關網站導入HTTPS安全連線暨多網域憑證說明會 - 國家發展委員會 107年3月](https://gca.nat.gov.tw/download/training_201803.pdf)">gca</span></a></sup>）。</p>
+<p>但後來發展出 Server Name Indication 技術，瀏覽器可以在驗證證書的階段就講清楚自己是要連哪個域名，這樣伺服器就也知道要回覆哪一張證書。<br>不過，此技術也有缺點<sup id="fnref:lichi_chen"><a href="#fn:lichi_chen" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Server Name Indication (SNI) 原理簡介](https://lichi-chen.medium.com/f85e075e1d75)
+">lichi_chen</span></a></sup>：</p>
+<blockquote>
+<p>TLS handshake 做完之後才會加密，這等於說你要訪問哪個站其實是可以被中間的網路節點看到的。<br>因為 SNI 露在外面，有些國家網路政策可以利用這個資訊，在網路中間網路節點作怪，故意不給你訪問某些網站。</p>
+</blockquote>
+<h2 id="設定-PHP"><a href="#設定-PHP" class="headerlink" title="設定 PHP"></a>設定 PHP</h2><p>進到 PHP 的資料夾，把 <code>php.ini-development</code> 複製成 <code>php.ini</code> 然後開啟之。</p>
+<h3 id="extension-dir"><a href="#extension-dir" class="headerlink" title="extension_dir"></a><code>extension_dir</code></h3><p>Windows 下可以設定 <code>extension_dir = &quot;C:/&lt;php_dir&gt;/ext&quot;</code> 。<br>雖然沒有一定要設定，但不開的話後面會比較麻煩。</p>
+<h3 id="Dynamic-Extensions"><a href="#Dynamic-Extensions" class="headerlink" title="Dynamic Extensions"></a>Dynamic Extensions</h3><p>常用的有 <code>mbstring</code>, <code>openssl</code>, <code>curl</code>, <code>mysqli</code> 。</p>
+<p>以 <code>mbstring</code> 為例<br>如果上面的 <code>extension_dir</code> 有設定正確，那麼這邊只要 <code>extension=mbstring</code> 就可以了；</p>
+<p>但如果沒有設定 <code>extension_dir</code>，那這邊就要設定完整路徑和副檔名，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">extension=&quot;C:/&lt;php_dir&gt;/ext/php_mbstring.dll&quot;</span><br></pre></td></tr></table></figure>
+<p>才有用。（注意檔名前面有 <code>php_</code> ，後面有 <code>.dll</code> 。）</p>
+<p>可以用 <code>php.exe -m</code> 確認哪些有被啟用，<br>但實際是否有載入成功，要重啟 Apache 看 <code>&lt;apache_dir&gt;/logs/error.log</code> 有沒有錯誤訊息。<br><code>openssl</code> 和 <code>curl</code> 有可能沒法這樣就順利運作，詳見文末 [[#OpenSSL 版本問題]] 。</p>
+<p>如果 cURL 和 OpenSSL 持續沒能運作，可以看看<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/28858351/#32095378">這篇</a>。</p>
+<h2 id="設定環境變數-PATH"><a href="#設定環境變數-PATH" class="headerlink" title="設定環境變數 (PATH)"></a>設定環境變數 (PATH)</h2><p>Windows 10 和 11 的話是在<br>設定→系統→系統資訊→進階系統設定→環境變數…</p>
+<p>如果權限夠的話就編輯下面區塊；不夠的話就編輯上面區塊的「PATH」，「新增」一筆 PHP 的根目錄。</p>
+<h2 id="啟動-Apache"><a href="#啟動-Apache" class="headerlink" title="啟動 Apache"></a>啟動 Apache</h2><p>關鍵程式是 Apache 資料夾裡的 <code>bin/httpd.exe</code> ，以下指令假設是在該目錄，或是有把該目錄加進 <code>PATH</code> ：</p>
+<p>無須特權的做法：</p>
+<ul>
+<li>啟動： httpd</li>
+<li>關閉： Ctrl+C</li>
+</ul>
+<p>需特權的做法：</p>
+<ul>
+<li>註冊為「服務」：httpd -k install</li>
+<li>啟動服務： httpd -k start</li>
+<li>關閉服務： httpd -k stop</li>
+</ul>
+<p>詳參官網 <a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/programs/httpd.html">httpd - Apache Hypertext Transfer Protocol Server - Apache HTTP Server Version 2.4</a>  。</p>
+<p>如果有什麼不對勁的，請開啟 <code>&lt;apache_dir&gt;/logs/error.log</code> 查看。</p>
+<h2 id="OpenSSL-版本問題"><a href="#OpenSSL-版本問題" class="headerlink" title="OpenSSL 版本問題"></a>OpenSSL 版本問題</h2><p>最前面提到 PHP 8.1 請搭配用 VS16 編譯的 Apache ； PHP 8.2 的話才可能可已用 VS17 編譯的版本。<br>其實關鍵似乎不是 VS 的版本，而是 OpenSSL 的版本。</p>
+<p>總之，如果版本不對的話， Apache 是可以啟動，但並不會成功載入 OpenSSL 及 cURL 。在 <code>&lt;apache_dir&gt;/logs/error.log</code> 會出現：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PHP Warning:  PHP Startup: Unable to load dynamic library &#x27;curl&#x27; in Unknown on line 0</span><br><span class="line">PHP Warning:  PHP Startup: Unable to load dynamic library &#x27;openssl&#x27; in Unknown on line 0</span><br></pre></td></tr></table></figure>
+
+<p>折騰兩天後似乎是找到原因了。<a target="_blank" rel="noopener" href="https://www.php.net/manual/en/openssl.installation.php#86578">mtudor 於2008年時寫道</a>：</p>
+<blockquote>
+<p>When any application attempts to use a dll file in windows, the system searches for this file using the following order:<br>    1. The directory from which the application loaded.<br>    2. The <code>windows\system32</code> directory.<br>    3. The <code>windows\system</code> directory.<br>    4. The <code>windows</code> directory.<br>    5. The current directory.<br>    6. The directories that are listed in the <code>PATH</code> environment variable.</p>
+</blockquote>
+<blockquote>
+<p>For PHP running under Apache, the application directory is <code>&lt;apache dir&gt;\bin</code> and NOT <code>&lt;php dir&gt;</code>.</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.php.net/manual/en/curl.installation.php#121921">epos_jk 則在 2017 年時提到</a>：</p>
+<blockquote>
+<p>Beginning with version 1.1.0 OpenSSL did change their libary names!<br><code>libeay32.dll</code> is now <code>libcrypto-*.dll</code> (e.g. <code>libcrypto-1_1-x64.dll</code> for OpenSSL 1.1.x on 64bit windows)<br><code>ssleay32.dll</code> is now <code>libssl-*.dll</code> (e.g. <code>libssl-1_1-x64.dll</code> for OpenSSL 1.1.x on 64bit windows)</p>
+</blockquote>
+<p>然後比對一下這幾個來源的檔案：</p>
+<p>PHP 8.1.13 built with VS16:</p>
+<ul>
+<li>libcrypto-1_1-x64.dll</li>
+<li>libssl-1_1-x64.dll</li>
+</ul>
+<p>PHP 8.2.5 built with VS16:</p>
+<ul>
+<li>libcrypto-3-x64.dll</li>
+<li>libssl-3-x64.dll</li>
+</ul>
+<p>Apache 2.4.54 built with VS16:</p>
+<ul>
+<li>libcrypto-1_1-x64.dll</li>
+<li>libssl-1_1-x64.dll</li>
+</ul>
+<p>Apache 2.4.54 built with VS17:</p>
+<ul>
+<li>libcrypto-3-x64.dll</li>
+<li>libssl-3-x64.dll</li>
+</ul>
+<p>Apache-VS17 和 PHP-8.2 都是 <code>libcrypto-3-x64.dll</code> 和 <code>libssl-3-x64.dll</code> ；<br>Apache-VS16 和 PHP-8.1 都是 <code>libcrypto-1_1-x64.dll</code> 和 <code>libssl-1_1-x64.dll</code> 。</p>
+<p>注意這裡的「版本差別」意義不太一樣，<br>Apache 都是 2.4.54 版，是編譯環境不同造成了附帶的函示庫版本不同；<br>PHP 則是原始碼的版本就不同。</p>
+<p>總之，要使用能互相搭配的版本。</p>
+<p>我這次嘗試時是先裝了 VS17 編譯的 Apache ，看來是 PHP 嘗試載入 <code>libcrypto-*.dll</code> 和 <code>libssl-*.dll*</code> 時，載到了自己看不懂的更新版本。</p>
+<p>雖然 PHP 官網說：</p>
+<blockquote>
+<p>注意: <strong>Win32</strong> 用户注意<br>要在 Windows 环境下使用这个模块，<code>libeay32.dll</code> 和 <code>ssleay32.dll</code> 库文件必须放到 <code>PATH</code> 环境变量包含的目录下。<br>OpenSSL 1.1 下则为 <code>libcrypto-*.dll</code> 和 <code>libssl-*.dll</code> 文件。<br>同样的，<code>libssh2.dll</code> 文件也需要放到 <code>PATH</code> 环境变量包含的目录下。<br>不需要用 cURL 网站上的 <code>libcurl.dll</code> 库。</p>
+</blockquote>
+<p>但依照前面 mtudor 的說法，就算那樣也還是會優先載入 <code>&lt;apache dir&gt;\bin</code> 裡面的，那麼問題（大概）仍會發生。<br>而且，我改用 VS16 編譯的 Apache 之後，沒有複製東西到系統資料夾，也沒有修改 <code>PATH</code> ，就順利解決問題了。</p>
+<p>另一個方式是，把 PHP 資料夾裡的那兩個 DLL 檔複製到 <code>&lt;apache dir&gt;\bin</code> 。但我覺得這個解法會讓 Apache 資料夾裡有著不屬於 Apache 的東西，比較不推薦。下面的方法比較適合</p>
+<h2 id="cURL-和-sodium"><a href="#cURL-和-sodium" class="headerlink" title="cURL 和 sodium"></a>cURL 和 sodium</h2><p>要啟用 PHP 的 curl ，需要 Apache 載入 PHP 資料夾裡的 <code>libssh2.dll</code> ；<br>要啟用 PHP 的 sodium ，需要 Apache 載入 PHP 資料夾裡的 <code>libsodium.dll</code> 。</p>
+<p>請在 Apache 的 <code>conf/httpd.conf</code> 裡面加上：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadFile &quot;D:/php-8.2.6/libssh2.dll&quot;</span><br><span class="line">LoadFile &quot;D:/php-8.2.6/libsodium.dll&quot;</span><br></pre></td></tr></table></figure>
+
+<p>— <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38702465/article/details/87574161">https://blog.csdn.net/qq_38702465/article/details/87574161</a></p>
+<p>前述的 OpenSSL 版本問題 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38702465/article/details/87574161">據說</a> 可以用此法解。</p>
+<p>更新：<br>Apache Lounge 公告說 Apache 2.4.57 是最後一個有用 VS16 編譯的版本，之後就只會有 VS17 編譯的版本。<br>因此，若要在 Apache 2.4.58 （或更新）以後使用 PHP 8.1 （或更舊），應該就會需要上述的引入方法。</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:maria_community"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">maria_community.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/mariadb-keeps-crashing-under-windows/">Mariadb keeps crashing under windows - MariaDB Knowledge Base</a><a href="#fnref:maria_community" rev="footnote">↩</a></span></li><li id="fn:github"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">github.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL/issues/8475#issuecomment-1258748485">MariaDB fails to start after Windows Updates · Issue #8475 · microsoft/WSL</a><a href="#fnref:github" rev="footnote">↩</a></span></li><li id="fn:maria_jira"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">maria_jira.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://jira.mariadb.org/browse/MDEV-28870">MDEV-28870 InnoDB: Missing FILE_CREATE, FILE_DELETE or FILE_MODIFY before FILE_CHECKPOINT during crash recovery - Jira (mariadb.org)</a><a href="#fnref:maria_jira" rev="footnote">↩</a></span></li><li id="fn:apache"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">apache.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/platform/windows.html#down">Using Apache HTTP Server on Microsoft Windows - Apache HTTP Server Version 2.4</a><a href="#fnref:apache" rev="footnote">↩</a></span></li><li id="fn:bitnami"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">bitnami.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://blog.bitnami.com/2022/11/focusing-on-cloud-native-solutions.html">Bitnami Blog: Focusing on Cloud Native Solutions</a><a href="#fnref:bitnami" rev="footnote">↩</a></span></li><li id="fn:php_windows"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">php_windows.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.windows.manual.php">PHP: 在 Windows 上手动安装 PHP - Manual</a><a href="#fnref:php_windows" rev="footnote">↩</a></span></li><li id="fn:php_download"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">php_download.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://windows.php.net/download/">PHP For Windows: Binaries and sources Releases</a><a href="#fnref:php_download" rev="footnote">↩</a></span></li><li id="fn:php_apache2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">php_apache2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.windows.apache2.php">PHP: Microsoft Windows 下的 Apache 2.x - Manual</a><a href="#fnref:php_apache2" rev="footnote">↩</a></span></li><li id="fn:apache_redirect"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">apache_redirect.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/zh-cn/mod/mod_alias.html#redirect">mod_alias - Apache HTTP Server Version 2.4</a><a href="#fnref:apache_redirect" rev="footnote">↩</a></span></li><li id="fn:apache_ssl"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">apache_ssl.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslcacertificatefile">mod_ssl - Apache HTTP Server Version 2.4</a><a href="#fnref:apache_ssl" rev="footnote">↩</a></span></li><li id="fn:gca"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">gca.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://gca.nat.gov.tw/download/training_201803.pdf">政府機關網站導入HTTPS安全連線暨多網域憑證說明會 - 國家發展委員會 107年3月</a><a href="#fnref:gca" rev="footnote">↩</a></span></li><li id="fn:lichi_chen"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">lichi_chen.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://lichi-chen.medium.com/f85e075e1d75">Server Name Indication (SNI) 原理簡介</a><a href="#fnref:lichi_chen" rev="footnote">↩</a></span></li></ol></div></div>
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2022/11/win11-apache24-php82/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2022/11/win11-apache24-php82/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B7%A3%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">緣由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-Apache"><span class="toc-number">2.</span> <span class="toc-text">安裝 Apache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%9D-PHP"><span class="toc-number">3.</span> <span class="toc-text">安裝 PHP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-Apache"><span class="toc-number">4.</span> <span class="toc-text">設定 Apache</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%93-Apache-%E8%BC%89%E5%85%A5-PHP"><span class="toc-number">4.1.</span> <span class="toc-text">讓 Apache 載入 PHP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%BE%E5%80%8B%E5%B0%8F%E8%A8%AD%E5%AE%9A"><span class="toc-number">4.2.</span> <span class="toc-text">幾個小設定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#httpS"><span class="toc-number">4.3.</span> <span class="toc-text">httpS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E5%87%BA%E4%B8%80%E7%B5%84%E6%86%91%E8%AD%89%E3%80%82"><span class="toc-number">4.3.1.</span> <span class="toc-text">生出一組憑證。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B7%A8%E8%BC%AF-conf-httpd-conf"><span class="toc-number">4.3.2.</span> <span class="toc-text">編輯 conf&#x2F;httpd.conf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B7%A8%E8%BC%AF-conf-extra-httpd-ssl-conf"><span class="toc-number">4.3.3.</span> <span class="toc-text">編輯 conf&#x2F;extra&#x2F;httpd-ssl.conf</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%99%84%E8%AB%96%EF%BC%9A-SNI"><span class="toc-number">4.3.4.</span> <span class="toc-text">附論： SNI</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A-PHP"><span class="toc-number">5.</span> <span class="toc-text">設定 PHP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#extension-dir"><span class="toc-number">5.1.</span> <span class="toc-text">extension_dir</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dynamic-Extensions"><span class="toc-number">5.2.</span> <span class="toc-text">Dynamic Extensions</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E7%92%B0%E5%A2%83%E8%AE%8A%E6%95%B8-PATH"><span class="toc-number">6.</span> <span class="toc-text">設定環境變數 (PATH)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%95%9F%E5%8B%95-Apache"><span class="toc-number">7.</span> <span class="toc-text">啟動 Apache</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenSSL-%E7%89%88%E6%9C%AC%E5%95%8F%E9%A1%8C"><span class="toc-number">8.</span> <span class="toc-text">OpenSSL 版本問題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cURL-%E5%92%8C-sodium"><span class="toc-number">9.</span> <span class="toc-text">cURL 和 sodium</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">10.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&text=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&is_video=false&description=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2&body=Check out this article: https://kong0107.github.io/posts/2022/11/win11-apache24-php82/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&title=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&name=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2022/11/win11-apache24-php82/&t=在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

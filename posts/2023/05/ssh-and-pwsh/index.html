@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="本篇為筆記，較無目標性。 OpenSSH server on WindowsWindows 10 及其之後，可以用內建功能安裝 OpenSSH 用戶端和伺服器（這是兩個不同的功能）。 Win10 ：設定→左側「應用程式」（→自動進入「應用程式與功能」）→右側中上「選用功能」→上方「新增功能」 Win11 ：設定→左側「應用程式」→右側「選用功能」→右上「新增選用功能」 預設並不會啟動，要再進服務（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell">
+<meta property="og:url" content="https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="本篇為筆記，較無目標性。 OpenSSH server on WindowsWindows 10 及其之後，可以用內建功能安裝 OpenSSH 用戶端和伺服器（這是兩個不同的功能）。 Win10 ：設定→左側「應用程式」（→自動進入「應用程式與功能」）→右側中上「選用功能」→上方「新增功能」 Win11 ：設定→左側「應用程式」→右側「選用功能」→右上「新增選用功能」 預設並不會啟動，要再進服務（">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-05-05T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-05-10T06:45:07.072Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="OpenSSH">
+<meta property="article:tag" content="PowerShell">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/posts/2023/05/apache-rotatelogs/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2023/05/crossorigin/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&text=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&is_video=false&description=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell&body=Check out this article: https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&name=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&t=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OpenSSH-server-on-Windows"><span class="toc-number">1.</span> <span class="toc-text">OpenSSH server on Windows</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E7%99%BB%E5%85%A5%E5%BE%8C%E7%9A%84-shell-%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">設定登入後的 shell 程式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E7%89%88-PowerShell"><span class="toc-number">2.</span> <span class="toc-text">新版 PowerShell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%B1%E6%80%A8"><span class="toc-number">2.1.</span> <span class="toc-text">抱怨</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">參考</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-05-05T16:00:00.000Z" itemprop="datePublished">2023-05-06</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/OpenSSH/" rel="tag">OpenSSH</a>, <a class="tag-link-link" href="/tags/PowerShell/" rel="tag">PowerShell</a>, <a class="tag-link-link" href="/tags/Windows/" rel="tag">Windows</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <p>本篇為筆記，較無目標性。</p>
+<h1 id="OpenSSH-server-on-Windows"><a href="#OpenSSH-server-on-Windows" class="headerlink" title="OpenSSH server on Windows"></a>OpenSSH server on Windows</h1><p>Windows 10 及其之後，可以用內建功能安裝 OpenSSH 用戶端和伺服器（這是兩個不同的功能）。</p>
+<p>Win10 ：設定→左側「應用程式」（→自動進入「應用程式與功能」）→右側中上「選用功能」→上方「新增功能」</p>
+<p>Win11 ：設定→左側「應用程式」→右側「選用功能」→右上「新增選用功能」</p>
+<p>預設並不會啟動，要再進服務（<code>services.msc</code>）啟動，或是用管理者權限在 PowerShell 執行 <code>Start-Service sshd</code> 。</p>
+<p>要在 PowerShell 設定自動啟用的話，指令為：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Set-Service</span> <span class="literal">-Name</span> sshd <span class="literal">-StartupType</span> <span class="string">&#x27;Automatic&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>不用其他設定，蠻方便的。<br>登入帳密則與作業系統相同。</p>
+<h2 id="設定登入後的-shell-程式"><a href="#設定登入後的-shell-程式" class="headerlink" title="設定登入後的 shell 程式"></a>設定登入後的 shell 程式</h2><p>連向前述方式安裝的 SSH 伺服器後，預設會使用 <code>cmd.exe</code> 作為 shell 。<br>要設定為其他 shell （例如 PowerShell ）的話，要修改機碼。</p>
+<p>方法一：用 PowerShell</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">New-ItemProperty</span> <span class="literal">-Path</span> <span class="string">&quot;HKLM:\SOFTWARE\OpenSSH&quot;</span> <span class="literal">-Name</span> DefaultShell <span class="literal">-Value</span> <span class="string">&quot;C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe&quot;</span> <span class="literal">-PropertyType</span> String <span class="literal">-Force</span></span><br></pre></td></tr></table></figure>
+
+<p>方法二：傳統「登錄編輯程式」</p>
+<ol>
+<li>執行 <code>regedit</code></li>
+<li>找到 <code>\HKEY_LOCAL_MACHINE\SOFTWARE\OpenSSH</code></li>
+<li>新增字串值，名稱為 <code>DefaultShell</code> ，值為想要的 shell 的執行檔路徑。</li>
+</ol>
+<p>上面二法的路徑，均可改為接下來安裝的新版 PowerShell 。</p>
+<h1 id="新版-PowerShell"><a href="#新版-PowerShell" class="headerlink" title="新版 PowerShell"></a>新版 PowerShell</h1><p>這跟傳統的 <code>cmd.exe</code> 其實是不同的 shell ，不過仍可執行大部分 <code>cmd</code> 的東西（畢竟其實是去 <code>PATH</code> 找相應的程式）</p>
+<p>除了內建的版本，也可以自己安裝更新的版本。維護於 <a target="_blank" rel="noopener" href="https://github.com/PowerShell/PowerShell/releases">GitHub</a><br><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/scripting/install/powershell-support-lifecycle?view=powershell-7.3#powershell-end-of-support-dates">支援期限對照表</a>如下（2023-05-06 確認）：</p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Release Date</th>
+<th>End-of-support</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7.4 (preview)</td>
+<td>December 20, 2022</td>
+<td>TBD</td>
+</tr>
+<tr>
+<td>7.3 (Stable)</td>
+<td>November 9, 2022</td>
+<td>May 8, 2024</td>
+</tr>
+<tr>
+<td>7.2 (LTS-current)</td>
+<td>November 8, 2021</td>
+<td>November 8, 2024</td>
+</tr>
+</tbody></table>
+<h2 id="抱怨"><a href="#抱怨" class="headerlink" title="抱怨"></a>抱怨</h2><p>雖然 PowerShell 7.2 是 LTS 版本，但就算是最新版（7.2.11），開啟時仍會提示「現在有 7.3 板可以安裝喔」。覺得煩。</p>
+<h1 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows-server/administration/openssh/openssh_install_firstuse">https://learn.microsoft.com/zh-tw/windows-server/administration/openssh/openssh_install_firstuse</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/powershell/scripting/install/powershell-support-lifecycle">https://learn.microsoft.com/en-us/powershell/scripting/install/powershell-support-lifecycle</a></li>
+<li><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-tw/windows-server/administration/openssh/openssh_server_configuration">https://learn.microsoft.com/zh-tw/windows-server/administration/openssh/openssh_server_configuration</a></li>
+</ul>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#OpenSSH-server-on-Windows"><span class="toc-number">1.</span> <span class="toc-text">OpenSSH server on Windows</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A8%AD%E5%AE%9A%E7%99%BB%E5%85%A5%E5%BE%8C%E7%9A%84-shell-%E7%A8%8B%E5%BC%8F"><span class="toc-number">1.1.</span> <span class="toc-text">設定登入後的 shell 程式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%B0%E7%89%88-PowerShell"><span class="toc-number">2.</span> <span class="toc-text">新版 PowerShell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%B1%E6%80%A8"><span class="toc-number">2.1.</span> <span class="toc-text">抱怨</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%83%E8%80%83"><span class="toc-number">3.</span> <span class="toc-text">參考</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&text=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&is_video=false&description=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell&body=Check out this article: https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&title=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&name=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2023/05/ssh-and-pwsh/&t=將 Windwos 10 和 11 的 SSH 伺服器殼層設為 PowerShell"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
