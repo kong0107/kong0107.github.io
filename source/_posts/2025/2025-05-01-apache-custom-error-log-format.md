@@ -72,6 +72,7 @@ tags: [Apache]
 * `%I`, `%O`, `%S` 需要啟用 `mod_logio` 才能用，否則伺服器會根本不能啟動；
   相對地，`LogFormat` 中 `%l` 雖然依賴 `mod_ident` ，但就算未啟用後者，也只是造成前者必定轉換為 `-` 而已。
 * 要取得比秒更高的精度，在 `ErrorLogFormat` 只能用 `%{u}t` 系列；在 `LogFormat` 只能用 `%{sec}t` 系列。
+* `ErrorLogFormat` 不能用 `%{...}x`，但是可以用 `%{...}e`。故在 `ErrorLogFormat` 可以用 `%{SSL_PROTOCOL}e` 。
 
 
 ## 「變數無值」時的效果與修飾子 (modifier)
@@ -104,8 +105,9 @@ tags: [Apache]
 |`+`|`%+{Referer}i`|直接不進行這筆紀錄|
 |整數0~15|`%4{Referer}i`|嚴重程度比此數字高時才紀錄，否則同無修飾子的效果|
 
-可留意的是 `+` ，應能做為篩選的依據。
-（畢竟 `ErrorLog` 不支援 `env=` 和 `expr=` 的篩選方式）
+* `+` ，應能做為篩選的依據。
+  （畢竟 `ErrorLog` 不支援 `env=` 和 `expr=` 的篩選方式）
+* 「嚴重程度」可參考 [LogLevel](https://httpd.apache.org/docs/current/mod/core.html#loglevel)
 
 
 ### `LogFormat` 用的修飾子
@@ -117,12 +119,10 @@ tags: [Apache]
 |`%400,501{User-agent}i`|僅在 400 和 501 的時候紀錄瀏覽器資訊，其他情形紀錄 `-`|
 |`%!200,304,302{Referer}i`|在不是那三個狀態碼的情形，紀錄 `Referer` 標頭|
 
-> The modifiers "<" and ">" can be used for requests that have been internally redirected to choose whether the original or final (respectively) request should be consulted.
-> By default, the `%` directives `%s`, `%U`, `%T`, `%D`, and `%r` look at the **original** request while all others look at the **final** request.
-> So for example,
-  > `%>s` can be used to record the final status of the request and
-  > `%<u` can be used to record the original authenticated user
-  on a request that is internally redirected to an unauthenticated resource.
+|modifier|meaning|
+|--|--|
+|`>`|`%s`, `%U`, `%T`, `%D`, `%r` 這些預設是取初始值，故若要紀錄其他模組改過後的值，就加上 `>` ，如 `%>s`。|
+|`<`|前述以外的變數預設會取用最終值，故若要讀取初始的值，就加上 `<` ，如 `%<u`。|
 
 
 ## 心得
@@ -148,13 +148,39 @@ LogFormat '%{uc}t, %a, %r'
 
 
 ### 小結
-我目前的設定是
+我目前的相關設定是：
 
 ```
-ErrorLogFormat '{time:"%{uc}t", level:"%l", module:"%m", error:"%E", file:"%F", server:"%V", client:"%{c}a", xForwardedFor:"%{X-Forwarded-For}i", forwarded:"%{Forwarded}i", request:"%L", message:"%M"}'
+LoadModule logio_module modules/mod_logio.so
+LoadModule log_config_module modules/mod_log_config.so
 
-CustomLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/access-%y%m%d.log 86400" \
-  "%{%y%m%d(%w)%H%M%S}t.%{usec_frac}t+%>D %L %X %>s %b/%O %{Forwarded}i[%{X-Forwarded-For}i,%a] %I %{SSL_PROTOCOL}x %H %m %V%U%q"
+ErrorLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/server-%y%m.log 86400"
+# 若各個虛擬主機均有設定自己的 ErrorLog ，則這裡的應該只會有啟動、設定或模組載入、關閉的紀錄，因此照月份分就好了。
+
+ErrorLogFormat '{time:"%{uc}t", level:"%l", mod:"%m", err:"%E", ssl:{proto:"%{SSL_PROTOCOL}e", cipher:"%{SSL_CIPHER}e"}, req:"%L", serv:"%V", client:"%{c}a", xForwardedFor:"%{X-Forwarded-For}i", forwarded:"%{Forwarded}i", referer:"%{Referer}i", uri:"%{REQUEST_URI}e", message:"%M"}'
+
+# 有紀錄 %V
+LogFormat "%{%y%m%d(%w)%H%M%S}t.%{usec_frac}t+%>D %L %>s%X %b/%O %{Forwarded}i[%{X-Forwarded-For}i,%a] %I %{SSL_PROTOCOL}x %H/%m:%V%U%q" my_log_format_full
+
+# 不紀錄 %V
+LogFormat "%{%y%m%d(%w)%H%M%S}t.%{usec_frac}t+%>D %L %>s%X %b/%O %{Forwarded}i[%{X-Forwarded-For}i,%a] %I %{SSL_PROTOCOL}x %H/%m %U%q" my_log_format
+
+GlobalLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/global-%y%m%d.log 86400" my_log_format_full
+CustomLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/default-%y%m%d.log 86400" my_log_format_full
+
+<VirtualHost *:443>
+	# 預設的，不應該落入這，故記錄一下 %V
+	ServerName localhost:443
+	ErrorLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/default-error-%y%m.log 86400"
+	CustomLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/default-access-%y%m%d.log 86400" my_log_format_full
+</VirtualHost>
+
+<VirtualHost *:443>
+	# 確定的虛擬主機，不用紀錄 %V
+	ServerName my_site_1.idv:443
+	ErrorLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/my_site_1-error-%y%m.log 86400"
+	CustomLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/my_site_1-access-%y%m%d.log 86400" my_log_format
+</VirtualHost>
 ```
 
 
@@ -165,5 +191,5 @@ CustomLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/access-%y%m%d.log 86400" \
 
 ## 參考資料
 * https://httpd.apache.org/docs/current/mod/core.html#errorlogformat
-* https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header
-* https://httpd.apache.org/docs/current/mod/mod_ssl.html#page-header
+* https://httpd.apache.org/docs/current/mod/mod_log_config.html#customlog
+* https://httpd.apache.org/docs/current/mod/mod_ssl.html#envvars
