@@ -183,6 +183,14 @@ CustomLog "|${SRVROOT}/bin/rotatelogs.exe -l logs/default-%y%m%d.log 86400" my_l
 </VirtualHost>
 ```
 
+伺服器啟動相關就集中在 `server-%y%m.log`，
+能分配給各虛擬主機的就會記入 `{{ServerName}}-error-%y%m.log`；
+
+存取的紀錄全部都在 `global-%y%m%d.log` 有一筆，
+以及各虛擬主機的 `{{ServerName}}-access-%y%m%d.log` 。
+
+其中 `{{ServerName}}` 為 `default` 的情形，即 `default-error-%y%m.log` 和 `default-access-%y%m%d.log`，是用於紀錄沒有被正確分配到虛擬主機的那些——即設定有漏，或是訪客造假了 `Host` 標頭的情形。
+
 
 ## 測試環境
 
