@@ -14,7 +14,7 @@
 <meta property="og:description" content="Apache 中可設定紀錄檔的指令 (directive)   名稱 條件篩選 自訂格式    ErrorLog 視 ErrorLogFormat 設定，預設不篩選 用 ErrorLogFormat，若無則為預設格式   TransferLog 無 最後一個未取別名的 LogFormat ，若無則為預設格式   CustomLog env&#x3D;, expr&#x3D; 直接寫，或用 LogFormat 設定的別">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2025-04-30T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-01T18:46:46.077Z">
+<meta property="article:modified_time" content="2025-05-02T08:20:43.536Z">
 <meta property="article:author" content="阿空">
 <meta property="article:tag" content="Apache">
 <meta name="twitter:card" content="summary">
@@ -484,6 +484,7 @@
 <h3 id="注意事項"><a href="#注意事項" class="headerlink" title="注意事項"></a>注意事項</h3><ul>
 <li><code>%I</code>, <code>%O</code>, <code>%S</code> 需要啟用 <code>mod_logio</code> 才能用，否則伺服器會根本不能啟動；<br>相對地，<code>LogFormat</code> 中 <code>%l</code> 雖然依賴 <code>mod_ident</code> ，但就算未啟用後者，也只是造成前者必定轉換為 <code>-</code> 而已。</li>
 <li>要取得比秒更高的精度，在 <code>ErrorLogFormat</code> 只能用 <code>%&#123;u&#125;t</code> 系列；在 <code>LogFormat</code> 只能用 <code>%&#123;sec&#125;t</code> 系列。</li>
+<li><code>ErrorLogFormat</code> 不能用 <code>%&#123;...&#125;x</code>，但是可以用 <code>%&#123;...&#125;e</code>。故在 <code>ErrorLogFormat</code> 可以用 <code>%&#123;SSL_PROTOCOL&#125;e</code> 。</li>
 </ul>
 <h2 id="「變數無值」時的效果與修飾子-modifier"><a href="#「變數無值」時的效果與修飾子-modifier" class="headerlink" title="「變數無值」時的效果與修飾子 (modifier)"></a>「變數無值」時的效果與修飾子 (modifier)</h2><p>在 <code>LogFormat</code> ，若引用的變數沒有值，則預設會顯示 <code>-</code> ；<br>但在 <code>ErrorLogFormat</code> ，則是會將「往前找到的空格」和「往後找到的空格」之間的東西都拿掉。</p>
 <p>例如：</p>
@@ -539,7 +540,10 @@
 <td>嚴重程度比此數字高時才紀錄，否則同無修飾子的效果</td>
 </tr>
 </tbody></table>
-<p>可留意的是 <code>+</code> ，應能做為篩選的依據。<br>（畢竟 <code>ErrorLog</code> 不支援 <code>env=</code> 和 <code>expr=</code> 的篩選方式）</p>
+<ul>
+<li><code>+</code> ，應能做為篩選的依據。<br>（畢竟 <code>ErrorLog</code> 不支援 <code>env=</code> 和 <code>expr=</code> 的篩選方式）</li>
+<li>「嚴重程度」可參考 <a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/core.html#loglevel">LogLevel</a></li>
+</ul>
 <h3 id="LogFormat-用的修飾子"><a href="#LogFormat-用的修飾子" class="headerlink" title="LogFormat 用的修飾子"></a><code>LogFormat</code> 用的修飾子</h3><p>主要分兩種：指定回應狀態碼，或是指定是修改前或修改後。</p>
 <table>
 <thead>
@@ -557,9 +561,22 @@
 <td>在不是那三個狀態碼的情形，紀錄 <code>Referer</code> 標頭</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>The modifiers “&lt;” and “&gt;” can be used for requests that have been internally redirected to choose whether the original or final (respectively) request should be consulted.<br>By default, the <code>%</code> directives <code>%s</code>, <code>%U</code>, <code>%T</code>, <code>%D</code>, and <code>%r</code> look at the <strong>original</strong> request while all others look at the <strong>final</strong> request.<br>So for example,<br><code>%&gt;s</code> can be used to record the final status of the request and<br><code>%&lt;u</code> can be used to record the original authenticated user<br>  on a request that is internally redirected to an unauthenticated resource.</p>
-</blockquote>
+<table>
+<thead>
+<tr>
+<th>modifier</th>
+<th>meaning</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&gt;</code></td>
+<td><code>%s</code>, <code>%U</code>, <code>%T</code>, <code>%D</code>, <code>%r</code> 這些預設是取初始值，故若要紀錄其他模組改過後的值，就加上 <code>&gt;</code> ，如 <code>%&gt;s</code>。</td>
+</tr>
+<tr>
+<td><code>&lt;</code></td>
+<td>前述以外的變數預設會取用最終值，故若要讀取初始的值，就加上 <code>&lt;</code> ，如 <code>%&lt;u</code>。</td>
+</tr>
+</tbody></table>
 <h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p><code>ErrorLogFormat</code> 的「連同前後的非空格字串都一起刪掉」的特性，很適合把紀錄弄成類 JSON 的格式，例如：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ErrorLogFormat &#x27;&#123;time:&quot;%&#123;uc&#125;t&quot;, client:&quot;%a&quot;, message:&quot;%M&quot;&#125;&#x27;</span><br></pre></td></tr></table></figure>
 
@@ -569,8 +586,8 @@
 
 <p>這在 <code>%a</code> 不存在時，仍能順利將紀錄檔轉換為表格呈現。</p>
 <p>這個設計差別應該是基於 <code>LogFormat</code> 適用的是基於每一個 HTTP 請求－回應機制，所以要記錄的欄位較為一致；<br>相對地， <code>ErrorLogFormat</code> 需要連伺服器啟動、關閉，以及 TCP 連線（而尚未處理 HTTP 請求）期間的問題也能記錄，因此某些欄位在某些時候就是不會存在。</p>
-<h3 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h3><p>我目前的設定是</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ErrorLogFormat &#x27;&#123;time:&quot;%&#123;uc&#125;t&quot;, level:&quot;%l&quot;, module:&quot;%m&quot;, error:&quot;%E&quot;, file:&quot;%F&quot;, server:&quot;%V&quot;, client:&quot;%&#123;c&#125;a&quot;, xForwardedFor:&quot;%&#123;X-Forwarded-For&#125;i&quot;, forwarded:&quot;%&#123;Forwarded&#125;i&quot;, request:&quot;%L&quot;, message:&quot;%M&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line">CustomLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/access-%y%m%d.log 86400&quot; \</span><br><span class="line">  &quot;%&#123;%y%m%d(%w)%H%M%S&#125;t.%&#123;usec_frac&#125;t+%&gt;D %L %X %&gt;s %b/%O %&#123;Forwarded&#125;i[%&#123;X-Forwarded-For&#125;i,%a] %I %&#123;SSL_PROTOCOL&#125;x %H %m %V%U%q&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="小結"><a href="#小結" class="headerlink" title="小結"></a>小結</h3><p>我目前的相關設定是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">LoadModule logio_module modules/mod_logio.so</span><br><span class="line">LoadModule log_config_module modules/mod_log_config.so</span><br><span class="line"></span><br><span class="line">ErrorLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/server-%y%m.log 86400&quot;</span><br><span class="line"># 若各個虛擬主機均有設定自己的 ErrorLog ，則這裡的應該只會有啟動、設定或模組載入、關閉的紀錄，因此照月份分就好了。</span><br><span class="line"></span><br><span class="line">ErrorLogFormat &#x27;&#123;time:&quot;%&#123;uc&#125;t&quot;, level:&quot;%l&quot;, mod:&quot;%m&quot;, err:&quot;%E&quot;, ssl:&#123;proto:&quot;%&#123;SSL_PROTOCOL&#125;e&quot;, cipher:&quot;%&#123;SSL_CIPHER&#125;e&quot;&#125;, req:&quot;%L&quot;, serv:&quot;%V&quot;, client:&quot;%&#123;c&#125;a&quot;, xForwardedFor:&quot;%&#123;X-Forwarded-For&#125;i&quot;, forwarded:&quot;%&#123;Forwarded&#125;i&quot;, referer:&quot;%&#123;Referer&#125;i&quot;, uri:&quot;%&#123;REQUEST_URI&#125;e&quot;, message:&quot;%M&quot;&#125;&#x27;</span><br><span class="line"></span><br><span class="line"># 有紀錄 %V</span><br><span class="line">LogFormat &quot;%&#123;%y%m%d(%w)%H%M%S&#125;t.%&#123;usec_frac&#125;t+%&gt;D %L %&gt;s%X %b/%O %&#123;Forwarded&#125;i[%&#123;X-Forwarded-For&#125;i,%a] %I %&#123;SSL_PROTOCOL&#125;x %H/%m:%V%U%q&quot; my_log_format_full</span><br><span class="line"></span><br><span class="line"># 不紀錄 %V</span><br><span class="line">LogFormat &quot;%&#123;%y%m%d(%w)%H%M%S&#125;t.%&#123;usec_frac&#125;t+%&gt;D %L %&gt;s%X %b/%O %&#123;Forwarded&#125;i[%&#123;X-Forwarded-For&#125;i,%a] %I %&#123;SSL_PROTOCOL&#125;x %H/%m %U%q&quot; my_log_format</span><br><span class="line"></span><br><span class="line">GlobalLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/global-%y%m%d.log 86400&quot; my_log_format_full</span><br><span class="line">CustomLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/default-%y%m%d.log 86400&quot; my_log_format_full</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">	# 預設的，不應該落入這，故記錄一下 %V</span><br><span class="line">	ServerName localhost:443</span><br><span class="line">	ErrorLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/default-error-%y%m.log 86400&quot;</span><br><span class="line">	CustomLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/default-access-%y%m%d.log 86400&quot; my_log_format_full</span><br><span class="line">&lt;/VirtualHost&gt;</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">	# 確定的虛擬主機，不用紀錄 %V</span><br><span class="line">	ServerName my_site_1.idv:443</span><br><span class="line">	ErrorLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/my_site_1-error-%y%m.log 86400&quot;</span><br><span class="line">	CustomLog &quot;|$&#123;SRVROOT&#125;/bin/rotatelogs.exe -l logs/my_site_1-access-%y%m%d.log 86400&quot; my_log_format</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
 
 
 <h2 id="測試環境"><a href="#測試環境" class="headerlink" title="測試環境"></a>測試環境</h2><ul>
@@ -579,8 +596,8 @@
 </ul>
 <h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/core.html#errorlogformat">https://httpd.apache.org/docs/current/mod/core.html#errorlogformat</a></li>
-<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header">https://httpd.apache.org/docs/current/mod/mod_log_config.html#page-header</a></li>
-<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_ssl.html#page-header">https://httpd.apache.org/docs/current/mod/mod_ssl.html#page-header</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_log_config.html#customlog">https://httpd.apache.org/docs/current/mod/mod_log_config.html#customlog</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/mod/mod_ssl.html#envvars">https://httpd.apache.org/docs/current/mod/mod_ssl.html#envvars</a></li>
 </ul>
 
   </div>
