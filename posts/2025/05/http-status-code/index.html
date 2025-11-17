@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="前情詞彙 request: 請求 method: 方法 header: 標頭 body: 正文 response: 回應  提醒 狀態碼後面的英文，在 HTTP 1.x 是可選的；在 HTTP&#x2F;2 和 HTTP&#x2F;3 是「不可」存在的。 下列狀態碼已被棄用、將被棄用，或其實未實作： 102, 104, 306, 418, 510     回應狀態碼 回應標頭必含 請求方法限定 請">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP 狀態碼列表">
+<meta property="og:url" content="https://kong0107.github.io/posts/2025/05/http-status-code/index.html">
+<meta property="og:site_name" content="阿空">
+<meta property="og:description" content="前情詞彙 request: 請求 method: 方法 header: 標頭 body: 正文 response: 回應  提醒 狀態碼後面的英文，在 HTTP 1.x 是可選的；在 HTTP&#x2F;2 和 HTTP&#x2F;3 是「不可」存在的。 下列狀態碼已被棄用、將被棄用，或其實未實作： 102, 104, 306, 418, 510     回應狀態碼 回應標頭必含 請求方法限定 請">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2025-05-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-18T15:25:37.545Z">
+<meta property="article:author" content="阿空">
+<meta property="article:tag" content="程式">
+<meta property="article:tag" content="http">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>HTTP 狀態碼列表</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/posts/2025/05/apache-custom-error-log-format/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="回到頁首" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">回到頁首</span>
+      <span id="i-share" class="info" style="display:none;">分享</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2025/05/http-status-code/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2025/05/http-status-code/&text=HTTP 狀態碼列表"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2025/05/http-status-code/&is_video=false&description=HTTP 狀態碼列表"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HTTP 狀態碼列表&body=Check out this article: https://kong0107.github.io/posts/2025/05/http-status-code/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2025/05/http-status-code/&name=HTTP 狀態碼列表&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2025/05/http-status-code/&t=HTTP 狀態碼列表"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%83%85"><span class="toc-number">1.</span> <span class="toc-text">前情</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A9%9E%E5%BD%99"><span class="toc-number">1.1.</span> <span class="toc-text">詞彙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92"><span class="toc-number">1.2.</span> <span class="toc-text">提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Informational-1xx"><span class="toc-number">2.</span> <span class="toc-text">Informational 1xx</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#100-Continue"><span class="toc-number">2.1.</span> <span class="toc-text">100 Continue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#101-Switching-Protocols"><span class="toc-number">2.2.</span> <span class="toc-text">101 Switching Protocols</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo-circle.png);"></div>
+    
+  
+    <div id="title">
+      <h1>阿空</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#" aria-label="Menu"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+      <!--
+     --><li><a href="/about.html">關於</a></li><!--
+   --><!--
+     --><li><a href="/archives/">文章</a></li><!--
+   --><!--
+     --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+   --><!--
+     --><li><a href="/donate.html">贊助</a></li><!--
+   -->
+    </ul>
+  </div>
+</header>
+
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        HTTP 狀態碼列表
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">阿空</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2025-05-04T16:00:00.000Z" itemprop="datePublished">2025-05-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/http/" rel="tag">http</a>, <a class="tag-link-link" href="/tags/%E7%A8%8B%E5%BC%8F/" rel="tag">程式</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+  
+
+  <div class="content " itemprop="articleBody">
+    <h2 id="前情"><a href="#前情" class="headerlink" title="前情"></a>前情</h2><h3 id="詞彙"><a href="#詞彙" class="headerlink" title="詞彙"></a>詞彙</h3><ul>
+<li>request: 請求</li>
+<li>method: 方法</li>
+<li>header: 標頭</li>
+<li>body: 正文</li>
+<li>response: 回應</li>
+</ul>
+<h3 id="提醒"><a href="#提醒" class="headerlink" title="提醒"></a>提醒</h3><ul>
+<li>狀態碼後面的英文，在 HTTP 1.x 是可選的；在 HTTP&#x2F;2 和 HTTP&#x2F;3 是「不可」存在的。</li>
+<li>下列狀態碼已被棄用、將被棄用，或其實未實作： 102, 104, 306, 418, 510</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>回應狀態碼</th>
+<th>回應標頭必含</th>
+<th>請求方法限定</th>
+<th>請求標頭必含</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100 Continue</td>
+<td>n&#x2F;a</td>
+<td><code>POST</code> 等包含正文的方法</td>
+<td><code>Expect: 100-continue</code></td>
+</tr>
+<tr>
+<td>101 Switching Protocols</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td><code>Connection: Upgrade</code>, <code>Upgrade</code></td>
+</tr>
+<tr>
+<td>103 Early Hints</td>
+<td><code>Link</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>200 OK</td>
+<td><code>Content-Type</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>201 Created</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>202 Accepted</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>203 Non-Authoritative Information</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>204 No Content</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>205 Reset Content</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>206 Partial Content</td>
+<td><code>Accept-Ranges: bytes</code>, <code>Content-Range</code>, <code>Content-Type</code></td>
+<td>不限</td>
+<td><code>Range</code></td>
+</tr>
+<tr>
+<td>207 Multi-Status</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>208 Already Reported</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>226 IM Used</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>300 Multiple Choices</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>301 Moved Permanently</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>302 Found</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>303 See Other</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>304 Not Modified</td>
+<td><code>Last-Modified</code> 或 <code>ETag</code></td>
+<td>不限</td>
+<td><code>If-Modified-Since</code> 或 <code>If-None-Match</code></td>
+</tr>
+<tr>
+<td>305 Use Proxy</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>307 Temporary Redirect</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>308 Permanent Redirect</td>
+<td><code>Location</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>400 Bad Request</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>401 Unauthorized</td>
+<td><code>WWW-Authenticate</code>不限</td>
+<td>n&#x2F;a</td>
+<td></td>
+</tr>
+<tr>
+<td>402 Payment Required</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>403 Forbidden</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>405 Method Not Allowed</td>
+<td><code>Allow</code></td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>406 Not Acceptable</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>407 Proxy Authentication Required</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>408 Request Timeout</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>409 Conflict</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>410 Gone</td>
+<td>n&#x2F;a</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>411 Length Required</td>
+<td><code>POST</code> 等包含正文的方法</td>
+<td>不限</td>
+<td>n&#x2F;a</td>
+</tr>
+<tr>
+<td>412 Precondition Failed</td>
+<td>??</td>
+<td><code>POST</code> 等包含正文的方法</td>
+<td><code>If-Unmodified-Since</code> 或 <code>If-Match</code></td>
+</tr>
+<tr>
+<td>413 Payload Too Large</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>414 URI Too Long</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>415 Unsupported Media Type</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>416 Range Not Satisfiable</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>417 Expectation Failed</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>421 Misdirected Request</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>422 Unprocessable Content</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>423 Locked</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>424 Failed Dependency</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>425 Too Early</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>426 Upgrade Required</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>428 Precondition Required</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>429 Too Many Requests</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>431 Request Header Fields Too Large</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>451 Unavailable For Legal Reasons</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>500 Internal Server Error</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>501 Not Implemented</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>502 Bad Gateway</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>503 Service Unavailable</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>504 Gateway Timeout</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>505 HTTP Version Not Supported</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>506 Variant Also Negotiates</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>507 Insufficient Storage</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>508 Loop Detected</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>510 Not Extended</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>511 Network Authentication Required</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="Informational-1xx"><a href="#Informational-1xx" class="headerlink" title="Informational 1xx"></a>Informational 1xx</h2><h3 id="100-Continue"><a href="#100-Continue" class="headerlink" title="100 Continue"></a>100 Continue</h3><p>方法限定：<code>POST</code> 等，可以附帶「正文」的方法。</p>
+<p>流程：</p>
+<ol>
+<li>請求端僅發送標頭（但尚未請求完畢），其中包含 <code>Expect: 100-continue</code></li>
+<li>伺服器回應 <code>100 Continue</code> （但回應尚未完畢）</li>
+<li>請求端繼續發送正文，直至完畢</li>
+<li>伺服器回應最終狀態碼（<code>20x</code> 或其他），並結束回應。</li>
+</ol>
+<p>注意：</p>
+<ul>
+<li>請求標頭的值為 <code>100-continue</code> ，中間是減號，且字母全小寫。</li>
+<li>這是在請求傳送完畢前，就先傳送的狀態碼。<br>即一個回應中包含二次的狀態碼，第一次是 <code>100</code> ，而後等請求正文傳送後才發送最終狀態碼。</li>
+</ul>
+<h3 id="101-Switching-Protocols"><a href="#101-Switching-Protocols" class="headerlink" title="101 Switching Protocols"></a>101 Switching Protocols</h3><p>流程：</p>
+<ol>
+<li>請求端發送標頭 <code>Connection: Upgrade</code> 和 <code>Upgrade: &lt;protocol&gt;</code> 。（其中 <code>&lt;protocol&gt;</code> 是新的協議名稱）</li>
+<li>伺服器回應 <code>101 Switch Protocols</code> 。</li>
+<li>請求端以新協議發送新的請求。</li>
+</ol>
+<p>提醒：</p>
+<ul>
+<li>若伺服器逾時未回應，則依請求端情形（如僅是想從 HTTP 1.1 升到 HTTP&#x2F;2，且為 <code>POST</code> 方法）可能會接續傳送正文。</li>
+<li><code>Upgrade</code> 標頭僅有 <code>HTTP/1.1</code> 可用。</li>
+</ul>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.rfc-editor.org/rfc/rfc9110.html">https://www.rfc-editor.org/rfc/rfc9110.html</a></li>
+</ul>
+
+  </div>
+  <footer>
+    
+    
+    
+  </footer>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>請開啟 JavaScript 功能來使用留言系統</noscript>
+        </div>
+    </div>
+
+
+
+	<div class="fb-like"
+		data-href="https://kong0107.github.io/posts/2025/05/http-status-code/index.html"
+		data-layout="button"
+		data-share="true"
+		data-colorscheme="dark"
+	></div>
+	<div
+		class="fb-comments blog-post-comments"
+		data-href="https://kong0107.github.io/posts/2025/05/http-status-code/index.html"
+		data-width="100%"
+		data-numposts="5"
+	></div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/about.html">關於</a></li>
+         
+          <li><a href="/archives/">文章</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li>
+         
+          <li><a href="/donate.html">贊助</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E6%83%85"><span class="toc-number">1.</span> <span class="toc-text">前情</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A9%9E%E5%BD%99"><span class="toc-number">1.1.</span> <span class="toc-text">詞彙</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E9%86%92"><span class="toc-number">1.2.</span> <span class="toc-text">提醒</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Informational-1xx"><span class="toc-number">2.</span> <span class="toc-text">Informational 1xx</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#100-Continue"><span class="toc-number">2.1.</span> <span class="toc-text">100 Continue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#101-Switching-Protocols"><span class="toc-number">2.2.</span> <span class="toc-text">101 Switching Protocols</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99"><span class="toc-number">3.</span> <span class="toc-text">參考資料</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://kong0107.github.io/posts/2025/05/http-status-code/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://kong0107.github.io/posts/2025/05/http-status-code/&text=HTTP 狀態碼列表"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://kong0107.github.io/posts/2025/05/http-status-code/&is_video=false&description=HTTP 狀態碼列表"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=HTTP 狀態碼列表&body=Check out this article: https://kong0107.github.io/posts/2025/05/http-status-code/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://kong0107.github.io/posts/2025/05/http-status-code/&title=HTTP 狀態碼列表"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://kong0107.github.io/posts/2025/05/http-status-code/&name=HTTP 狀態碼列表&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://kong0107.github.io/posts/2025/05/http-status-code/&t=HTTP 狀態碼列表"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 選單</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 文章目錄</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 頁首</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2008-2025
+    阿空
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/about.html">關於</a></li><!--
+     --><!--
+       --><li><a href="/archives/">文章</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://fansone.co/kong0107">色情片計畫</a></li><!--
+     --><!--
+       --><li><a href="/donate.html">贊助</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-1747270-19"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-1747270-19');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.src = '//kong-github.disqus.com/embed.js';
+            dsq.dataset.timestamp = Date.now();
+            document.head.append(dsq);
+        }());
+    </script>
+
+<!-- utterances Comments -->
+
+
+<!-- Facebook -->
+<div id="fb-root"></div>
+<script async defer src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.2"></script>
+
+<!-- redirect to https -->
+<script>
+  if(location.protocol === 'http:' && location.hostname !== 'localhost') {
+    const target = 'https' + location.href.substring(4);
+    fetch(target).then(
+      () => location.href = target,
+      () => console.log('no https to redirect')
+    );
+  }
+</script>
+
+<!-- restricted -->
+<script>
+  $(document).ready(function(){
+    function hideWarningBlock() {
+      $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
