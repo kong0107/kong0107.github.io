@@ -1,6 +1,6 @@
 ---
 title: Apache 的 ErrorLog 和 CustomLog 比較
-tags: [Apache]
+tags: [Apache, 程式]
 ---
 
 ## Apache 中可設定紀錄檔的指令 (directive)
