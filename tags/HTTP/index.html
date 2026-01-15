@@ -132,7 +132,7 @@
     Copyright &copy;
     
     
-    2008-2025
+    2008-2026
     阿空
   </div>
   <div class="footer-right">
@@ -215,6 +215,45 @@
   $(document).ready(function(){
     function hideWarningBlock() {
       $(".restricted").addClass("restricted-agreed");
+      $(".restricted").removeClass("restricted");
+      $(".restricted-warning-block").hide();
+    };
+
+    const autoShow = !!document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('restricted-auto-show='))
+      ?.split('=')[1];
+
+    if(autoShow) {
+      hideWarningBlock();
+      $(".restricted-auto-show-setting").show();
+    }
+
+    $(".restricted-agree-button").click(function() {
+      hideWarningBlock();
+      if($(".restricted-remember")[0].checked) {
+        document.cookie = 'restricted-auto-show=1; max-age=604800';
+        $(".restricted-auto-show-setting").show();
+      }
+    });
+
+    $(".restricted-auto-hide-button").click(function() {
+      document.cookie = 'restricted-auto-show=1; max-age=0';
+      location.reload();
+    });
+
+    $(".restricted-remember").click(function() {
+      const value = this.checked;
+      $(".restricted-remember").each(function() {
+        this.checked = value;
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
+ddClass("restricted-agreed");
       $(".restricted").removeClass("restricted");
       $(".restricted-warning-block").hide();
     };
