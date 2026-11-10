@@ -19,12 +19,13 @@ from: http://kong0107.blogspot.tw/2011/05/cynthia-nixon.html
 我對自己當初的駑鈍感到愧疚，怎麼會看到「Fight Back」就以為是偏激行為。於是我仔細聽Cynthia Nixon（在《慾望城市》中飾演Miranda Hobbes，並曾獲東尼獎、艾美獎、葛萊美獎）的每一字句（希望我沒有聽錯甚麼或翻錯）
 
 # 影片
-{% youtube SU_UQWtAweQ %}
+https://youtu.be/SU_UQWtAweQ
 
 # 譯文
 |原文|中文|
 |----|----|
-|Hello, I'm Cynthia Nixon. | 你好，我是Cynthia Nixon。||I'm a life-long New Yorker. | 我從小在紐約長大，|
+|Hello, I'm Cynthia Nixon. | 你好，我是Cynthia Nixon。|
+|I'm a life-long New Yorker. | 我從小在紐約長大，|
 |But I don't have the rights the most of my friends and neighbors do. | 但我沒有大多數朋友們所擁有的權力。|
 |I'm engaged to the woman I love. | 我跟我愛的女人訂婚了，|
 |But on December 2nd, the New York State senate voted against my right to marry her. | 但2009的十二月二號，紐約州參議院否決了我們結婚的權利。|
