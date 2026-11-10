@@ -6,20 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-    <meta name="description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題maria_communitygithub。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10.6.9,">
+    <meta name="description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題[^maria_community][^github]。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在 Win11 安裝 Apache 2.4 和 PHP 8.1 或 PHP 8.2">
 <meta property="og:url" content="https://kong0107.github.io/posts/2022/11/win11-apache24-php82/index.html">
 <meta property="og:site_name" content="阿空">
-<meta property="og:description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題maria_communitygithub。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10.6.9,">
+<meta property="og:description" content="緣由早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題[^maria_community][^github]。  this is a data corruption bug.Restoring from backup and running on a MariaDB version at or above 10">
 <meta property="og:locale" content="zh_TW">
 <meta property="article:published_time" content="2022-11-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-30T20:48:25.713Z">
+<meta property="article:modified_time" content="2025-04-17T10:35:54.101Z">
 <meta property="article:author" content="阿空">
-<meta property="article:tag" content="程式">
-<meta property="article:tag" content="Windows">
 <meta property="article:tag" content="Apache">
 <meta property="article:tag" content="PHP">
+<meta property="article:tag" content="Windows">
+<meta property="article:tag" content="程式">
 <meta name="twitter:card" content="summary">
     
     
@@ -52,7 +52,7 @@
     
 	<!-- mathjax -->
 	
-<meta name="generator" content="Hexo 7.3.0"></head>
+<meta name="generator" content="Hexo 8.1.2"></head>
 
 <body class="max-width mx-auto px3 ltr">
     
@@ -182,24 +182,24 @@
   
 
   <div class="content " itemprop="articleBody">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題<sup id="fnref:maria_community"><a href="#fn:maria_community" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Mariadb keeps crashing under windows - MariaDB Knowledge Base](https://mariadb.com/kb/en/mariadb-keeps-crashing-under-windows/)">maria_community</span></a></sup><sup id="fnref:github"><a href="#fn:github" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[MariaDB fails to start after Windows Updates · Issue #8475 · microsoft/WSL](https://github.com/microsoft/WSL/issues/8475#issuecomment-1258748485)">github</span></a></sup>。</p>
+    <h2 id="緣由"><a href="#緣由" class="headerlink" title="緣由"></a>緣由</h2><p>早年是用 AppServ ，近年習慣用 XAMPP ，但最近 MariaDB 一直壞掉，查了後發現的確在 Windows 上會有這樣的問題[^maria_community][^github]。</p>
 <blockquote>
 <p>this is a data corruption bug.<br>Restoring from backup and running on a MariaDB version at or above 10.6.9, 10.7.5, 10.8.4, 10.9.2, 10.10.1.</p>
 </blockquote>
-<p>但是 XAMPP 在今天（2022-11-30）的版本裡包的是 MariaDB 10.4.27 ，並不在該 bug <sup id="fnref:maria_jira"><a href="#fn:maria_jira" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[MDEV-28870 InnoDB: Missing FILE_CREATE, FILE_DELETE or FILE_MODIFY before FILE_CHECKPOINT during crash recovery - Jira (mariadb.org)](https://jira.mariadb.org/browse/MDEV-28870)">maria_jira</span></a></sup>的解決版本 （<code>Fix Version/s</code> 欄）之列。所以我就想說要換其他的版本。</p>
-<p>那要換裝哪個呢？ Apache 官網並沒有提供 Windows 的安裝檔，但是有推薦幾個第三方軟體<sup id="fnref:apache"><a href="#fn:apache" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Using Apache HTTP Server on Microsoft Windows - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/current/platform/windows.html#down)">apache</span></a></sup>，不過我逐個逛過後覺得都有一些問題：</p>
+<p>但是 XAMPP 在今天（2022-11-30）的版本裡包的是 MariaDB 10.4.27 ，並不在該 bug [^maria_jira]的解決版本 （<code>Fix Version/s</code> 欄）之列。所以我就想說要換其他的版本。</p>
+<p>那要換裝哪個呢？ Apache 官網並沒有提供 Windows 的安裝檔，但是有推薦幾個第三方軟體[^apache]，不過我逐個逛過後覺得都有一些問題：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://www.apachehaus.com/cgi-bin/download.plx">ApacheHaus</a>: 只會裝 Apache 。頁面上幾乎沒有甚麼關於日期的資訊，我都不知道這些東西是何時釋出的。</li>
 <li><a target="_blank" rel="noopener" href="http://www.apachelounge.com/download/">Apache Lounge</a>: 只會裝 Apache 。一打開就看到錯別字：”The binaries, are build with …” 這句應該是過去分詞 built 才對吧！有明顯錯字的我都不太放心…</li>
-<li><a target="_blank" rel="noopener" href="http://bitnami.com/stack/wamp">Bitnami WAMP Stack</a>: 有 PHP 和 MySQL ，但就這麼剛好也公布了不會再弄這類軟體。 “Bitnami will discontinue the support for all native installers by November 30, 2022.”<sup id="fnref:bitnami"><a href="#fn:bitnami" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Bitnami Blog: Focusing on Cloud Native Solutions](https://blog.bitnami.com/2022/11/focusing-on-cloud-native-solutions.html)">bitnami</span></a></sup></li>
+<li><a target="_blank" rel="noopener" href="http://bitnami.com/stack/wamp">Bitnami WAMP Stack</a>: 有 PHP 和 MySQL ，但就這麼剛好也公布了不會再弄這類軟體。 “Bitnami will discontinue the support for all native installers by November 30, 2022.”[^bitnami]</li>
 <li><a target="_blank" rel="noopener" href="http://www.wampserver.com/">WampServer</a>: 有 PHP 、 MySQL 、 MariaDB 。但安裝需求很高，要 VC9～VS16 全部都有（Visual C++ 2008～2019 Redistributable），且會裝至少三個版本的 PHP 、兩個版本的 phpMyAdmin ，根本浪費資源。</li>
 <li><a target="_blank" rel="noopener" href="https://www.apachefriends.org/zh_tw/download.html">XAMPP</a>: 有 PHP 、 MariaDB ，但就一開始的原因， MariaDB 會當。</li>
 </ul>
-<p>合輯包都陣亡了，只好從前兩個純 Apache 軟體選一個。<br>除了 ApacheHaus 的資料太少我實在覺得怪怪的之外，最後的臨門一腳是 PHP 官網<sup id="fnref:php_windows"><a href="#fn:php_windows" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP: 在 Windows 上手动安装 PHP - Manual](https://www.php.net/manual/zh/install.windows.manual.php)">php_windows</span></a></sup>寫著：</p>
+<p>合輯包都陣亡了，只好從前兩個純 Apache 軟體選一個。<br>除了 ApacheHaus 的資料太少我實在覺得怪怪的之外，最後的臨門一腳是 PHP 官網[^php_windows]寫著：</p>
 <blockquote>
 <p>推荐 ApacheLounge 编译的 Apache</p>
 </blockquote>
-<p>而且後來發現 PHP 的 Windows 版本下載頁面<sup id="fnref:php_download"><a href="#fn:php_download" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP For Windows: Binaries and sources Releases](https://windows.php.net/download/)">php_download</span></a></sup>也寫著：</p>
+<p>而且後來發現 PHP 的 Windows 版本下載頁面[^php_download]也寫著：</p>
 <blockquote>
 <p>Please use the Apache builds provided by Apache Lounge.<br>They provide VC15 and VS16 builds of Apache for x86 and x64.<br>We use their binaries to build the Apache SAPIs.</p>
 </blockquote>
@@ -207,7 +207,7 @@
 <p>撰文時有提供的是 VS17 (2022) 的 64 位元版本，及 VS16 (2019) 的 32 和 64 位元版本。<br>若是 PHP 8.1 的話建議 VS16 的版本，若是 PHP 8.2 的話則建議選 VS17 的版本。理由請見文末 [[#OpenSSL 版本問題]] 。</p>
 <p>若電腦上沒有要求的版本，記得「先」去微軟官網下載安裝。（或是 ApacheLounge 頁面也有連往微軟載點的連結）</p>
 <p>然後找個地方放解壓縮後的檔案。一般建議路徑上不要有空格，也就是不建議放在 <code>C:\Program Files\</code> 裡。<br>由於不涉及系統註冊碼，因此不一定要放在系統槽，這樣若因故要重灌作業系統的話，也不用特別備份這邊的設定。</p>
-<h2 id="安裝-PHP"><a href="#安裝-PHP" class="headerlink" title="安裝 PHP"></a>安裝 PHP</h2><p>一樣是下載和解壓縮，一樣是要確認好要下載哪個。<br>PHP 有一個專為 Windows 而弄的網域和下載頁面<sup id="fnref:php_download"><a href="#fn:php_download" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP For Windows: Binaries and sources Releases](https://windows.php.net/download/)">php_download</span></a></sup>，裡頭會有不同的分類方式：</p>
+<h2 id="安裝-PHP"><a href="#安裝-PHP" class="headerlink" title="安裝 PHP"></a>安裝 PHP</h2><p>一樣是下載和解壓縮，一樣是要確認好要下載哪個。<br>PHP 有一個專為 Windows 而弄的網域和下載頁面[^php_download]，裡頭會有不同的分類方式：</p>
 <ul>
 <li>Visual Studio 版本</li>
 <li>位元數</li>
@@ -218,7 +218,7 @@
 <p>With Apache, using the apache2handler SAPI, you have to use the Thread Safe (TS) versions of PHP.</p>
 </blockquote>
 <p>下載後同樣找個地方解壓縮放著，同樣建議路徑上不要有空格，同樣不一定要在系統槽。</p>
-<h2 id="設定-Apache"><a href="#設定-Apache" class="headerlink" title="設定 Apache"></a>設定 Apache</h2><h3 id="讓-Apache-載入-PHP"><a href="#讓-Apache-載入-PHP" class="headerlink" title="讓 Apache 載入 PHP"></a>讓 Apache 載入 PHP</h3><p>PHP 官網提供三種方式<sup id="fnref:php_apache2"><a href="#fn:php_apache2" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[PHP: Microsoft Windows 下的 Apache 2.x - Manual](https://www.php.net/manual/zh/install.windows.apache2.php)">php_apache2</span></a></sup>，我習慣是第一種。<br>編輯 Apache 資料夾裡的 <code>conf/httpd.conf</code> ，加入：</p>
+<h2 id="設定-Apache"><a href="#設定-Apache" class="headerlink" title="設定 Apache"></a>設定 Apache</h2><h3 id="讓-Apache-載入-PHP"><a href="#讓-Apache-載入-PHP" class="headerlink" title="讓 Apache 載入 PHP"></a>讓 Apache 載入 PHP</h3><p>PHP 官網提供三種方式[^php_apache2]，我習慣是第一種。<br>編輯 Apache 資料夾裡的 <code>conf/httpd.conf</code> ，加入：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LoadModule php_module &quot;c:/php/php8apache2_4.dll&quot;</span><br><span class="line">&lt;FilesMatch \.php$&gt;</span><br><span class="line">    SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br><span class="line">PHPIniDir &quot;C:/php&quot;</span><br></pre></td></tr></table></figure>
 
 
@@ -239,22 +239,21 @@
 <h4 id="編輯-conf-httpd-conf"><a href="#編輯-conf-httpd-conf" class="headerlink" title="編輯 conf/httpd.conf"></a>編輯 <code>conf/httpd.conf</code></h4><ul>
 <li>啟用這兩個（預設這兩個是被註解掉的）：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LoadModule socache_shmcb_module modules/mod_socache_shmcb.so</span><br><span class="line">LoadModule ssl_module modules/mod_ssl.so</span><br></pre></td></tr></table></figure></li>
 <li>加上 <code>Include conf/extra/httpd-ssl.conf</code> 。（建議用 <code>&lt;IfModule ssl_module /&gt;</code> 包起來）</li>
-<li>如果要強制轉到 https （也就是使用者連向 http ，就自動被轉去 https ）的話，那就在 <code>&lt;Directory /&gt;</code> 裡加上 <code>Redirect &quot;/&quot; &quot;https://localhost/&quot;</code> <sup id="fnref:apache_redirect"><a href="#fn:apache_redirect" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[mod_alias - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/2.4/zh-cn/mod/mod_alias.html#redirect)">apache_redirect</span></a></sup>。</li>
+<li>如果要強制轉到 https （也就是使用者連向 http ，就自動被轉去 https ）的話，那就在 <code>&lt;Directory /&gt;</code> 裡加上 <code>Redirect &quot;/&quot; &quot;https://localhost/&quot;</code> [^apache_redirect]。</li>
 </ul>
 <h4 id="編輯-conf-extra-httpd-ssl-conf"><a href="#編輯-conf-extra-httpd-ssl-conf" class="headerlink" title="編輯 conf/extra/httpd-ssl.conf"></a>編輯 <code>conf/extra/httpd-ssl.conf</code></h4><p>要增／修的是 <code>&lt;VirtualHost /&gt;</code> ，基本上跟 <code>httpd-vhost.conf</code> 邏輯類似，但要注意：</p>
 <ul>
 <li><code>SSLEngine on</code> ：這個沒開的話， PHP 的 <code>$_SERVER[&#39;HPPTS&#39;]</code> 會不存在，而且可能會讀錯張憑證。<br>沒開的話 <code>error.log</code> 會有 <code>You configured HTTP(80) on the standard HTTPS(443) port!</code> 。</li>
 <li><code>ServerName</code> 的值後面要補上 <code>:443</code> （或其他埠號），不然 PHP 的 <code>$_SERVER[&#39;SERVER_PORT&#39;]</code> 會是 80 （即使順利用 https 連線）。<br><strong>但是</strong> ServerAlias 只能有主機名，「不能」加埠號！</li>
 <li>修改 <code>SSLCertificateFile</code> 和 <code>SSLCertificateKeyFile</code> ，分別指向對應的檔案。</li>
-<li>網路上有些範例會有 <code>SSLCertificateChainFile</code> 或 <code>SSLCACertificateFile</code> ，但我試的時候都不用。（注意 Apache 版本，同為 2.4.x 的運作也可能不同，例如前者是在 2.4.8 版被廢棄 <sup id="fnref:apache_ssl"><a href="#fn:apache_ssl" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[mod_ssl - Apache HTTP Server Version 2.4](https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslcacertificatefile)">apache_ssl</span></a></sup>。）</li>
+<li>網路上有些範例會有 <code>SSLCertificateChainFile</code> 或 <code>SSLCACertificateFile</code> ，但我試的時候都不用。（注意 Apache 版本，同為 2.4.x 的運作也可能不同，例如前者是在 2.4.8 版被廢棄 [^apache_ssl]。）</li>
 </ul>
 <p>多個域名時，其一的設定會像下面這樣：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">DocumentRoot &quot;D:/xxxxx&quot;</span><br><span class="line">ServerName a.localhost:443</span><br><span class="line">ServerAlias another.localhost</span><br><span class="line">SSLEngine on</span><br><span class="line">SSLCertificateFile &quot;D:/xxxxxx/a.localhost.crt&quot;</span><br><span class="line">SSLCertificateKeyFile &quot;D:/xxxxxxx/a.localhost.key&quot;</span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
 
 
-<h4 id="附論：-SNI"><a href="#附論：-SNI" class="headerlink" title="附論： SNI"></a>附論： SNI</h4><p>以前 https 是沒法支援多張憑證的，這是因為「驗證證書」是在「確認域名」之前。（依照協定，必須先建立 TCP 連線，然後 TLS 握手，接著才是 HTTP 協定）<br>在此技術之前，應對的做法是在一份證書裡面塞好幾個域名（最多20個<sup id="fnref:gca"><a href="#fn:gca" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[政府機關網站導入HTTPS安全連線暨多網域憑證說明會 - 國家發展委員會 107年3月](https://gca.nat.gov.tw/download/training_201803.pdf)">gca</span></a></sup>）。</p>
-<p>但後來發展出 Server Name Indication 技術，瀏覽器可以在驗證證書的階段就講清楚自己是要連哪個域名，這樣伺服器就也知道要回覆哪一張證書。<br>不過，此技術也有缺點<sup id="fnref:lichi_chen"><a href="#fn:lichi_chen" rel="footnote"><span class="hint--top hint--error hint--medium hint--rounded hint--bounce" aria-label="[Server Name Indication (SNI) 原理簡介](https://lichi-chen.medium.com/f85e075e1d75)
-">lichi_chen</span></a></sup>：</p>
+<h4 id="附論：-SNI"><a href="#附論：-SNI" class="headerlink" title="附論： SNI"></a>附論： SNI</h4><p>以前 https 是沒法支援多張憑證的，這是因為「驗證證書」是在「確認域名」之前。（依照協定，必須先建立 TCP 連線，然後 TLS 握手，接著才是 HTTP 協定）<br>在此技術之前，應對的做法是在一份證書裡面塞好幾個域名（最多20個[^gca]）。</p>
+<p>但後來發展出 Server Name Indication 技術，瀏覽器可以在驗證證書的階段就講清楚自己是要連哪個域名，這樣伺服器就也知道要回覆哪一張證書。<br>不過，此技術也有缺點[^lichi_chen]：</p>
 <blockquote>
 <p>TLS handshake 做完之後才會加密，這等於說你要訪問哪個站其實是可以被中間的網路節點看到的。<br>因為 SNI 露在外面，有些國家網路政策可以利用這個資訊，在網路中間網路節點作怪，故意不給你訪問某些網站。</p>
 </blockquote>
@@ -289,7 +288,7 @@
 
 <p>折騰兩天後似乎是找到原因了。<a target="_blank" rel="noopener" href="https://www.php.net/manual/en/openssl.installation.php#86578">mtudor 於2008年時寫道</a>：</p>
 <blockquote>
-<p>When any application attempts to use a dll file in windows, the system searches for this file using the following order:<br>    1. The directory from which the application loaded.<br>    2. The <code>windows\system32</code> directory.<br>    3. The <code>windows\system</code> directory.<br>    4. The <code>windows</code> directory.<br>    5. The current directory.<br>    6. The directories that are listed in the <code>PATH</code> environment variable.</p>
+<p>When any application attempts to use a dll file in windows, the system searches for this file using the following order:<br>	1. The directory from which the application loaded.<br>	2. The <code>windows\system32</code> directory.<br>	3. The <code>windows\system</code> directory.<br>	4. The <code>windows</code> directory.<br>	5. The current directory.<br>	6. The directories that are listed in the <code>PATH</code> environment variable.</p>
 </blockquote>
 <blockquote>
 <p>For PHP running under Apache, the application directory is <code>&lt;apache dir&gt;\bin</code> and NOT <code>&lt;php dir&gt;</code>.</p>
@@ -336,7 +335,19 @@
 <p>— <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38702465/article/details/87574161">https://blog.csdn.net/qq_38702465/article/details/87574161</a></p>
 <p>前述的 OpenSSL 版本問題 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38702465/article/details/87574161">據說</a> 可以用此法解。</p>
 <p>更新：<br>Apache Lounge 公告說 Apache 2.4.57 是最後一個有用 VS16 編譯的版本，之後就只會有 VS17 編譯的版本。<br>因此，若要在 Apache 2.4.58 （或更新）以後使用 PHP 8.1 （或更舊），應該就會需要上述的引入方法。</p>
-<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><div id="footnotes"><hr><div id="footnotelist"><ol style="list-style: none; padding-left: 0; margin-left: 40px"><li id="fn:maria_community"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">maria_community.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/mariadb-keeps-crashing-under-windows/">Mariadb keeps crashing under windows - MariaDB Knowledge Base</a><a href="#fnref:maria_community" rev="footnote">↩</a></span></li><li id="fn:github"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">github.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL/issues/8475#issuecomment-1258748485">MariaDB fails to start after Windows Updates · Issue #8475 · microsoft/WSL</a><a href="#fnref:github" rev="footnote">↩</a></span></li><li id="fn:maria_jira"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">maria_jira.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://jira.mariadb.org/browse/MDEV-28870">MDEV-28870 InnoDB: Missing FILE_CREATE, FILE_DELETE or FILE_MODIFY before FILE_CHECKPOINT during crash recovery - Jira (mariadb.org)</a><a href="#fnref:maria_jira" rev="footnote">↩</a></span></li><li id="fn:apache"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">apache.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/platform/windows.html#down">Using Apache HTTP Server on Microsoft Windows - Apache HTTP Server Version 2.4</a><a href="#fnref:apache" rev="footnote">↩</a></span></li><li id="fn:bitnami"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">bitnami.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://blog.bitnami.com/2022/11/focusing-on-cloud-native-solutions.html">Bitnami Blog: Focusing on Cloud Native Solutions</a><a href="#fnref:bitnami" rev="footnote">↩</a></span></li><li id="fn:php_windows"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">php_windows.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.windows.manual.php">PHP: 在 Windows 上手动安装 PHP - Manual</a><a href="#fnref:php_windows" rev="footnote">↩</a></span></li><li id="fn:php_download"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">php_download.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://windows.php.net/download/">PHP For Windows: Binaries and sources Releases</a><a href="#fnref:php_download" rev="footnote">↩</a></span></li><li id="fn:php_apache2"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">php_apache2.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.windows.apache2.php">PHP: Microsoft Windows 下的 Apache 2.x - Manual</a><a href="#fnref:php_apache2" rev="footnote">↩</a></span></li><li id="fn:apache_redirect"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">apache_redirect.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/zh-cn/mod/mod_alias.html#redirect">mod_alias - Apache HTTP Server Version 2.4</a><a href="#fnref:apache_redirect" rev="footnote">↩</a></span></li><li id="fn:apache_ssl"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">apache_ssl.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslcacertificatefile">mod_ssl - Apache HTTP Server Version 2.4</a><a href="#fnref:apache_ssl" rev="footnote">↩</a></span></li><li id="fn:gca"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">gca.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://gca.nat.gov.tw/download/training_201803.pdf">政府機關網站導入HTTPS安全連線暨多網域憑證說明會 - 國家發展委員會 107年3月</a><a href="#fnref:gca" rev="footnote">↩</a></span></li><li id="fn:lichi_chen"><span style="display: inline-block; vertical-align: top; padding-right: 10px; margin-left: -40px">lichi_chen.</span><span style="display: inline-block; vertical-align: top; margin-left: 10px;"><a target="_blank" rel="noopener" href="https://lichi-chen.medium.com/f85e075e1d75">Server Name Indication (SNI) 原理簡介</a><a href="#fnref:lichi_chen" rev="footnote">↩</a></span></li></ol></div></div>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><p>[^maria_community]: <a target="_blank" rel="noopener" href="https://mariadb.com/kb/en/mariadb-keeps-crashing-under-windows/">Mariadb keeps crashing under windows - MariaDB Knowledge Base</a></p>
+<p>[^github]: <a target="_blank" rel="noopener" href="https://github.com/microsoft/WSL/issues/8475#issuecomment-1258748485">MariaDB fails to start after Windows Updates · Issue #8475 · microsoft&#x2F;WSL</a></p>
+<p>[^maria_jira]: <a target="_blank" rel="noopener" href="https://jira.mariadb.org/browse/MDEV-28870">MDEV-28870 InnoDB: Missing FILE_CREATE, FILE_DELETE or FILE_MODIFY before FILE_CHECKPOINT during crash recovery - Jira (mariadb.org)</a></p>
+<p>[^apache]: <a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/current/platform/windows.html#down">Using Apache HTTP Server on Microsoft Windows - Apache HTTP Server Version 2.4</a></p>
+<p>[^bitnami]: <a target="_blank" rel="noopener" href="https://blog.bitnami.com/2022/11/focusing-on-cloud-native-solutions.html">Bitnami Blog: Focusing on Cloud Native Solutions</a></p>
+<p>[^php_windows]: <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.windows.manual.php">PHP: 在 Windows 上手动安装 PHP - Manual</a></p>
+<p>[^php_download]: <a target="_blank" rel="noopener" href="https://windows.php.net/download/">PHP For Windows: Binaries and sources Releases</a></p>
+<p>[^php_apache2]: <a target="_blank" rel="noopener" href="https://www.php.net/manual/zh/install.windows.apache2.php">PHP: Microsoft Windows 下的 Apache 2.x - Manual</a></p>
+<p>[^apache_redirect]: <a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/zh-cn/mod/mod_alias.html#redirect">mod_alias - Apache HTTP Server Version 2.4</a></p>
+<p>[^apache_ssl]: <a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/mod/mod_ssl.html#sslcacertificatefile">mod_ssl - Apache HTTP Server Version 2.4</a></p>
+<p>[^gca]: <a target="_blank" rel="noopener" href="https://gca.nat.gov.tw/download/training_201803.pdf">政府機關網站導入HTTPS安全連線暨多網域憑證說明會 - 國家發展委員會 107年3月</a></p>
+<p>[^lichi_chen]: <a target="_blank" rel="noopener" href="https://lichi-chen.medium.com/f85e075e1d75">Server Name Indication (SNI) 原理簡介</a></p>
+
   </div>
   <footer>
     
